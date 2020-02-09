@@ -8,7 +8,7 @@ describe('Storage Explorer', () => {
     mock.restore();
   });
 
-  it('should be defined`', () => {
+  it('should be defined', () => {
     expect(storageExplorer).toBeDefined();
   });
 
