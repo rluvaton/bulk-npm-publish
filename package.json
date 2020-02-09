@@ -12,10 +12,15 @@
   },
   "keywords": [],
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "directory-tree": "^2.2.4",
+    "mock-fs": "latest"
+  },
   "devDependencies": {
     "@types/jest": "^23.3.10",
+    "@types/mock-fs": "^4.10.0",
     "jest": "^23.6.0",
+    "jest-extended": "^0.11.5",
     "nodemon": "^1.18.9",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
