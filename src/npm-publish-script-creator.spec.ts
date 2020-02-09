@@ -122,4 +122,54 @@ describe('NPM Publish Script Creator', () => {
       `npm publish storage/agent-base/agent-base-4.3.0.tgz --registry=${registry}`
     );
   });
+
+  it('should create packages for 1 scoped package w/o registry', () => {
+    // Prepare
+    const packages: Package[] = [
+      {
+        name: 'node',
+        fullName: 'node-8.9.5.tgz',
+        version: '8.9.5',
+        scope: '@types',
+        path: 'storage/@types/node/node-8.9.5.tgz'
+      }
+    ];
+
+    // Evaluate
+    const script: string[] = npmPublishScriptCreator(packages);
+
+    // Test
+    expect(script).toBeArrayOfSize(1);
+
+    expect(script).toContainEqual(
+      'npm publish storage/@types/node/node-8.9.5.tgz'
+    );
+  });
+
+  it('should create packages for 1 scoped package with registry', () => {
+    // Prepare
+    const packages: Package[] = [
+      {
+        name: 'node',
+        fullName: 'node-8.9.5.tgz',
+        version: '8.9.5',
+        scope: '@types',
+        path: 'storage/@types/node/node-8.9.5.tgz'
+      }
+    ];
+
+    const registry = 'http://localhost:4873';
+
+    // Evaluate
+    const script: string[] = npmPublishScriptCreator(packages, {
+      registry
+    });
+
+    // Test
+    expect(script).toBeArrayOfSize(1);
+
+    expect(script).toContainEqual(
+      `npm publish storage/@types/node/node-8.9.5.tgz --registry=${registry}`
+    );
+  });
 });
