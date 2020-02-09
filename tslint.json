@@ -1,0 +1,64 @@
+{
+  "extends": [
+    "tslint:latest"
+  ],
+  "rules": {
+    "array-type": false,
+    "prefer-object-spread": false,
+    "no-duplicate-imports": false,
+    "semicolon": [
+      true,
+      "always",
+      "ignore-bound-class-methods"
+    ],
+    "no-empty": false,
+    "no-submodule-imports": false,
+    "ordered-imports": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "instance-field",
+          "constructor"
+        ]
+      }
+    ],
+    "no-consecutive-blank-lines": false,
+    "one-variable-per-declaration": false,
+    "trailing-comma": false,
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "max-line-length": [
+      true,
+      180
+    ],
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "member-access": false,
+    "no-console": [
+      true,
+      "info",
+      "debug"
+    ],
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "typedef": [
+      true,
+      "property-declaration"
+    ],
+    "no-implicit-dependencies": [
+      true,
+      "dev"
+    ],
+    "no-inferrable-types": false,
+    "only-arrow-functions": false
+  }
+}
