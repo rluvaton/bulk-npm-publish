@@ -1,4 +1,6 @@
 # Bulk NPM Publish
+[![Build Status](https://travis-ci.com/rluvaton/bulk-npm-publish.svg?branch=master)](https://travis-ci.com/rluvaton/bulk-npm-publish)
+
 _Publish Multiple NPM packages from verdaccio storage_
 
 ## Getting Started
