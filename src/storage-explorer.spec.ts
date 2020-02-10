@@ -185,4 +185,54 @@ describe('Storage Explorer', () => {
       path: 'storage/@types/node/node-8.9.5.tgz'
     } as Package);
   });
+
+  it('should not get any packages when the directory is empty', () => {
+
+    // Prepare the mock FS
+    mock({
+      storage: {}
+    });
+
+    const stubStorageExplorer = jest.fn(storageExplorer);
+
+    // Evaluate
+    const packages: Package[] = stubStorageExplorer('./storage/');
+
+    expect(stubStorageExplorer).toBeCalledTimes(1);
+
+    // Test
+
+    // Validate that the folder only is empty
+    expect(packages).toBeArrayOfSize(0);
+  });
+
+  it('should not get any packages when there are not tgz file', () => {
+
+    // Prepare the mock FS
+    mock({
+      storage: {
+        'agent-base': {
+          'package.json': 'dummy data',
+        },
+        'package-dir': {
+          'nested-dir-1': {},
+          'nested-dir-2': {
+            'sub-nested-dir-1': {}
+          }
+        }
+      }
+    });
+
+    const stubStorageExplorer = jest.fn(storageExplorer);
+
+    // Evaluate
+    const packages: Package[] = stubStorageExplorer('./storage/');
+
+    expect(stubStorageExplorer).toBeCalledTimes(1);
+
+    // Test
+
+    // Validate that the folder only is empty
+    expect(packages).toBeArrayOfSize(0);
+  });
 });
