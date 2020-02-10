@@ -88,18 +88,24 @@ const storageExplorer = (dir: string): Package[] => {
     packagesFolders.children.forEach((packageOrScope) => {
       switch (packageOrScope.type) {
         case 'directory':
-          const packageName = packageOrScope.name;
           // Meaning it's a scope
+          const packageName = packageOrScope.name;
 
-          packageOrScope.children.forEach((packageInScope) => {
-            packages.push({
-              name: packageName,
-              fullName: packageInScope.name,
-              path: packageInScope.path,
-              version: getVersionFromFileName(packageName, packageInScope.name),
-              scope: packageOrScopeName
+          const scopePackages = packageOrScope.children
+            // Fix #9 (adding none `tgz` file to the script)
+            .filter((packageInScope) => packageInScope.type === 'file' && packageInScope.extension === '.tgz')
+            .map((packageInScope) => {
+              return {
+                name: packageName,
+                fullName: packageInScope.name,
+                path: packageInScope.path,
+                version: getVersionFromFileName(packageName, packageInScope.name),
+                scope: packageOrScopeName
+              };
             });
-          });
+
+          // Can't `concat` because packages is `constant`
+          packages.push(...scopePackages);
           break;
         case 'file':
 
