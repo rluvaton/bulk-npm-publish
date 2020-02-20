@@ -10,8 +10,8 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
+            - run: npm run compile
             - run: npm test
-            - run: npm build
 workflows:
     build-and-test:
       jobs:
