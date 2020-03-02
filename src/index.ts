@@ -1,9 +1,7 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 import storageExplorer, {Package} from './storage-explorer';
 import npmPublishScriptCreator, {NpmPublishOptions} from './npm-publish-script-creator';
 import fileWriter from './file-writer';
+import {UserOptionsGetter} from './user-option/user-options-getter';
 
 interface BulkNpmPublishConfig {
   storagePath: string;
@@ -13,8 +11,17 @@ interface BulkNpmPublishConfig {
 
 export class BulkNpmPublish {
 
-  static async start(config: BulkNpmPublishConfig) {
+  static async start() {
     console.log('Starting...');
+
+    const config: BulkNpmPublishConfig = await UserOptionsGetter.instance.get().catch((err) => {
+      console.error('Error on getting user options', err);
+      return undefined;
+    });
+
+    if (!config) {
+      return;
+    }
 
     const packages: Package[] = storageExplorer(config.storagePath);
     let scripts: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
@@ -25,10 +32,4 @@ export class BulkNpmPublish {
   }
 }
 
-BulkNpmPublish.start({
-  storagePath: process.env.STORAGE_PATH,
-  destPublishScriptFilePath: process.env.PUBLISH_SCRIPT_DEST_PATH,
-  npmPublishOptions: {
-    registry: process.env.REGISTRY_URL
-  }
-});
+BulkNpmPublish.start();

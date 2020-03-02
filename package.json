@@ -4,6 +4,7 @@
   "description": "Publish Multiple NPM packages from verdaccio storage",
   "main": "src/index.ts",
   "scripts": {
+    "postinstall": "patch-package",
     "compile": "tsc",
     "start": "ts-node src/index.ts --no-cache",
     "start:prod": "node ./dist/src/index.js",
@@ -15,7 +16,9 @@
   "dependencies": {
     "directory-tree": "^2.2.4",
     "dotenv": "^8.2.0",
-    "mock-fs": "latest"
+    "mock-fs": "^4.10.4",
+    "patch-package": "^6.2.1",
+    "prompts": "latest"
   },
   "devDependencies": {
     "@types/jest": "^25.1.0",
