@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "directory-tree": "^2.2.4",
     "dotenv": "^8.2.0",
