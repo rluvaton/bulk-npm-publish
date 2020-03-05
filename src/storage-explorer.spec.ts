@@ -1,9 +1,8 @@
 import 'jest-extended';
 import * as mock from 'mock-fs';
-import storageExplorer, {Package} from './storage-explorer';
+import storageExplorer, { Package } from './storage-explorer';
 
 describe('Storage Explorer', () => {
-
   afterEach(() => {
     mock.restore();
   });
@@ -13,14 +12,13 @@ describe('Storage Explorer', () => {
   });
 
   it('should get all packages where each folder have 1 package', () => {
-
     // Prepare the mock FS
     mock({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
-          'package.json': 'dummy data',
-        },
+          'package.json': 'dummy data'
+        }
       }
     });
 
@@ -45,15 +43,14 @@ describe('Storage Explorer', () => {
   });
 
   it('should get all packages where each folder have multiple packages', () => {
-
     // Prepare the mock FS
     mock({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
           'agent-base-4.3.0.tgz': 'dummy data',
-          'package.json': 'dummy data',
-        },
+          'package.json': 'dummy data'
+        }
       }
     });
 
@@ -63,42 +60,39 @@ describe('Storage Explorer', () => {
     // Test
     expect(packages).toBeArrayOfSize(2);
 
-    expect(packages).toContainEqual(
-      {
-        name: 'agent-base',
-        fullName: 'agent-base-4.2.1.tgz',
-        version: '4.2.1',
-        scope: undefined,
-        path: 'storage/agent-base/agent-base-4.2.1.tgz'
-      } as Package);
+    expect(packages).toContainEqual({
+      name: 'agent-base',
+      fullName: 'agent-base-4.2.1.tgz',
+      version: '4.2.1',
+      scope: undefined,
+      path: 'storage/agent-base/agent-base-4.2.1.tgz'
+    } as Package);
 
     expect(packages).toContainEqual({
-        name: 'agent-base',
-        fullName: 'agent-base-4.3.0.tgz',
-        version: '4.3.0',
-        scope: undefined,
-        path: 'storage/agent-base/agent-base-4.3.0.tgz'
-      } as Package
-    );
+      name: 'agent-base',
+      fullName: 'agent-base-4.3.0.tgz',
+      version: '4.3.0',
+      scope: undefined,
+      path: 'storage/agent-base/agent-base-4.3.0.tgz'
+    } as Package);
   });
 
   it('should get all packages where each folder have 1/multiple/none packages', () => {
-
     // Prepare the mock FS
     mock({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
           'agent-base-4.3.0.tgz': 'dummy data',
-          'package.json': 'dummy data',
+          'package.json': 'dummy data'
         },
-        'abbrev': {
+        abbrev: {
           'abbrev-1.1.1.tgz': 'dummy data',
-          'package.json': 'dummy data',
+          'package.json': 'dummy data'
         },
         'acorn-walk': {
-          'package.json': 'dummy data',
-        },
+          'package.json': 'dummy data'
+        }
       }
     });
 
@@ -136,22 +130,21 @@ describe('Storage Explorer', () => {
   });
 
   it('should get all packages where there are packages and scoped packages and each folder have 1/multiple/none package', () => {
-
     // Prepare the mock FS
     mock({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
           'agent-base-4.3.0.tgz': 'dummy data',
-          'package.json': 'dummy data',
+          'package.json': 'dummy data'
         },
         '@types': {
           // tslint:disable-next-line:object-literal-key-quotes
-          'node': {
+          node: {
             'node-8.9.5.tgz': 'dummy data',
             'index.json': 'dummy data'
-          },
-        },
+          }
+        }
       }
     });
 
@@ -187,7 +180,6 @@ describe('Storage Explorer', () => {
   });
 
   it('should not get any packages when the directory is empty', () => {
-
     // Prepare the mock FS
     mock({
       storage: {}
@@ -207,12 +199,11 @@ describe('Storage Explorer', () => {
   });
 
   it('should not get any packages when there are not tgz file', () => {
-
     // Prepare the mock FS
     mock({
       storage: {
         'agent-base': {
-          'package.json': 'dummy data',
+          'package.json': 'dummy data'
         },
         'package-dir': {
           'nested-dir-1': {},

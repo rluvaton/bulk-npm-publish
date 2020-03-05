@@ -1,6 +1,5 @@
 import * as dirTree from 'directory-tree';
 
-
 /**
  * Package details
  * @example for package @jest/core@5.0.0
@@ -66,7 +65,10 @@ function getVersionFromFileName(packageName, fullPackageName: string): string {
   }
 
   if (fullPackageName.endsWith('.tgz')) {
-    fullPackageName = fullPackageName.substring(0, fullPackageName.length - ('.tgz'.length));
+    fullPackageName = fullPackageName.substring(
+      0,
+      fullPackageName.length - '.tgz'.length
+    );
   }
 
   return fullPackageName;
@@ -77,15 +79,17 @@ const storageExplorer = (dir: string): Package[] => {
 
   // Get all folder in dir
   // Get all tgz files in the subdirectory
-  const filteredTree = dirTree(dir, {extensions: /\.tgz/, normalizePath: true});
+  const filteredTree = dirTree(dir, {
+    extensions: /\.tgz/,
+    normalizePath: true
+  });
 
   const storageFolders = filteredTree.children;
 
-  storageFolders.forEach((packagesFolders) => {
-
+  storageFolders.forEach(packagesFolders => {
     const packageOrScopeName: string = packagesFolders.name;
 
-    packagesFolders.children.forEach((packageOrScope) => {
+    packagesFolders.children.forEach(packageOrScope => {
       switch (packageOrScope.type) {
         case 'directory':
           // Meaning it's a scope
@@ -93,13 +97,20 @@ const storageExplorer = (dir: string): Package[] => {
 
           const scopePackages = packageOrScope.children
             // Fix #9 (adding none `tgz` file to the script)
-            .filter((packageInScope) => packageInScope.type === 'file' && packageInScope.extension === '.tgz')
-            .map((packageInScope) => {
+            .filter(
+              packageInScope =>
+                packageInScope.type === 'file' &&
+                packageInScope.extension === '.tgz'
+            )
+            .map(packageInScope => {
               return {
                 name: packageName,
                 fullName: packageInScope.name,
                 path: packageInScope.path,
-                version: getVersionFromFileName(packageName, packageInScope.name),
+                version: getVersionFromFileName(
+                  packageName,
+                  packageInScope.name
+                ),
                 scope: packageOrScopeName
               };
             });
@@ -108,13 +119,15 @@ const storageExplorer = (dir: string): Package[] => {
           packages.push(...scopePackages);
           break;
         case 'file':
-
           // without scope
           packages.push({
             name: packageOrScopeName,
             fullName: packageOrScope.name,
             path: packageOrScope.path,
-            version: getVersionFromFileName(packageOrScopeName, packageOrScope.name),
+            version: getVersionFromFileName(
+              packageOrScopeName,
+              packageOrScope.name
+            )
           });
           break;
       }
