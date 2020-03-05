@@ -1,31 +1,59 @@
 {
-  "name": "bulk-npm-publish",
-  "version": "1.0.2",
-  "description": "Publish Multiple NPM packages from verdaccio storage",
-  "main": "src/index.ts",
-  "scripts": {
-    "compile": "tsc",
-    "start": "ts-node src/index.ts --no-cache",
-    "start:prod": "node ./dist/src/index.js",
-    "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
-    "test": "jest"
-  },
-  "keywords": [],
-  "license": "ISC",
-  "dependencies": {
-    "directory-tree": "^2.2.4",
-    "dotenv": "^8.2.0",
-    "mock-fs": "latest"
-  },
-  "devDependencies": {
-    "@types/jest": "^25.1.0",
-    "@types/mock-fs": "^4.10.0",
-    "jest": "^25.1.0",
-    "jest-extended": "^0.11.5",
-    "nodemon": "^1.18.9",
-    "ts-jest": "^25.1.0",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "typescript": "^3.2.2"
-  }
+    "name": "bulk-npm-publish",
+    "version": "1.0.2",
+    "description": "Publish Multiple NPM packages from verdaccio storage",
+    "main": "src/index.ts",
+    "scripts": {
+        "pre:compile": "rm -rf ./dist",
+        "compile": "npm run pre:compile && tsc",
+        "prepare": "npm run compile",
+        "prepublishOnly": "npm run all-test",
+        "preversion": "npm run lint",
+        "version": "npm run format && git add -A src",
+        "postversion": "git push && git push --tags",
+        "format": "tslint --fix -c ./tslint.json 'src/**/*.ts' && npm run lint",
+        "start": "ts-node src/main.ts --no-cache",
+        "start:prod": "node ./dist/src/index.js",
+        "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
+        "test": "jest",
+        "lint": "tslint -p ./tslint.json",
+        "all-test": "npm test && npm run lint"
+    },
+    "bin": {
+        "bulk-npm-publish": "dist/index.js"
+    },
+    "files": [
+        "dist/**/*"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rluvaton/bulk-npm-publish.git"
+    },
+    "keywords": [
+        "verdaccio",
+        "npm",
+        "publish"
+    ],
+    "author": "Raz Luvaton <rluvaton@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/actions/bulk-npm-publish/issues"
+    },
+    "homepage": "https://github.com/actions/bulk-npm-publish#readme",
+    "dependencies": {
+        "directory-tree": "^2.2.4",
+        "dotenv": "^8.2.0",
+        "mock-fs": "latest"
+    },
+    "devDependencies": {
+        "@types/jest": "^25.1.0",
+        "@types/mock-fs": "^4.10.0",
+        "jest": "^25.1.0",
+        "jest-extended": "^0.11.5",
+        "nodemon": "^1.18.9",
+        "ts-jest": "^25.1.0",
+        "ts-node": "^7.0.1",
+        "tslint": "^6.0.0",
+        "typescript": "^3.2.2"
+    }
 }

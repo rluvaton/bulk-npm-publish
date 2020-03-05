@@ -1,6 +1,6 @@
 import 'jest-extended';
 import npmPublishScriptCreator from './npm-publish-script-creator';
-import {Package} from './storage-explorer';
+import { Package } from './storage-explorer';
 
 describe('NPM Publish Script Creator', () => {
   it('should be defined', () => {
