@@ -37,9 +37,9 @@
     "author": "Raz Luvaton <rluvaton@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/actions/bulk-npm-publish/issues"
+        "url": "https://github.com/rluvaton/bulk-npm-publish/issues"
     },
-    "homepage": "https://github.com/actions/bulk-npm-publish#readme",
+    "homepage": "https://github.com/rluvaton/bulk-npm-publish#readme",
     "dependencies": {
         "directory-tree": "^2.2.4",
         "dotenv": "^8.2.0",
