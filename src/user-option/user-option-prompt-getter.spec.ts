@@ -34,7 +34,7 @@ describe('Get User Options from User Input', () => {
       get = createSpy('get', UserOptionPromptGetter.instance.get.bind(UserOptionPromptGetter.instance)).and.callThrough();
     });
 
-    afterEach(() => {
+    afterEach(async () => {
       get = undefined;
     });
 
@@ -44,6 +44,10 @@ describe('Get User Options from User Input', () => {
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
@@ -66,6 +70,10 @@ describe('Get User Options from User Input', () => {
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
@@ -88,11 +96,47 @@ describe('Get User Options from User Input', () => {
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
           registry: 'http://localhost:4873'
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
       // Inject the values
       prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions.npmPublishOptions.registry]);
+
+      expect(get).toHaveBeenCalledTimes(0);
+      const pr = get();
+      expect(get).toHaveBeenCalledTimes(1);
+      expect(get).toBeCalledWith();
+      expect(pr).toResolve();
+
+      const userOptions = await pr;
+      expect(userOptions).toEqual(expectedUserOptions);
+    });
+
+    it('should get provided storage path, publish script file path and npmPublishOptions.registry and with storagePath', async () => {
+      const expectedUserOptions: UserOptions = {
+        storagePath: 'C://',
+        destPublishScriptFilePath: './my-publish-script.bat',
+        npmPublishOptions: {
+          registry: 'http://localhost:4873'
+        },
+        onlyNew: {
+          enable: true,
+          currentStoragePath: '../../storage/dir/'
+        }
+      };
+
+      // Inject the values
+      prompts.inject([
+        expectedUserOptions.storagePath,
+        expectedUserOptions.destPublishScriptFilePath,
+        expectedUserOptions.npmPublishOptions.registry,
+        expectedUserOptions.onlyNew.enable,
+        expectedUserOptions.onlyNew.currentStoragePath
+      ]);
 
       expect(get).toHaveBeenCalledTimes(0);
       const pr = get();

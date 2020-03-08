@@ -3,6 +3,7 @@ import * as mock from 'mock-fs';
 import storageExplorer, { Package } from './storage-explorer';
 
 describe('Storage Explorer', () => {
+
   afterEach(() => {
     mock.restore();
   });
@@ -36,7 +37,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'agent-base',
-      fullName: 'agent-base-4.2.1.tgz',
+      fullFileName: 'agent-base-4.2.1.tgz',
+      fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       path: 'storage/agent-base/agent-base-4.2.1.tgz'
     } as Package);
@@ -60,21 +62,25 @@ describe('Storage Explorer', () => {
     // Test
     expect(packages).toBeArrayOfSize(2);
 
-    expect(packages).toContainEqual({
-      name: 'agent-base',
-      fullName: 'agent-base-4.2.1.tgz',
-      version: '4.2.1',
-      scope: undefined,
-      path: 'storage/agent-base/agent-base-4.2.1.tgz'
-    } as Package);
+    expect(packages).toContainEqual(
+      {
+        name: 'agent-base',
+        fullFileName: 'agent-base-4.2.1.tgz',
+        fullPackageName: 'agent-base@4.2.1',
+        version: '4.2.1',
+        scope: undefined,
+        path: 'storage/agent-base/agent-base-4.2.1.tgz'
+      } as Package);
 
     expect(packages).toContainEqual({
-      name: 'agent-base',
-      fullName: 'agent-base-4.3.0.tgz',
-      version: '4.3.0',
-      scope: undefined,
-      path: 'storage/agent-base/agent-base-4.3.0.tgz'
-    } as Package);
+        name: 'agent-base',
+        fullFileName: 'agent-base-4.3.0.tgz',
+        fullPackageName: 'agent-base@4.3.0',
+        version: '4.3.0',
+        scope: undefined,
+        path: 'storage/agent-base/agent-base-4.3.0.tgz'
+      } as Package
+    );
   });
 
   it('should get all packages where each folder have 1/multiple/none packages', () => {
@@ -106,7 +112,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'agent-base',
-      fullName: 'agent-base-4.2.1.tgz',
+      fullFileName: 'agent-base-4.2.1.tgz',
+      fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
       path: 'storage/agent-base/agent-base-4.2.1.tgz'
@@ -114,7 +121,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'agent-base',
-      fullName: 'agent-base-4.3.0.tgz',
+      fullFileName: 'agent-base-4.3.0.tgz',
+      fullPackageName: 'agent-base@4.3.0',
       version: '4.3.0',
       scope: undefined,
       path: 'storage/agent-base/agent-base-4.3.0.tgz'
@@ -122,7 +130,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'abbrev',
-      fullName: 'abbrev-1.1.1.tgz',
+      fullFileName: 'abbrev-1.1.1.tgz',
+      fullPackageName: 'abbrev@1.1.1',
       version: '1.1.1',
       scope: undefined,
       path: 'storage/abbrev/abbrev-1.1.1.tgz'
@@ -156,7 +165,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'agent-base',
-      fullName: 'agent-base-4.2.1.tgz',
+      fullFileName: 'agent-base-4.2.1.tgz',
+      fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
       path: 'storage/agent-base/agent-base-4.2.1.tgz'
@@ -164,7 +174,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'agent-base',
-      fullName: 'agent-base-4.3.0.tgz',
+      fullFileName: 'agent-base-4.3.0.tgz',
+      fullPackageName: 'agent-base@4.3.0',
       version: '4.3.0',
       scope: undefined,
       path: 'storage/agent-base/agent-base-4.3.0.tgz'
@@ -172,7 +183,8 @@ describe('Storage Explorer', () => {
 
     expect(packages).toContainEqual({
       name: 'node',
-      fullName: 'node-8.9.5.tgz',
+      fullFileName: 'node-8.9.5.tgz',
+      fullPackageName: '@types/node@8.9.5',
       version: '8.9.5',
       scope: '@types',
       path: 'storage/@types/node/node-8.9.5.tgz'

@@ -1,4 +1,7 @@
 import * as dirTree from 'directory-tree';
+import {logger} from './logger';
+import * as emoji from 'node-emoji';
+
 
 /**
  * Package details
@@ -14,7 +17,8 @@ import * as dirTree from 'directory-tree';
  * {
  *   name: 'core',
  *   scope: '@jest',
- *   fullName: 'core-5.0.0.tgz',
+ *   fullFileName: 'core-5.0.0.tgz',
+ *   fullPackageMame: '@jest/core@5.0.0'
  *   version: '5.0.0',
  *   path: './storage/@jest/core/core-5.0.0.tgz'
  * } as Package
@@ -28,9 +32,15 @@ export interface Package {
 
   /**
    * The full name of the file
-   * @example for package `@jest/core@5.0.0` the full name is **`core-5.0.0.tgz`**
+   * @example for package `@jest/core@5.0.0` the full file name is **`core-5.0.0.tgz`**
    */
-  fullName: string;
+  fullFileName: string;
+
+  /**
+   * The full name of the package
+   * @example for package `./storage/@jest/core/core-5.0.0.tgz'` the full package name is **`@jest/core@5.0.0`**
+   */
+  fullPackageName: string;
 
   /**
    * The version of the package
@@ -64,11 +74,9 @@ function getVersionFromFileName(packageName, fullPackageName: string): string {
     fullPackageName = fullPackageName.substring((packageName + '-').length);
   }
 
-  if (fullPackageName.endsWith('.tgz')) {
-    fullPackageName = fullPackageName.substring(
-      0,
-      fullPackageName.length - '.tgz'.length
-    );
+  const PACKAGE_EXTENSION = '.tgz';
+  if (fullPackageName.endsWith(PACKAGE_EXTENSION)) {
+    fullPackageName = fullPackageName.substring(0, fullPackageName.length - (PACKAGE_EXTENSION.length));
   }
 
   return fullPackageName;
@@ -76,20 +84,23 @@ function getVersionFromFileName(packageName, fullPackageName: string): string {
 
 const storageExplorer = (dir: string): Package[] => {
   const packages: Package[] = [];
+  let packageVersion: string;
 
   // Get all folder in dir
   // Get all tgz files in the subdirectory
-  const filteredTree = dirTree(dir, {
-    extensions: /\.tgz/,
-    normalizePath: true
-  });
+  const filteredTree = dirTree(dir, {extensions: /\.tgz/, normalizePath: true});
+
+  if (!filteredTree) {
+    logger.warn(`${emoji.get(':rotating_light:')}  No files found`, {dir});
+    return [];
+  }
 
   const storageFolders = filteredTree.children;
 
-  storageFolders.forEach(packagesFolders => {
+  storageFolders.forEach((packagesFolders) => {
     const packageOrScopeName: string = packagesFolders.name;
 
-    packagesFolders.children.forEach(packageOrScope => {
+    packagesFolders.children.forEach((packageOrScope) => {
       switch (packageOrScope.type) {
         case 'directory':
           // Meaning it's a scope
@@ -97,22 +108,21 @@ const storageExplorer = (dir: string): Package[] => {
 
           const scopePackages = packageOrScope.children
             // Fix #9 (adding none `tgz` file to the script)
-            .filter(
-              packageInScope =>
-                packageInScope.type === 'file' &&
-                packageInScope.extension === '.tgz'
-            )
-            .map(packageInScope => {
-              return {
+            .filter((packageInScope) => packageInScope.type === 'file' && packageInScope.extension === '.tgz')
+            .map((packageInScope) => {
+              packageVersion = getVersionFromFileName(packageName, packageInScope.name);
+              const scopePackage: Package = {
                 name: packageName,
-                fullName: packageInScope.name,
+                fullFileName: packageInScope.name,
+                fullPackageName: `${packageOrScopeName}/${packageName}@${packageVersion}`,
                 path: packageInScope.path,
-                version: getVersionFromFileName(
-                  packageName,
-                  packageInScope.name
-                ),
+                version: packageVersion,
                 scope: packageOrScopeName
               };
+
+              logger.debug('Found new package in scope', scopePackage);
+
+              return scopePackage;
             });
 
           // Can't `concat` because packages is `constant`
@@ -120,15 +130,18 @@ const storageExplorer = (dir: string): Package[] => {
           break;
         case 'file':
           // without scope
-          packages.push({
+
+          packageVersion = getVersionFromFileName(packageOrScopeName, packageOrScope.name);
+          const p: Package = {
             name: packageOrScopeName,
-            fullName: packageOrScope.name,
+            fullFileName: packageOrScope.name,
+            fullPackageName: `${packageOrScopeName}@${packageVersion}`,
             path: packageOrScope.path,
-            version: getVersionFromFileName(
-              packageOrScopeName,
-              packageOrScope.name
-            )
-          });
+            version: packageVersion,
+          };
+          packages.push(p);
+
+          logger.debug('New package found', p);
           break;
       }
     });

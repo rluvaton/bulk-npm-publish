@@ -42,6 +42,10 @@ describe('UserOptions', () => {
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
           registry: 'http://localhost:4873'
+        },
+        onlyNew: {
+          enable: true,
+          currentStoragePath: '../../storage/'
         }
       };
 
@@ -50,6 +54,10 @@ describe('UserOptions', () => {
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 

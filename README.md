@@ -1,15 +1,16 @@
 # Bulk NPM Publish
 [![Build Status](https://travis-ci.com/rluvaton/bulk-npm-publish.svg?branch=master)](https://travis-ci.com/rluvaton/bulk-npm-publish)
 
-_Publish Multiple NPM packages from verdaccio storage_
+_Publish Multiple NPM packages from [verdaccio](https://verdaccio.org/) storage_
 > This Library create batch file with the NPM publish command
 
 ## Features
 - Support publishing to registry
 - Publish scoped packages too (i.e `@angular\cli@7.3.9`)
+- Support publishing only exists packages' versions (need to provide storage path) (:warning: not supported in env file)
 
 ## Why I did this tool
-In my company we have _verdaccio_ server for serving packages (like _jest_, _react_ and many more) in our isolated network.
+In my company we have [_verdaccio_](https://verdaccio.org/) server for serving packages (like _jest_, _react_ and many more) in our isolated network.
 
 When we wanted to add more packages there weren't any easy solution (coping `storage` folder don't work)
 

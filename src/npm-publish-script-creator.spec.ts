@@ -12,7 +12,8 @@ describe('NPM Publish Script Creator', () => {
     const packages: Package[] = [
       {
         name: 'agent-base',
-        fullName: 'agent-base-4.2.1.tgz',
+        fullFileName: 'agent-base-4.2.1.tgz',
+        fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
         path: 'storage/agent-base/agent-base-4.2.1.tgz'
       }
@@ -34,7 +35,8 @@ describe('NPM Publish Script Creator', () => {
     const packages: Package[] = [
       {
         name: 'agent-base',
-        fullName: 'agent-base-4.2.1.tgz',
+        fullFileName: 'agent-base-4.2.1.tgz',
+        fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
         path: 'storage/agent-base/agent-base-4.2.1.tgz'
       }
@@ -60,13 +62,15 @@ describe('NPM Publish Script Creator', () => {
     const packages: Package[] = [
       {
         name: 'agent-base',
-        fullName: 'agent-base-4.2.1.tgz',
+        fullFileName: 'agent-base-4.2.1.tgz',
+        fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
         path: 'storage/agent-base/agent-base-4.2.1.tgz'
       },
       {
         name: 'agent-base',
-        fullName: 'agent-base-4.3.0.tgz',
+        fullFileName: 'agent-base-4.3.0.tgz',
+        fullPackageName: 'agent-base@4.3.0',
         version: '4.3.0',
         path: 'storage/agent-base/agent-base-4.3.0.tgz'
       }
@@ -92,13 +96,15 @@ describe('NPM Publish Script Creator', () => {
     const packages: Package[] = [
       {
         name: 'agent-base',
-        fullName: 'agent-base-4.2.1.tgz',
+        fullFileName: 'agent-base-4.2.1.tgz',
+        fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
         path: 'storage/agent-base/agent-base-4.2.1.tgz'
       },
       {
         name: 'agent-base',
-        fullName: 'agent-base-4.3.0.tgz',
+        fullFileName: 'agent-base-4.3.0.tgz',
+        fullPackageName: 'agent-base@4.3.0',
         version: '4.3.0',
         path: 'storage/agent-base/agent-base-4.3.0.tgz'
       }
@@ -128,7 +134,8 @@ describe('NPM Publish Script Creator', () => {
     const packages: Package[] = [
       {
         name: 'node',
-        fullName: 'node-8.9.5.tgz',
+        fullFileName: 'node-8.9.5.tgz',
+        fullPackageName: '@types/node@8.9.5',
         version: '8.9.5',
         scope: '@types',
         path: 'storage/@types/node/node-8.9.5.tgz'
@@ -151,7 +158,8 @@ describe('NPM Publish Script Creator', () => {
     const packages: Package[] = [
       {
         name: 'node',
-        fullName: 'node-8.9.5.tgz',
+        fullFileName: 'node-8.9.5.tgz',
+        fullPackageName: '@types/node@8.9.5',
         version: '8.9.5',
         scope: '@types',
         path: 'storage/@types/node/node-8.9.5.tgz'
