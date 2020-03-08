@@ -64,6 +64,10 @@ describe('Get User Options (from the available option)', () => {
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
@@ -102,6 +106,10 @@ describe('Get User Options (from the available option)', () => {
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
@@ -124,6 +132,10 @@ describe('Get User Options (from the available option)', () => {
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 

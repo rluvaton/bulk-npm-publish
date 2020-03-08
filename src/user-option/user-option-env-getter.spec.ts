@@ -63,6 +63,10 @@ describe('Get User Options from Environment file', () => {
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
@@ -94,6 +98,10 @@ describe('Get User Options from Environment file', () => {
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
           registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 
@@ -126,6 +134,10 @@ describe('Get User Options from Environment file', () => {
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
           registry: 'http://localhost:4873'
+        },
+        onlyNew: {
+          enable: false,
+          currentStoragePath: undefined
         }
       };
 

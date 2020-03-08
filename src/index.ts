@@ -39,6 +39,20 @@ export class BulkNpmPublish {
     let packages: Package[] = storageExplorer(config.storagePath);
     logger.verbose(`Scan complete, found ${packages.length} packages`);
 
+    if (config.onlyNew.enable) {
+      logger.info(bold().underline(`Scanning Exist Storage ${emoji.get(':card_file_box:')}`));
+      logger.verbose(`Scanning for exist packages in the provided storage path (${config.onlyNew.currentStoragePath})`);
+      const existPackages: Package[] = storageExplorer(config.onlyNew.currentStoragePath);
+      logger.verbose(`Scan complete, found ${packages.length} packages`);
+
+      logger.info(bold().underline(`Filtering duplicate packages ${emoji.get(':card_file_box:')}`));
+      logger.verbose(`Start filtering`);
+      const beforeReducePackagesLength = packages.length;
+      packages = packages.filter((p) => !existPackages.find((existPackage) => p.fullPackageName === existPackage.fullPackageName));
+      const newPackagesLength = packages.length;
+      const reducedPackagesCount = beforeReducePackagesLength - newPackagesLength;
+      logger.verbose(`Filter complete, reduce ${reducedPackagesCount} duplicate packages`);
+    }
 
     logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
     logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
