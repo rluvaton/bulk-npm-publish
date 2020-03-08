@@ -1,6 +1,6 @@
 {
   "name": "bulk-npm-publish",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Publish Multiple NPM packages from verdaccio storage",
   "main": "src/index.ts",
   "scripts": {
@@ -11,8 +11,27 @@
     "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
     "test": "jest"
   },
-  "keywords": [],
-  "license": "ISC",
+  "bin": {
+    "bulk-npm-publish": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rluvaton/bulk-npm-publish.git"
+  },
+  "keywords": [
+    "verdaccio",
+    "npm",
+    "publish"
+  ],
+  "author": "Raz Luvaton <rluvaton@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rluvaton/bulk-npm-publish/issues"
+  },
+  "homepage": "https://github.com/rluvaton/bulk-npm-publish#readme",
   "dependencies": {
     "directory-tree": "^2.2.4",
     "dotenv": "^8.2.0",
