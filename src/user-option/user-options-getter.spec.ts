@@ -149,7 +149,7 @@ describe('Get User Options (from the available option)', () => {
       expect(userOptions).toEqual(expectedUserOptions);
     });
 
-    it('When no environment file provided and user exited in the middle should throw Error with `Couldn\'t get user options` message', async () => {
+    it('When no environment file provided and user exited in the middle should throw Error with `cancel` message', async () => {
       // The path don't exist on purpose simulate not existing env file
       // noinspection UnnecessaryLocalVariableJS
       const result = dotenv.config({path: './made/up/path/.env'});
@@ -170,7 +170,7 @@ describe('Get User Options (from the available option)', () => {
       const rejectResult = await pr.catch((e) => e);
       expect(rejectResult).toBeDefined();
       expect(rejectResult).toBeInstanceOf(Error);
-      expect(rejectResult).toHaveProperty('message', 'Couldn\'t get user options');
+      expect(rejectResult).toHaveProperty('message', 'cancel');
     });
   });
 });
