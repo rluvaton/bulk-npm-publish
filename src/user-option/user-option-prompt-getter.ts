@@ -1,6 +1,7 @@
 import {IUserOptionGetter} from './i-user-option-getter';
 import {DEFAULT_USER_OPTIONS, UserOptions} from './user-options';
 import * as prompts from 'prompts';
+import {logger} from '../logger';
 
 export class UserOptionPromptGetter implements IUserOptionGetter {
   public static readonly instance = new UserOptionPromptGetter();
@@ -33,7 +34,7 @@ export class UserOptionPromptGetter implements IUserOptionGetter {
     let isCanceled = false;
     const response = await prompts(this._questions, {
       onCancel: () => {
-        console.log('Canceling');
+        logger.debug('user cancelled');
         isCanceled = true;
         return false;
       }

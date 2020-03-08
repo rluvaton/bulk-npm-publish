@@ -42,7 +42,9 @@
   "dependencies": {
     "directory-tree": "^2.2.4",
     "dotenv": "^8.2.0",
+    "kleur": "^3.0.3",
     "mock-fs": "^4.10.4",
+    "node-emoji": "^1.10.0",
     "patch-package": "^6.2.1",
     "prompts": "^2.3.0"
   },
@@ -51,14 +53,15 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@types/jest": "^25.1.0",
     "@types/mock-fs": "^4.10.0",
+    "@types/node-emoji": "^1.8.1",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "jest-extended": "^0.11.5",
     "nodemon": "^1.18.9",
+    "semantic-release": "^17.0.4",
     "ts-jest": "^25.1.0",
     "ts-node": "^7.0.1",
     "tslint": "^6.0.0",
-    "typescript": "^3.2.2",
-    "semantic-release": "^17.0.4"
+    "typescript": "^3.2.2"
   }
 }
