@@ -19,7 +19,7 @@
     }
   },
   "bin": {
-    "bulk-npm-publish": "dist/index.js"
+    "bulk-npm-publish": "./bin/bulk-npm-publish.js"
   },
   "files": [
     "dist/**/*"
