@@ -1,168 +1,149 @@
 import 'jest-extended';
-import {UserOptionPromptGetter} from './user-option-prompt-getter';
 import {UserOptions} from './user-options';
 import * as prompts from 'prompts';
-import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
+import {IUserOptionGetter} from './i-user-option-getter';
+import {userOptionPromptGetter as UserOptionPromptGetter} from './user-option-prompt-getter';
 
 describe('Get User Options from User Input', () => {
-  it('UserOptionPromptGetter should be define', () => {
-    expect(UserOptionPromptGetter).toBeDefined();
+  let userOptionPromptGetter: IUserOptionGetter;
+
+  beforeEach(() => {
+    userOptionPromptGetter = createSpy('userOptionPromptGetter', UserOptionPromptGetter).and.callThrough();
   });
 
-  it('UserOptionPromptGetter.instance should be define', () => {
-    expect(UserOptionPromptGetter.instance).toBeDefined();
+  afterEach(() => {
+    userOptionPromptGetter = undefined;
   });
 
-  it('UserOptionPromptGetter.instance should instance of UserOptionPromptGetter', () => {
-    expect(UserOptionPromptGetter.instance).toBeInstanceOf(UserOptionPromptGetter);
+  it('userOptionPromptGetter should be define', () => {
+    expect(userOptionPromptGetter).toBeDefined();
   });
 
-  it('UserOptionPromptGetter.instance should get the same instance each time', () => {
-    expect(UserOptionPromptGetter.instance).toEqual(UserOptionPromptGetter.instance);
+  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './publish.bat',
+      npmPublishOptions: {
+        registry: undefined
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
+
+    // Inject the values
+    prompts.inject([expectedUserOptions.storagePath, undefined, undefined]);
+
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionPromptGetter();
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionPromptGetter).toBeCalledWith();
+    expect(pr).toResolve();
+
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
   });
 
-  it('should have `get` method', () => {
-    expect(UserOptionPromptGetter.instance.get).toBeFunction();
+  it('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './my-publish-script.bat',
+      npmPublishOptions: {
+        registry: undefined
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
+
+    // Inject the values
+    prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, undefined]);
+
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionPromptGetter();
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionPromptGetter).toBeCalledWith();
+    expect(pr).toResolve();
+
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
   });
 
-  describe('#get', () => {
-    let get: (() => Promise<UserOptions>) & Spy;
+  it('should get provided storage path, publish script file path and npmPublishOptions.registry', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './my-publish-script.bat',
+      npmPublishOptions: {
+        registry: 'http://localhost:4873'
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
 
-    beforeEach(() => {
-      // MUST call `bind` or it won't be able to access the class properties (we in a different scope)
-      get = createSpy('get', UserOptionPromptGetter.instance.get.bind(UserOptionPromptGetter.instance)).and.callThrough();
-    });
+    // Inject the values
+    prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions.npmPublishOptions.registry]);
 
-    afterEach(async () => {
-      get = undefined;
-    });
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionPromptGetter();
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionPromptGetter).toBeCalledWith();
+    expect(pr).toResolve();
 
-    it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './publish.bat',
-        npmPublishOptions: {
-          registry: undefined
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
+  });
 
-      // Inject the values
-      prompts.inject([expectedUserOptions.storagePath, undefined, undefined]);
+  it('should get provided storage path, publish script file path and npmPublishOptions.registry and with storagePath', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './my-publish-script.bat',
+      npmPublishOptions: {
+        registry: 'http://localhost:4873'
+      },
+      onlyNew: {
+        enable: true,
+        currentStoragePath: '../../storage/dir/'
+      }
+    };
 
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
+    // Inject the values
+    prompts.inject([
+      expectedUserOptions.storagePath,
+      expectedUserOptions.destPublishScriptFilePath,
+      expectedUserOptions.npmPublishOptions.registry,
+      expectedUserOptions.onlyNew.enable,
+      expectedUserOptions.onlyNew.currentStoragePath
+    ]);
 
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
-    });
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionPromptGetter();
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionPromptGetter).toBeCalledWith();
+    expect(pr).toResolve();
 
-    it('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './my-publish-script.bat',
-        npmPublishOptions: {
-          registry: undefined
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
+  });
 
-      // Inject the values
-      prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, undefined]);
+  it('should throw error that said `Canceled` when exiting before finish', async () => {
 
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
+    // Inject simulated user abort
+    prompts.inject([new Error('simulate cancel')]);
 
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
-    });
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionPromptGetter();
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionPromptGetter).toBeCalledWith();
+    expect(pr).toReject();
 
-    it('should get provided storage path, publish script file path and npmPublishOptions.registry', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './my-publish-script.bat',
-        npmPublishOptions: {
-          registry: 'http://localhost:4873'
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
-
-      // Inject the values
-      prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions.npmPublishOptions.registry]);
-
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
-
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
-    });
-
-    it('should get provided storage path, publish script file path and npmPublishOptions.registry and with storagePath', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './my-publish-script.bat',
-        npmPublishOptions: {
-          registry: 'http://localhost:4873'
-        },
-        onlyNew: {
-          enable: true,
-          currentStoragePath: '../../storage/dir/'
-        }
-      };
-
-      // Inject the values
-      prompts.inject([
-        expectedUserOptions.storagePath,
-        expectedUserOptions.destPublishScriptFilePath,
-        expectedUserOptions.npmPublishOptions.registry,
-        expectedUserOptions.onlyNew.enable,
-        expectedUserOptions.onlyNew.currentStoragePath
-      ]);
-
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
-
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
-    });
-
-    it('should throw error that said `Canceled` when exiting before finish', async () => {
-
-      // Inject simulated user abort
-      prompts.inject([new Error('simulate cancel')]);
-
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toReject();
-
-      const rejectResult = await pr.catch((e) => e);
-      expect(rejectResult).toBeDefined();
-      expect(rejectResult).toBeInstanceOf(Error);
-      expect(rejectResult).toHaveProperty('message', 'Cancelled');
-    });
+    const rejectResult = await pr.catch((e) => e);
+    expect(rejectResult).toBeDefined();
+    expect(rejectResult).toBeInstanceOf(Error);
+    expect(rejectResult).toHaveProperty('message', 'Cancelled');
   });
 });

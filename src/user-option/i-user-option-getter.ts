@@ -1,5 +1,3 @@
 import {UserOptions} from './user-options';
 
-export interface IUserOptionGetter {
-  get(): Promise<UserOptions>;
-}
+export type IUserOptionGetter = () => Promise<UserOptions>;

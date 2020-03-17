@@ -1,190 +1,182 @@
 import 'jest-extended';
 import {UserOptions} from './user-options';
-import {UserOptionEnvGetter} from './user-option-env-getter';
+import {userOptionEnvGetter as UserOptionEnvGetter} from './user-option-env-getter';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
+import {IUserOptionGetter} from './i-user-option-getter';
+import Spy = jasmine.Spy;
+import Mock = jest.Mock;
+import {DotenvConfigOutput} from 'dotenv';
+
+interface EnvFileStructure {
+  STORAGE_PATH?: string;
+  PUBLISH_SCRIPT_DEST_PATH?: string;
+  REGISTRY_URL?: string;
+}
+
+function setEnv(env: EnvFileStructure) {
+  Object.assign(process.env, env);
+}
 
 describe('Get User Options from Environment file', () => {
-  it('UserOptionEnvGetter should be define', () => {
-    expect(UserOptionEnvGetter).toBeDefined();
+  let userOptionEnvGetter: IUserOptionGetter & Mock;
+
+  // @ts-ignore
+  dotenv.config = createSpy('config', dotenv.config).and.callThrough();
+
+  beforeAll(() => {
+    userOptionEnvGetter = jest.fn(UserOptionEnvGetter);
   });
 
-  it('UserOptionEnvGetter.instance should be define', () => {
-    expect(UserOptionEnvGetter.instance).toBeDefined();
+  afterAll(() => {
+    userOptionEnvGetter.mockReset();
   });
 
-  it('UserOptionEnvGetter.instance should instance of UserOptionEnvGetter', () => {
-    expect(UserOptionEnvGetter.instance).toBeInstanceOf(UserOptionEnvGetter);
+  const OLD_ENV = process.env;
+
+  beforeEach(() => {
+    jest.resetModules(); // this is important - it clears the cache
+    process.env = {...OLD_ENV};
+
+    userOptionEnvGetter.mockClear();
+
+    // Reset to real implementation
+    (dotenv.config as Spy).and.callThrough();
   });
 
-  it('UserOptionEnvGetter.instance should get the same instance each time', () => {
-    expect(UserOptionEnvGetter.instance).toEqual(UserOptionEnvGetter.instance);
+  afterEach(() => {
+    process.env = OLD_ENV;
   });
 
-  it('should have `get` method', () => {
-    expect(UserOptionEnvGetter.instance.get).toBeFunction();
+  it('userOptionEnvGetter should be define', () => {
+    expect(userOptionEnvGetter).toBeDefined();
   });
 
-  describe('#get', () => {
-    interface EnvFileStructure {
-      STORAGE_PATH?: string;
-      PUBLISH_SCRIPT_DEST_PATH?: string;
-      REGISTRY_URL?: string;
-    }
+  function getOptionsAndEnsureCalledTimeAndArgs(): Promise<UserOptions> {
+    expect(userOptionEnvGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionEnvGetter();
+    expect(userOptionEnvGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionEnvGetter).toBeCalledWith();
+    return pr;
+  }
 
-    function setEnv(env: EnvFileStructure) {
-      Object.assign(process.env, env);
-    }
+  function setDotEnvConfigReturnValue(result: DotenvConfigOutput) {
+    (dotenv.config as Spy).and.returnValue(result);
+  }
 
-    function clearEnv(keys: (keyof EnvFileStructure)[]) {
-      keys.forEach((key) => {
-        delete process.env[key];
-      });
-    }
+  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './publish.bat',
+      npmPublishOptions: {
+        registry: undefined
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
 
-    let get: (() => Promise<UserOptions>) & Spy;
+    // Inject the values
+    (dotenv.config as Spy).and.callThrough();
+    const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
 
-    beforeEach(() => {
-      // MUST call `bind` or it won't be able to access the class properties (we in a different scope)
-      get = createSpy('get', UserOptionEnvGetter.instance.get.bind(UserOptionEnvGetter.instance)).and.callThrough();
+    setEnv({
+      STORAGE_PATH: expectedUserOptions.storagePath,
     });
 
-    afterEach(() => {
-      get = undefined;
-      clearEnv(['STORAGE_PATH', 'PUBLISH_SCRIPT_DEST_PATH', 'REGISTRY_URL']);
+    // Set the result to successful one because there is not really .env file
+    setDotEnvConfigReturnValue(result);
+
+    const pr = getOptionsAndEnsureCalledTimeAndArgs();
+    await expect(pr).toResolve();
+
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
+  });
+
+  it('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './my-publish-script.bat',
+      npmPublishOptions: {
+        registry: undefined
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
+
+    // Inject the values
+    (dotenv.config as Spy).and.callThrough();
+    const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
+
+    setEnv({
+      STORAGE_PATH: expectedUserOptions.storagePath,
+      PUBLISH_SCRIPT_DEST_PATH: expectedUserOptions.destPublishScriptFilePath
     });
 
+    // Set the result to successful one because there is not really .env file
+    setDotEnvConfigReturnValue(result);
 
-    it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './publish.bat',
-        npmPublishOptions: {
-          registry: undefined
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
+    const pr = getOptionsAndEnsureCalledTimeAndArgs();
+    await expect(pr).toResolve();
 
-      const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
+  });
 
-      setEnv({
-        STORAGE_PATH: expectedUserOptions.storagePath,
-      });
+  it('should get provided storage path, publish script file path and npmPublishOptions.registry', async () => {
+    const expectedUserOptions: UserOptions = {
+      storagePath: 'C://',
+      destPublishScriptFilePath: './my-publish-script.bat',
+      npmPublishOptions: {
+        registry: 'http://localhost:4873'
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
 
-      // Set the result to successful one because there is not really .env file
-      // @ts-ignore
-      UserOptionEnvGetter.instance._result = result;
+    // Inject the values
+    (dotenv.config as Spy).and.callThrough();
+    const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
 
-      // Inject the values
-
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
-
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
+    setEnv({
+      STORAGE_PATH: expectedUserOptions.storagePath,
+      PUBLISH_SCRIPT_DEST_PATH: expectedUserOptions.destPublishScriptFilePath,
+      REGISTRY_URL: expectedUserOptions.npmPublishOptions.registry
     });
 
-    it('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './my-publish-script.bat',
-        npmPublishOptions: {
-          registry: undefined
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
+    // Set the result to successful one because there is not really .env file
+    setDotEnvConfigReturnValue(result);
 
-      const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
+    const pr = getOptionsAndEnsureCalledTimeAndArgs();
+    await expect(pr).toResolve();
 
-      setEnv({
-        STORAGE_PATH: expectedUserOptions.storagePath,
-        PUBLISH_SCRIPT_DEST_PATH: expectedUserOptions.destPublishScriptFilePath
-      });
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
+  });
 
-      // Set the result to successful one because there is not really .env file
-      // @ts-ignore
-      UserOptionEnvGetter.instance._result = result;
+  it('should throw error when there are no `.env` file', async () => {
 
-      // Inject the values
+    (dotenv.config as Spy).and.callThrough();
 
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
+    // The path don't exist on purpose simulate not existing env file
+    const result = dotenv.config({path: './made/up/path/.env'});
 
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
-    });
+    // Set the result to failed one
+    setDotEnvConfigReturnValue(result);
 
-    it('should get provided storage path, publish script file path and npmPublishOptions.registry', async () => {
-      const expectedUserOptions: UserOptions = {
-        storagePath: 'C://',
-        destPublishScriptFilePath: './my-publish-script.bat',
-        npmPublishOptions: {
-          registry: 'http://localhost:4873'
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
+    const pr = getOptionsAndEnsureCalledTimeAndArgs();
+    await expect(pr).toReject();
 
-      const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
-
-      setEnv({
-        STORAGE_PATH: expectedUserOptions.storagePath,
-        PUBLISH_SCRIPT_DEST_PATH: expectedUserOptions.destPublishScriptFilePath,
-        REGISTRY_URL: expectedUserOptions.npmPublishOptions.registry
-      });
-
-      // Set the result to successful one because there is not really .env file
-      // @ts-ignore
-      UserOptionEnvGetter.instance._result = result;
-
-      // Inject the values
-
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toResolve();
-
-      const userOptions = await pr;
-      expect(userOptions).toEqual(expectedUserOptions);
-    });
-
-    it('should throw error when there are no `.env` file', async () => {
-
-      // The path don't exist on purpose simulate not existing env file
-      // noinspection UnnecessaryLocalVariableJS
-      const result = dotenv.config({path: './made/up/path/.env'});
-
-      // Set the result to failed one
-      // @ts-ignore
-      UserOptionEnvGetter.instance._result = result;
-
-      expect(get).toHaveBeenCalledTimes(0);
-      const pr = get();
-      expect(get).toHaveBeenCalledTimes(1);
-      expect(get).toBeCalledWith();
-      expect(pr).toReject();
-
-      const rejectResult = await pr.catch((e) => e);
-      expect(rejectResult).toBeDefined();
-      expect(rejectResult).toBeInstanceOf(Error);
-      expect(rejectResult).toHaveProperty('message', 'Error on parsing environment user options');
-    });
+    const rejectResult = await pr.catch((e) => e);
+    expect(rejectResult).toBeDefined();
+    expect(rejectResult).toBeInstanceOf(Error);
+    expect(rejectResult).toHaveProperty('message', 'Error on parsing environment user options');
   });
 });
