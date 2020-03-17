@@ -1,36 +1,31 @@
 import {IUserOptionGetter} from './i-user-option-getter';
 import {UserOptions} from './user-options';
-import {userOptionEnvGetter} from './user-option-env-getter';
-import {userOptionPromptGetter} from './user-option-prompt-getter';
 import {logger} from '../logger';
-import * as emoji from 'node-emoji';
 
-export const userOptionGetter: IUserOptionGetter = async () => {
+/**
+ * Get the user options from one of the provided getters
+ * @param userOptionGetters The getters (the order matter - will try to get from first and continue until the end)
+ * @return Return user option that got from the provided getters
+ * @throws Error Reject if the userOptionGetters isn't provided or is empty
+ * @throws Error Reject if the couldn't get any options
+ */
+export const userOptionGetter: (userOptionGetters: IUserOptionGetter[]) => ReturnType<IUserOptionGetter> = async (userOptionGetters: IUserOptionGetter[]) => {
+  if(!userOptionGetters || userOptionGetters.length === 0) {
+    throw new Error('userOptionGetters not provided or has no items in it')
+  }
+
   let options: UserOptions;
 
-  try {
-    options = await userOptionEnvGetter();
-  } catch (e) {
-    logger.debug('Couldn\'t get user options from environment (check if you have .env file)', e);
-    options = undefined;
-  }
+  for (const userOptionGetter of userOptionGetters) {
+    try {
+      options = await userOptionGetter();
+    } catch (e) {
+      logger.debug('Couldn\'t get userOptions, thrown error:', e);
+      continue;
+    }
 
-  if (options) {
-    logger.warn(emoji.get(':wastebasket:') + ' environment support is deprecated and will be deleted in future version');
-    return options;
-  }
-
-  try {
-    logger.info('Getting user input by the console');
-    options = await userOptionPromptGetter();
-  } catch (e) {
-    logger.debug('Cancelled', e);
-    return Promise.reject(new Error('cancel'));
-  }
-
-  if (options) {
     return options;
   }
 
   throw new Error('Couldn\'t get user options');
-}
+};

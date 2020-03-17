@@ -1,33 +1,32 @@
 import 'jest-extended';
 import {UserOptions} from './user-options';
 import {userOptionEnvGetter as UserOptionEnvGetter} from './user-option-env-getter';
+
+import * as mock from 'mock-fs';
 import * as dotenv from 'dotenv';
-import * as path from 'path';
-import createSpy = jasmine.createSpy;
+import {DotenvConfigOutput} from 'dotenv';
 import {IUserOptionGetter} from './i-user-option-getter';
+import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
 import Mock = jest.Mock;
-import {DotenvConfigOutput} from 'dotenv';
 
-interface EnvFileStructure {
-  STORAGE_PATH?: string;
-  PUBLISH_SCRIPT_DEST_PATH?: string;
-  REGISTRY_URL?: string;
-}
+const setEnv = (dotEnvFileContent: string) => {
+  if (dotEnvFileContent) {
+    mock({
+      envFiles: {
+        '.env': dotEnvFileContent
+      }
+    });
+  }
 
-function setEnv(env: EnvFileStructure) {
-  Object.assign(process.env, env);
-}
+  return dotenv.config({path: 'envFiles/.env'});
+};
 
 describe('Get User Options from Environment file', () => {
-  let userOptionEnvGetter: IUserOptionGetter & Mock;
+  let userOptionEnvGetter: IUserOptionGetter & Mock = jest.fn(UserOptionEnvGetter);
 
   // @ts-ignore
-  dotenv.config = createSpy('config', dotenv.config).and.callThrough();
-
-  beforeAll(() => {
-    userOptionEnvGetter = jest.fn(UserOptionEnvGetter);
-  });
+  dotenv.config = createSpy('config', dotenv.config);
 
   afterAll(() => {
     userOptionEnvGetter.mockReset();
@@ -47,6 +46,7 @@ describe('Get User Options from Environment file', () => {
 
   afterEach(() => {
     process.env = OLD_ENV;
+    mock.restore();
   });
 
   it('userOptionEnvGetter should be define', () => {
@@ -79,15 +79,11 @@ describe('Get User Options from Environment file', () => {
     };
 
     // Inject the values
-    (dotenv.config as Spy).and.callThrough();
-    const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
+    setDotEnvConfigReturnValue(setEnv(`STORAGE_PATH=${expectedUserOptions.storagePath}`));
 
-    setEnv({
-      STORAGE_PATH: expectedUserOptions.storagePath,
-    });
 
     // Set the result to successful one because there is not really .env file
-    setDotEnvConfigReturnValue(result);
+    // setDotEnvConfigReturnValue(result);
 
     const pr = getOptionsAndEnsureCalledTimeAndArgs();
     await expect(pr).toResolve();
@@ -110,16 +106,10 @@ describe('Get User Options from Environment file', () => {
     };
 
     // Inject the values
-    (dotenv.config as Spy).and.callThrough();
-    const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
-
-    setEnv({
-      STORAGE_PATH: expectedUserOptions.storagePath,
-      PUBLISH_SCRIPT_DEST_PATH: expectedUserOptions.destPublishScriptFilePath
-    });
-
-    // Set the result to successful one because there is not really .env file
-    setDotEnvConfigReturnValue(result);
+    setDotEnvConfigReturnValue(setEnv(`
+      STORAGE_PATH=${expectedUserOptions.storagePath}
+      PUBLISH_SCRIPT_DEST_PATH=${expectedUserOptions.destPublishScriptFilePath}
+    `));
 
     const pr = getOptionsAndEnsureCalledTimeAndArgs();
     await expect(pr).toResolve();
@@ -142,17 +132,11 @@ describe('Get User Options from Environment file', () => {
     };
 
     // Inject the values
-    (dotenv.config as Spy).and.callThrough();
-    const result = dotenv.config({path: path.resolve(__dirname, '../../files-for-tests/.env')});
-
-    setEnv({
-      STORAGE_PATH: expectedUserOptions.storagePath,
-      PUBLISH_SCRIPT_DEST_PATH: expectedUserOptions.destPublishScriptFilePath,
-      REGISTRY_URL: expectedUserOptions.npmPublishOptions.registry
-    });
-
-    // Set the result to successful one because there is not really .env file
-    setDotEnvConfigReturnValue(result);
+    setDotEnvConfigReturnValue(setEnv(`
+      STORAGE_PATH=${expectedUserOptions.storagePath}
+      PUBLISH_SCRIPT_DEST_PATH=${expectedUserOptions.destPublishScriptFilePath}
+      REGISTRY_URL=${expectedUserOptions.npmPublishOptions.registry}
+    `));
 
     const pr = getOptionsAndEnsureCalledTimeAndArgs();
     await expect(pr).toResolve();
@@ -163,13 +147,10 @@ describe('Get User Options from Environment file', () => {
 
   it('should throw error when there are no `.env` file', async () => {
 
-    (dotenv.config as Spy).and.callThrough();
-
     // The path don't exist on purpose simulate not existing env file
-    const result = dotenv.config({path: './made/up/path/.env'});
 
     // Set the result to failed one
-    setDotEnvConfigReturnValue(result);
+    setDotEnvConfigReturnValue(setEnv(undefined));
 
     const pr = getOptionsAndEnsureCalledTimeAndArgs();
     await expect(pr).toReject();

@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
 import {IUserOptionGetter} from './i-user-option-getter';
 import {DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions} from './user-options';
+import {logger} from '../logger';
+import * as emoji from 'node-emoji';
 
 
 /**
@@ -32,9 +34,12 @@ const _getEnvResult = () => {
  */
 export const userOptionEnvGetter: IUserOptionGetter = () => {
   const envResult = _getEnvResult();
+
   if (envResult.error) {
     return Promise.reject(new Error('Error on parsing environment user options'));
   }
+
+  logger.warn(emoji.get(':wastebasket:') + ' environment support is deprecated and will be deleted in future version');
 
   const userOptions = removeUndefinedProperties({
     storagePath: process.env.STORAGE_PATH,
