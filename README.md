@@ -4,8 +4,9 @@
 _Publish Multiple NPM packages from [verdaccio](https://verdaccio.org/) storage_
 > This Library create batch file with the NPM publish command
 
+
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/bulk-npm-publish/bulk-npm-publish/docs/demo.svg">
+  <img src="https://cdn.rawgit.com/rluvaton/bulk-npm-publish/docs/add-terminal-animation/docs/demo.svg">
 </p>
 
 ## Features
