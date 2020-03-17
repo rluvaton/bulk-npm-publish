@@ -4,9 +4,7 @@
 _Publish Multiple NPM packages from [verdaccio](https://verdaccio.org/) storage_
 > This Library create batch file with the NPM publish command
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/rluvaton/bulk-npm-publish/docs/add-terminal-animation/docs/demo.svg">
-</p>
+![Terminal Animation](https://raw.githubusercontent.com/rluvaton/bulk-npm-publish/docs/add-terminal-animation/docs/demo.svg)
 
 ## Features
 - Support publishing to registry
