@@ -16,9 +16,9 @@ export const userOptionGetter: (userOptionGetters: IUserOptionGetter[]) => Retur
 
   let options: UserOptions;
 
-  for (const userOptionGetter of userOptionGetters) {
+  for (const getter of userOptionGetters) {
     try {
-      options = await userOptionGetter();
+      options = await getter();
     } catch (e) {
       logger.debug('Couldn\'t get userOptions, thrown error:', e);
       continue;
