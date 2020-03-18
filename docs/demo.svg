@@ -1,0 +1,2487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 880 928.4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="a" width="880" height="928.4" rx="5" ry="5"/>
+<svg>
+    <circle cx="20" cy="20" r="6" fill="#ff5f58"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#18c132"/>
+</svg>
+<svg x="15" y="50" width="840" height="868.4" viewBox="0 0 84 86.84" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <style>@keyframes A {
+        0% {
+        transform: translateX(0)
+        }
+        .47% {
+        transform: translateX(-84px)
+        }
+        3.18% {
+        transform: translateX(-168px)
+        }
+        3.19% {
+        transform: translateX(-252px)
+        }
+        3.22% {
+        transform: translateX(-336px)
+        }
+        3.23% {
+        transform: translateX(-420px)
+        }
+        3.28% {
+        transform: translateX(-504px)
+        }
+        3.33% {
+        transform: translateX(-672px)
+        }
+        3.34% {
+        transform: translateX(-756px)
+        }
+        3.36% {
+        transform: translateX(-840px)
+        }
+        3.37% {
+        transform: translateX(-924px)
+        }
+        3.42% {
+        transform: translateX(-1008px)
+        }
+        3.45% {
+        transform: translateX(-1092px)
+        }
+        3.48% {
+        transform: translateX(-1176px)
+        }
+        3.51% {
+        transform: translateX(-1260px)
+        }
+        3.54% {
+        transform: translateX(-1344px)
+        }
+        3.57% {
+        transform: translateX(-1428px)
+        }
+        3.6% {
+        transform: translateX(-1512px)
+        }
+        3.63% {
+        transform: translateX(-1596px)
+        }
+        3.66% {
+        transform: translateX(-1680px)
+        }
+        3.69% {
+        transform: translateX(-1764px)
+        }
+        3.72% {
+        transform: translateX(-1848px)
+        }
+        3.78% {
+        transform: translateX(-1932px)
+        }
+        3.81% {
+        transform: translateX(-2016px)
+        }
+        3.84% {
+        transform: translateX(-2100px)
+        }
+        3.87% {
+        transform: translateX(-2184px)
+        }
+        3.9% {
+        transform: translateX(-2268px)
+        }
+        5.95% {
+        transform: translateX(-2352px)
+        }
+        5.97% {
+        transform: translateX(-2436px)
+        }
+        5.99% {
+        transform: translateX(-2520px)
+        }
+        13.55% {
+        transform: translateX(-2604px)
+        }
+        13.57% {
+        transform: translateX(-2688px)
+        }
+        13.65% {
+        transform: translateX(-2772px)
+        }
+        13.79% {
+        transform: translateX(-2856px)
+        }
+        16.35% {
+        transform: translateX(-3108px)
+        }
+        16.36% {
+        transform: translateX(-3276px)
+        }
+        16.37% {
+        transform: translateX(-3528px)
+        }
+        16.38% {
+        transform: translateX(-3780px)
+        }
+        16.39% {
+        transform: translateX(-4116px)
+        }
+        16.4% {
+        transform: translateX(-4368px)
+        }
+        16.42% {
+        transform: translateX(-4536px)
+        }
+        18.1% {
+        transform: translateX(-4788px)
+        }
+        18.11% {
+        transform: translateX(-4872px)
+        }
+        18.12% {
+        transform: translateX(-4956px)
+        }
+        21.52% {
+        transform: translateX(-5040px)
+        }
+        30.75% {
+        transform: translateX(-5208px)
+        }
+        30.76% {
+        transform: translateX(-5376px)
+        }
+        30.77% {
+        transform: translateX(-5712px)
+        }
+        30.78% {
+        transform: translateX(-5880px)
+        }
+        30.79% {
+        transform: translateX(-6132px)
+        }
+        30.8% {
+        transform: translateX(-6468px)
+        }
+        30.81% {
+        transform: translateX(-6804px)
+        }
+        30.82% {
+        transform: translateX(-7140px)
+        }
+        30.83% {
+        transform: translateX(-7476px)
+        }
+        30.84% {
+        transform: translateX(-7812px)
+        }
+        30.85% {
+        transform: translateX(-8148px)
+        }
+        30.86% {
+        transform: translateX(-8316px)
+        }
+        32.5% {
+        transform: translateX(-8400px)
+        }
+        32.51% {
+        transform: translateX(-8484px)
+        }
+        32.52% {
+        transform: translateX(-8652px)
+        }
+        36.3% {
+        transform: translateX(-8820px)
+        }
+        36.31% {
+        transform: translateX(-8904px)
+        }
+        36.32% {
+        transform: translateX(-8988px)
+        }
+        36.41% {
+        transform: translateX(-9072px)
+        }
+        36.42% {
+        transform: translateX(-9156px)
+        }
+        36.43% {
+        transform: translateX(-9240px)
+        }
+        36.44% {
+        transform: translateX(-9324px)
+        }
+        36.45% {
+        transform: translateX(-9408px)
+        }
+        36.46% {
+        transform: translateX(-9492px)
+        }
+        36.5% {
+        transform: translateX(-9576px)
+        }
+        36.51% {
+        transform: translateX(-9660px)
+        }
+        36.6% {
+        transform: translateX(-9744px)
+        }
+        36.61% {
+        transform: translateX(-9912px)
+        }
+        36.89% {
+        transform: translateX(-9996px)
+        }
+        36.9% {
+        transform: translateX(-10164px)
+        }
+        36.92% {
+        transform: translateX(-10248px)
+        }
+        to {
+        transform: translateX(-10248px)
+        }
+        }
+
+        .a {
+        fill: #282d35
+        }
+
+        .f {
+        fill: #71bef2
+        }
+
+        .g {
+        fill: #e4e4e4
+        }
+
+        .g, .h, .i {
+        white-space: pre
+        }
+
+        .h {
+        fill: #eee;
+        font-weight: 700
+        }
+
+        .i {
+        fill: #bcbcbc
+        }
+
+        .j {
+        fill: #71bef2
+        }
+
+        .j, .k, .l, .m {
+        white-space: pre
+        }
+
+        .l, .m {
+        fill: #a8cc8c
+        }
+
+        .m {
+        fill: #dbab79
+        }
+
+        .n, .o {
+        fill: #b9c0cb
+        }
+
+        .n {
+        white-space: pre
+        }
+
+        .o {
+        font-weight: 700;
+        text-decoration: underline
+        }
+
+        .o, .p, .q, .r {
+        white-space: pre
+        }
+
+        .p {
+        fill: #b9c0cb;
+        font-weight: 700
+        }
+
+        .q, .r {
+        fill: #6f7783
+        }
+
+        .r {
+        fill: #66c2cd
+        }
+
+        .s {
+        fill: #dbab79
+        }
+
+        .t {
+        fill: #71bef2;
+        font-weight: 700
+        }
+
+        .t, .v {
+        white-space: pre
+        }
+
+        .v, .w {
+        fill: #e88388
+        }
+
+        .x {
+        fill: #ff0;
+        white-space: pre
+        }
+
+        .C {
+        fill: #b9c0cb
+        }
+
+        .D {
+        fill: #282d35;
+        white-space: pre
+        }</style>
+    <g font-family="Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace" font-size="1.67">
+        <defs>
+            <symbol id="x">
+                <path class="f" d="M0 0h1v2.171H0z"/>
+                <text class="g" y="1.67"/>
+                <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                <text class="h" x="1.002" y="1.67">~</text>
+                <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                <text class="g" x="2.004" y="1.67">/</text>
+                <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                <text class="i" x="3.006" y="1.67">S</text>
+                <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                <text class="g" x="4.008" y="1.67">/</text>
+                <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                <text class="g" x="29.058" y="1.67"/>
+                <text class="j" x="30.06" y="1.67"></text>
+            </symbol>
+            <symbol id="w">
+                <path class="f" d="M0 0h1v2.171H0z"/>
+                <text class="g" y="1.67"/>
+                <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                <text class="h" x="1.002" y="1.67">~</text>
+                <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                <text class="g" x="2.004" y="1.67">/</text>
+                <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                <text class="i" x="3.006" y="1.67">S</text>
+                <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                <text class="g" x="4.008" y="1.67">/</text>
+                <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                <text class="g" x="29.058" y="1.67"/>
+                <text class="j" x="30.06" y="1.67"></text>
+                <text class="k" x="57.114" y="1.67"></text>0
+                <text class="l" x="58.116" y="1.67">✔</text>0
+                <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+            </symbol>
+            <symbol id="c">
+                <path class="f" d="M0 0h1v2.171H0z"/>
+                <text class="g" y="1.67"/>
+                <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                <text class="h" x="1.002" y="1.67">~</text>
+                <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                <text class="g" x="2.004" y="1.67">/</text>
+                <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                <text class="i" x="3.006" y="1.67">S</text>
+                <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                <text class="g" x="4.008" y="1.67">/</text>
+                <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                <text class="g" x="29.058" y="1.67"/>
+                <text class="j" x="30.06" y="1.67"></text>
+                <text class="n" x="32.064" y="1.67">bulk-npm-publish</text>
+                <text class="k" x="57.114" y="1.67"></text>0
+                <text class="l" x="58.116" y="1.67">✔</text>0
+                <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+            </symbol>
+            <symbol id="d">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="o" x="6.012" y="1.67">⏳</text>
+                <text class="o" x="8.016" y="1.67">Starting...</text>
+                <text class="o" x="20.04" y="1.67">⏳</text>
+            </symbol>
+            <symbol id="e">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="o" x="6.012" y="1.67">🔧</text>
+                <text class="o" x="9.018" y="1.67">User</text>
+                <text class="o" x="14.028" y="1.67">configuration</text>
+            </symbol>
+            <symbol id="f">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="n" x="6.012" y="1.67">Getting</text>
+                <text class="n" x="14.028" y="1.67">user</text>
+                <text class="n" x="19.038" y="1.67">input</text>
+                <text class="n" x="25.05" y="1.67">by</text>
+                <text class="n" x="28.056" y="1.67">the</text>
+                <text class="n" x="32.064" y="1.67">console</text>
+            </symbol>
+            <symbol id="g">
+                <text class="l" y="1.67">✔</text>
+                <text class="p" x="2.004" y="1.67">What's</text>
+                <text class="p" x="9.018" y="1.67">the</text>
+                <text class="p" x="13.026" y="1.67">storage</text>
+                <text class="p" x="21.042" y="1.67">path</text>
+                <text class="p" x="26.052" y="1.67">to</text>
+                <text class="p" x="29.058" y="1.67">publish?</text>
+                <text class="q" x="38.076" y="1.67">…</text>
+                <text class="n" x="40.08" y="1.67">./storage/</text>
+            </symbol>
+            <symbol id="h">
+                <text class="l" y="1.67">✔</text>
+                <text class="p" x="2.004" y="1.67">Where</text>
+                <text class="p" x="8.016" y="1.67">the</text>
+                <text class="p" x="12.024" y="1.67">publish</text>
+                <text class="p" x="20.04" y="1.67">script</text>
+                <text class="p" x="27.054" y="1.67">will</text>
+                <text class="p" x="32.064" y="1.67">be</text>
+                <text class="p" x="35.07" y="1.67">created</text>
+                <text class="q" x="43.086" y="1.67">…</text>
+                <text class="n" x="45.09" y="1.67">./publish.bat</text>
+            </symbol>
+            <symbol id="i">
+                <text class="l" y="1.67">✔</text>
+                <text class="p" x="2.004" y="1.67">What</text>
+                <text class="p" x="7.014" y="1.67">is</text>
+                <text class="p" x="10.02" y="1.67">the</text>
+                <text class="p" x="14.028" y="1.67">registry</text>
+                <text class="p" x="23.046" y="1.67">url</text>
+                <text class="p" x="27.054" y="1.67">you</text>
+                <text class="p" x="31.062" y="1.67">want</text>
+                <text class="p" x="36.072" y="1.67">to</text>
+                <text class="p" x="39.078" y="1.67">publish</text>
+                <text class="p" x="47.094" y="1.67">to</text>
+                <text class="q" x="50.1" y="1.67">…</text>
+                <text class="n" x="52.104" y="1.67">http://localhost:4873</text>
+            </symbol>
+            <symbol id="j">
+                <text class="l" y="1.67">✔</text>
+                <text class="p" x="2.004" y="1.67">Should</text>
+                <text class="p" x="9.018" y="1.67">publish</text>
+                <text class="p" x="17.034" y="1.67">only</text>
+                <text class="p" x="22.044" y="1.67">new</text>
+                <text class="p" x="26.052" y="1.67">packages</text>
+                <text class="q" x="35.07" y="1.67">…</text>
+                <text class="n" x="37.074" y="1.67">no</text>
+            </symbol>
+            <symbol id="k">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">User</text>
+                <text class="n" x="14.028" y="1.67">configuration</text>
+                <text class="n" x="28.056" y="1.67">loaded</text>
+            </symbol>
+            <symbol id="l">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="o" x="6.012" y="1.67">Packages</text>
+                <text class="o" x="15.03" y="1.67">scanning</text>
+                <text class="o" x="24.048" y="1.67">🗃️</text>
+            </symbol>
+            <symbol id="m">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">Scanning</text>
+                <text class="n" x="18.036" y="1.67">for</text>
+                <text class="n" x="22.044" y="1.67">packages</text>
+                <text class="n" x="31.062" y="1.67">in</text>
+                <text class="n" x="34.068" y="1.67">the</text>
+                <text class="n" x="38.076" y="1.67">provided</text>
+                <text class="n" x="47.094" y="1.67">storage</text>
+                <text class="n" x="55.11" y="1.67">path</text>
+                <text class="n" x="60.12" y="1.67">(./storage/)</text>
+            </symbol>
+            <symbol id="n">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">Scan</text>
+                <text class="n" x="14.028" y="1.67">complete,</text>
+                <text class="n" x="24.048" y="1.67">found</text>
+                <text class="n" x="30.06" y="1.67">2</text>
+                <text class="n" x="32.064" y="1.67">packages</text>
+            </symbol>
+            <symbol id="o">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="o" x="6.012" y="1.67">Creating</text>
+                <text class="o" x="15.03" y="1.67">Script</text>
+                <text class="o" x="22.044" y="1.67">✏️</text>
+            </symbol>
+            <symbol id="q">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">Creating</text>
+                <text class="n" x="18.036" y="1.67">publish</text>
+                <text class="n" x="26.052" y="1.67">script</text>
+                <text class="n" x="33.066" y="1.67">with</text>
+                <text class="n" x="38.076" y="1.67">this</text>
+                <text class="n" x="43.086" y="1.67">options</text>
+                <text class="n" x="51.102" y="1.67">{"options":{"registry":"http://lo </text>
+            </symbol>
+            <symbol id="p">
+                <text class="n" y="1.67">calhost:4873"}}</text>
+            </symbol>
+            <symbol id="r">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">Script</text>
+                <text class="n" x="16.032" y="1.67">creating</text>
+                <text class="n" x="25.05" y="1.67">finished</text>
+            </symbol>
+            <symbol id="s">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="o" x="6.012" y="1.67">Writing</text>
+                <text class="o" x="14.028" y="1.67">script</text>
+                <text class="o" x="21.042" y="1.67">file</text>
+                <text class="o" x="26.052" y="1.67">📝</text>
+            </symbol>
+            <symbol id="t">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">Writing</text>
+                <text class="n" x="17.034" y="1.67">script</text>
+                <text class="n" x="24.048" y="1.67">to</text>
+                <text class="n" x="27.054" y="1.67">file</text>
+                <text class="n" x="32.064" y="1.67">at</text>
+                <text class="n" x="35.07" y="1.67">path</text>
+                <text class="n" x="40.08" y="1.67">(./publish.bat)</text>
+            </symbol>
+            <symbol id="u">
+                <text class="r" y="1.67">verbose</text>
+                <text class="n" x="7.014" y="1.67">:</text>
+                <text class="n" x="9.018" y="1.67">Finish</text>
+                <text class="n" x="16.032" y="1.67">writing</text>
+                <text class="n" x="24.048" y="1.67">script</text>
+            </symbol>
+            <symbol id="v">
+                <text class="l" y="1.67">info</text>
+                <text class="n" x="4.008" y="1.67">:</text>
+                <text class="o" x="6.012" y="1.67">🔥</text>
+                <text class="o" x="9.018" y="1.67">Finish!</text>
+                <text class="o" x="17.034" y="1.67">🔥</text>
+            </symbol>
+            <symbol id="y">
+                <path class="f" d="M0 0h1v2.171H0z"/>
+                <text class="g" y="1.67"/>
+                <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                <text class="h" x="1.002" y="1.67">~</text>
+                <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                <text class="g" x="2.004" y="1.67">/</text>
+                <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                <text class="i" x="3.006" y="1.67">S</text>
+                <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                <text class="g" x="4.008" y="1.67">/</text>
+                <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                <text class="g" x="29.058" y="1.67"/>
+                <text class="j" x="30.06" y="1.67"></text>
+                <text class="k" x="46.092" y="1.67"></text>0
+                <text class="l" x="47.094" y="1.67">✔</text>0
+                <text class="m" x="50.1" y="1.67"></text>
+                <path class="s" d="m51.102 0h11v2.171h-11z"/>
+                <text class="k" x="51.102" y="1.67">took 10s </text>0
+                <text class="m" x="62.124" y="1.67">with pi@raspberrypi</text>
+            </symbol>
+            <symbol id="a">
+                <path d="M0 0h84v40H0z" fill="transparent"/>
+            </symbol>
+            <symbol id="b">
+                <path d="M0 0h1.102v2.171H0z" fill="#6f7683"/>
+            </symbol>
+        </defs>
+        <path class="a" d="M0 0h84v86.84H0z"/>
+        <g style="animation-duration:33.19357s;animation-iteration-count:infinite;animation-name:A;animation-timing-function:steps(1,end)">
+            <svg width="14952">
+                <svg>
+                    <use xlink:href="#a"/>
+                    <use x="-.004" xlink:href="#b"/>
+                </svg>
+                <svg x="84">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" xlink:href="#b"/>
+                    <use xlink:href="#x"/>
+                </svg>
+                <svg x="168">
+                    <use xlink:href="#a"/>
+                    <use xlink:href="#x"/>
+                </svg>
+                <svg x="252">
+                    <use xlink:href="#a"/>
+                </svg>
+                <svg x="336">
+                    <use xlink:href="#a"/>
+                </svg>
+                <svg x="420">
+                    <use xlink:href="#a"/>
+                </svg>
+                <svg x="504">
+                    <use xlink:href="#a"/>
+                    <text class="n" y="1.67">bulk-npm-publish</text>
+                </svg>
+                <svg x="588">
+                    <use xlink:href="#a"/>
+                    <use xlink:href="#x"/>
+                </svg>
+                <svg x="672">
+                    <use xlink:href="#a"/>
+                    <use xlink:href="#w"/>
+                </svg>
+                <svg x="756">
+                    <use xlink:href="#a"/>
+                    <use xlink:href="#w"/>
+                </svg>
+                <svg x="840">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" xlink:href="#b"/>
+                    <use xlink:href="#w"/>
+                </svg>
+                <svg x="924">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" xlink:href="#b"/>
+                    <use xlink:href="#w"/>
+                </svg>
+                <svg x="1008">
+                    <use xlink:href="#a"/>
+                    <use x="32.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">b</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1092">
+                    <use xlink:href="#a"/>
+                    <use x="33.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bu</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1176">
+                    <use xlink:href="#a"/>
+                    <use x="34.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bul</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1260">
+                    <use xlink:href="#a"/>
+                    <use x="35.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1344">
+                    <use xlink:href="#a"/>
+                    <use x="36.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1428">
+                    <use xlink:href="#a"/>
+                    <use x="37.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-n</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1512">
+                    <use xlink:href="#a"/>
+                    <use x="38.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-np</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1596">
+                    <use xlink:href="#a"/>
+                    <use x="39.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1680">
+                    <use xlink:href="#a"/>
+                    <use x="40.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1764">
+                    <use xlink:href="#a"/>
+                    <use x="41.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-p</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1848">
+                    <use xlink:href="#a"/>
+                    <use x="42.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-pu</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="1932">
+                    <use xlink:href="#a"/>
+                    <use x="43.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-pub</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="2016">
+                    <use xlink:href="#a"/>
+                    <use x="44.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-publ</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="2100">
+                    <use xlink:href="#a"/>
+                    <use x="45.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-publi</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="2184">
+                    <use xlink:href="#a"/>
+                    <use x="46.996" xlink:href="#b"/>
+                    <path class="f" d="M0 0h1v2.171H0z"/>
+                    <text class="g" y="1.67"/>
+                    <path class="f" d="m1.002 0h1v2.171h-1z"/>
+                    <text class="h" x="1.002" y="1.67">~</text>
+                    <path class="f" d="m2.004 0h1v2.171h-1z"/>
+                    <text class="g" x="2.004" y="1.67">/</text>
+                    <path class="f" d="m3.006 0h1v2.171h-1z"/>
+                    <text class="i" x="3.006" y="1.67">S</text>
+                    <path class="f" d="m4.008 0h1v2.171h-1z"/>
+                    <text class="g" x="4.008" y="1.67">/</text>
+                    <path class="f" d="m5.01 0h24v2.171h-24z"/>
+                    <text class="h" x="5.01" y="1.67">animate-bulk-npm-publish</text>
+                    <path class="f" d="m29.058 0h1v2.171h-1z"/>
+                    <text class="g" x="29.058" y="1.67"/>
+                    <text class="j" x="30.06" y="1.67"></text>
+                    <text class="n" x="32.064" y="1.67">bulk-npm-publis</text>
+                    <text class="k" x="57.114" y="1.67"></text>0
+                    <text class="l" x="58.116" y="1.67">✔</text>0
+                    <text class="m" x="61.122" y="1.67"> with pi@raspberrypi</text>
+                </svg>
+                <svg x="2268">
+                    <use xlink:href="#a"/>
+                    <use x="47.996" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                </svg>
+                <svg x="2352">
+                    <use xlink:href="#a"/>
+                    <use x="47.996" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                </svg>
+                <svg x="2436">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="2.146" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                </svg>
+                <svg x="2520">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="2.146" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                </svg>
+                <svg x="2604">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="4.317" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                </svg>
+                <svg x="2688">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="6.488" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                </svg>
+                <svg x="2772">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="2856">
+                    <use xlink:href="#a"/>
+                    <use x="39.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                </svg>
+                <svg x="2940">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="3024">
+                    <use xlink:href="#a"/>
+                    <use x="40.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">.</text>
+                </svg>
+                <svg x="3108">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="3192">
+                    <use xlink:href="#a"/>
+                    <use x="41.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./</text>
+                </svg>
+                <svg x="3276">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="3360">
+                    <use xlink:href="#a"/>
+                    <use x="42.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./s</text>
+                </svg>
+                <svg x="3444">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="3528">
+                    <use xlink:href="#a"/>
+                    <use x="43.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./st</text>
+                </svg>
+                <svg x="3612">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="3696">
+                    <use xlink:href="#a"/>
+                    <use x="44.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./sto</text>
+                </svg>
+                <svg x="3780">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="3864">
+                    <use xlink:href="#a"/>
+                    <use x="45.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./stor</text>
+                </svg>
+                <svg x="3948">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="4032">
+                    <use xlink:href="#a"/>
+                    <use x="46.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./stora</text>
+                </svg>
+                <svg x="4116">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="4200">
+                    <use xlink:href="#a"/>
+                    <use x="47.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./storag</text>
+                </svg>
+                <svg x="4284">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="4368">
+                    <use xlink:href="#a"/>
+                    <use x="48.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./storage</text>
+                </svg>
+                <svg x="4452">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="4536">
+                    <use xlink:href="#a"/>
+                    <use x="49.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <text class="r" y="10.354">?</text>
+                    <text class="p" x="2.004" y="10.354">What's</text>
+                    <text class="p" x="9.018" y="10.354">the</text>
+                    <text class="p" x="13.026" y="10.354">storage</text>
+                    <text class="p" x="21.042" y="10.354">path</text>
+                    <text class="p" x="26.052" y="10.354">to</text>
+                    <text class="p" x="29.058" y="10.354">publish?</text>
+                    <text class="q" x="38.076" y="10.354">›</text>
+                    <text class="n" x="40.08" y="10.354">./storage/</text>
+                </svg>
+                <svg x="4620">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                </svg>
+                <svg x="4704">
+                    <use xlink:href="#a"/>
+                    <use x="49.996" y="8.659" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                </svg>
+                <svg x="4788">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="10.83" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                </svg>
+                <svg x="4872">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="10.83" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                </svg>
+                <svg x="4956">
+                    <use xlink:href="#a"/>
+                    <use x="57.996" y="10.83" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <text class="r" y="12.525">?</text>
+                    <text class="p" x="2.004" y="12.525">Where</text>
+                    <text class="p" x="8.016" y="12.525">the</text>
+                    <text class="p" x="12.024" y="12.525">publish</text>
+                    <text class="p" x="20.04" y="12.525">script</text>
+                    <text class="p" x="27.054" y="12.525">will</text>
+                    <text class="p" x="32.064" y="12.525">be</text>
+                    <text class="p" x="35.07" y="12.525">created</text>
+                    <text class="q" x="43.086" y="12.525">›</text>
+                    <text class="q" x="45.09" y="12.525">./publish.bat</text>
+                </svg>
+                <svg x="5040">
+                    <use xlink:href="#a"/>
+                    <use x="51.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                </svg>
+                <svg x="5124">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="5208">
+                    <use xlink:href="#a"/>
+                    <use x="52.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">h</text>
+                </svg>
+                <svg x="5292">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="5376">
+                    <use xlink:href="#a"/>
+                    <use x="53.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">ht</text>
+                </svg>
+                <svg x="5460">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="5544">
+                    <use xlink:href="#a"/>
+                    <use x="54.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">htt</text>
+                </svg>
+                <svg x="5628">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="5712">
+                    <use xlink:href="#a"/>
+                    <use x="55.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http</text>
+                </svg>
+                <svg x="5796">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="5880">
+                    <use xlink:href="#a"/>
+                    <use x="56.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http:</text>
+                </svg>
+                <svg x="5964">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="6048">
+                    <use xlink:href="#a"/>
+                    <use x="57.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http:/</text>
+                </svg>
+                <svg x="6132">
+                    <use xlink:href="#a"/>
+                    <use x="58.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://</text>
+                </svg>
+                <svg x="6216">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="6300">
+                    <use xlink:href="#a"/>
+                    <use x="59.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://l</text>
+                </svg>
+                <svg x="6384">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="6468">
+                    <use xlink:href="#a"/>
+                    <use x="60.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://lo</text>
+                </svg>
+                <svg x="6552">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="6636">
+                    <use xlink:href="#a"/>
+                    <use x="61.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://loc</text>
+                </svg>
+                <svg x="6720">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="6804">
+                    <use xlink:href="#a"/>
+                    <use x="62.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://loca</text>
+                </svg>
+                <svg x="6888">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="6972">
+                    <use xlink:href="#a"/>
+                    <use x="63.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://local</text>
+                </svg>
+                <svg x="7056">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="7140">
+                    <use xlink:href="#a"/>
+                    <use x="64.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localh</text>
+                </svg>
+                <svg x="7224">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="7308">
+                    <use xlink:href="#a"/>
+                    <use x="65.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localho</text>
+                </svg>
+                <svg x="7392">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="7476">
+                    <use xlink:href="#a"/>
+                    <use x="66.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhos</text>
+                </svg>
+                <svg x="7560">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="7644">
+                    <use xlink:href="#a"/>
+                    <use x="67.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhost</text>
+                </svg>
+                <svg x="7728">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="7812">
+                    <use xlink:href="#a"/>
+                    <use x="68.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhost:</text>
+                </svg>
+                <svg x="7896">
+                    <use xlink:href="#a"/>
+                    <use x="69.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhost:4</text>
+                </svg>
+                <svg x="7980">
+                    <use xlink:href="#a"/>
+                    <use x="70.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhost:48</text>
+                </svg>
+                <svg x="8064">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="8148">
+                    <use xlink:href="#a"/>
+                    <use x="71.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhost:487</text>
+                </svg>
+                <svg x="8232">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="8316">
+                    <use xlink:href="#a"/>
+                    <use x="72.996" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <text class="r" y="14.696">?</text>
+                    <text class="p" x="2.004" y="14.696">What</text>
+                    <text class="p" x="7.014" y="14.696">is</text>
+                    <text class="p" x="10.02" y="14.696">the</text>
+                    <text class="p" x="14.028" y="14.696">registry</text>
+                    <text class="p" x="23.046" y="14.696">url</text>
+                    <text class="p" x="27.054" y="14.696">you</text>
+                    <text class="p" x="31.062" y="14.696">want</text>
+                    <text class="p" x="36.072" y="14.696">to</text>
+                    <text class="p" x="39.078" y="14.696">publish</text>
+                    <text class="p" x="47.094" y="14.696">to</text>
+                    <text class="q" x="50.1" y="14.696">›</text>
+                    <text class="n" x="52.104" y="14.696">http://localhost:4873</text>
+                </svg>
+                <svg x="8400">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="13.001" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                </svg>
+                <svg x="8484">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="15.172" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                </svg>
+                <svg x="8568">
+                    <use xlink:href="#a"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                </svg>
+                <svg x="8652">
+                    <use xlink:href="#a"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <text class="r" y="16.867">?</text>
+                    <text class="p" x="2.004" y="16.867">Should</text>
+                    <text class="p" x="9.018" y="16.867">publish</text>
+                    <text class="p" x="17.034" y="16.867">only</text>
+                    <text class="p" x="22.044" y="16.867">new</text>
+                    <text class="p" x="26.052" y="16.867">packages</text>
+                    <text class="q" x="35.07" y="16.867">›</text>
+                    <text class="q" x="37.074" y="16.867">(y/N)</text>
+                </svg>
+                <svg x="8736">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="17.343" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                </svg>
+                <svg x="8820">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="19.514" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                </svg>
+                <svg x="8904">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="21.685" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                </svg>
+                <svg x="8988">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="23.856" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                </svg>
+                <svg x="9072">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="26.027" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                </svg>
+                <svg x="9156">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="28.198" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                </svg>
+                <svg x="9240">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="32.54" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                </svg>
+                <svg x="9324">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="34.711" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                </svg>
+                <svg x="9408">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="36.882" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                </svg>
+                <svg x="9492">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="39.053" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                </svg>
+                <svg x="9576">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="41.224" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                </svg>
+                <svg x="9660">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                </svg>
+                <svg x="9744">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                </svg>
+                <svg x="9828">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                </svg>
+                <svg x="9912">
+                    <use xlink:href="#a"/>
+                    <use x="-.004" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                </svg>
+                <svg x="9996">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                    <use y="43.42" xlink:href="#x"/>
+                </svg>
+                <svg x="10080">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                    <use y="43.42" xlink:href="#y"/>
+                </svg>
+                <svg x="10164">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                    <use y="43.42" xlink:href="#y"/>
+                </svg>
+                <svg x="10248">
+                    <use xlink:href="#a"/>
+                    <use x="31.996" y="43.395" xlink:href="#b"/>
+                    <use xlink:href="#c"/>
+                    <use y="2.171" xlink:href="#d"/>
+                    <use y="4.342" xlink:href="#e"/>
+                    <use y="6.513" xlink:href="#f"/>
+                    <use y="8.684" xlink:href="#g"/>
+                    <use y="10.855" xlink:href="#h"/>
+                    <use y="13.026" xlink:href="#i"/>
+                    <use y="15.197" xlink:href="#j"/>
+                    <use y="17.368" xlink:href="#k"/>
+                    <use y="19.539" xlink:href="#l"/>
+                    <use y="21.71" xlink:href="#m"/>
+                    <use y="23.881" xlink:href="#n"/>
+                    <use y="26.052" xlink:href="#o"/>
+                    <use y="28.223" xlink:href="#q"/>
+                    <use y="30.394" xlink:href="#p"/>
+                    <use y="32.565" xlink:href="#r"/>
+                    <use y="34.736" xlink:href="#s"/>
+                    <use y="36.907" xlink:href="#t"/>
+                    <use y="39.078" xlink:href="#u"/>
+                    <use y="41.249" xlink:href="#v"/>
+                    <use y="43.42" xlink:href="#y"/>
+                </svg>
+            </svg>
+        </g>
+    </g>
+</svg>
+</svg>
