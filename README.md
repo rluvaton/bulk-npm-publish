@@ -6,7 +6,7 @@ _Publish Multiple NPM packages from [verdaccio](https://verdaccio.org/) storage_
 
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/rluvaton/bulk-npm-publish@docs/add-terminal-animation/docs/demo.svg">
+  <img src="https://cdn.jsdelivr.net/gh/rluvaton/bulk-npm-publish@master/docs/demo.svg">
 </p>
 
 ## Features
