@@ -8,11 +8,17 @@ const npmPublishScriptCreator = (
   packages: Package[],
   options: NpmPublishOptions = {}
 ): string[] => {
-  return packages.map(singlePackage =>
-    `npm publish ${singlePackage.path} ${
-      options.registry ? `--registry=${options.registry}` : ''
-    }`.trim()
-  );
+  const scriptOptions: string = [
+    options.registry ? `--registry=${options.registry}` : ''
+  ]
+    // Keep only the params that aren't empty
+    .filter(Boolean)
+
+    // Combine the options
+    .join(' ');
+
+  // We trim only right because there will only be a space in case of empty script options 
+  return packages.map(({ path }) => `npm publish ${path} ${scriptOptions}`.trimRight());
 };
 
 export default npmPublishScriptCreator;
