@@ -2,11 +2,11 @@ import 'jest-extended';
 
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
-import {IUserOptionGetter} from './i-user-option-getter';
-import {UserOptions} from './user-options';
+import {IUserOptionGetter as IUserOptionGetterLib} from './i-user-option-getter';
+import {UserOptions as UserOptionsLib} from './user-options';
 
 
-function getDeps(): { prompts: any, UserOptions: UserOptions, IUserOptionGetter: IUserOptionGetter, UserOptionPromptGetter: IUserOptionGetter } {
+function getDeps(): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib } {
   const prompts = require('prompts');
   const {UserOptions} = require('./user-options');
   const {IUserOptionGetter} = require('./i-user-option-getter');
@@ -23,11 +23,22 @@ describe('Get User Options from User Input', () => {
     });
   };
 
-  function startTest(platform: string): { prompts: any, UserOptions: UserOptions, IUserOptionGetter: IUserOptionGetter, UserOptionPromptGetter: IUserOptionGetter, userOptionPromptGetter: Spy & IUserOptionGetter}  {
+  function startTest(platform: string): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib, userOptionPromptGetter: Spy & IUserOptionGetterLib}  {
     setPlatform(platform);
     const dep = getDeps();
-    const userOptionPromptGetter: Spy & IUserOptionGetter = createSpy('userOptionPromptGetter', dep.UserOptionPromptGetter).and.callThrough();
+    const userOptionPromptGetter: Spy & IUserOptionGetterLib = createSpy('userOptionPromptGetter', dep.UserOptionPromptGetter).and.callThrough();
     return {...dep, userOptionPromptGetter};
+  }
+
+  async function testUserOptionPromptGetter<TUserOptions>(userOptionPromptGetter: jasmine.Spy & (() => Promise<TUserOptions>), expectedUserOptions: TUserOptions) {
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+    const pr = userOptionPromptGetter();
+    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+    expect(userOptionPromptGetter).toBeCalledWith();
+    await expect(pr).toResolve();
+
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
   }
 
   beforeAll(() => {
@@ -67,15 +78,7 @@ describe('Get User Options from User Input', () => {
 
     // Inject the values
     prompts.inject([expectedUserOptions.storagePath, undefined, undefined]);
-
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
-    const pr = userOptionPromptGetter();
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionPromptGetter).toBeCalledWith();
-    await expect(pr).toResolve();
-
-    const userOptions = await pr;
-    expect(userOptions).toEqual(expectedUserOptions);
+    await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
   });
 
   it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry (Linux platform)', async () => {
@@ -94,15 +97,7 @@ describe('Get User Options from User Input', () => {
 
     // Inject the values
     prompts.inject([expectedUserOptions.storagePath, undefined, undefined]);
-
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
-    const pr = userOptionPromptGetter();
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionPromptGetter).toBeCalledWith();
-    await expect(pr).toResolve();
-
-    const userOptions = await pr;
-    expect(userOptions).toEqual(expectedUserOptions);
+    await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
   });
 
   it('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', async () => {
@@ -121,15 +116,8 @@ describe('Get User Options from User Input', () => {
 
     // Inject the values
     prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, undefined]);
+    await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
 
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
-    const pr = userOptionPromptGetter();
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionPromptGetter).toBeCalledWith();
-    await expect(pr).toResolve();
-
-    const userOptions = await pr;
-    expect(userOptions).toEqual(expectedUserOptions);
   });
 
   it('should get provided storage path, publish script file path and npmPublishOptions.registry', async () => {
@@ -148,15 +136,7 @@ describe('Get User Options from User Input', () => {
 
     // Inject the values
     prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions.npmPublishOptions.registry]);
-
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
-    const pr = userOptionPromptGetter();
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionPromptGetter).toBeCalledWith();
-    await expect(pr).toResolve();
-
-    const userOptions = await pr;
-    expect(userOptions).toEqual(expectedUserOptions);
+    await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
   });
 
   it('should get provided storage path, publish script file path and npmPublishOptions.registry and with storagePath', async () => {
@@ -182,14 +162,7 @@ describe('Get User Options from User Input', () => {
       expectedUserOptions.onlyNew.currentStoragePath
     ]);
 
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
-    const pr = userOptionPromptGetter();
-    expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionPromptGetter).toBeCalledWith();
-    await expect(pr).toResolve();
-
-    const userOptions = await pr;
-    expect(userOptions).toEqual(expectedUserOptions);
+    await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
   });
 
   it('should throw error that said `Canceled` when exiting before finish', async () => {
