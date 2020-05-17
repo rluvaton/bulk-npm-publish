@@ -64,7 +64,6 @@ const run = async () => {
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
   logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
   let scripts: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
-  scripts = scripts.map((script) => `call ${script}`);
   logger.verbose(`Script creating finished`);
 
   logger.info(bold().underline(`Writing script file ${emoji.get(':pencil:')}`));

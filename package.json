@@ -47,7 +47,7 @@
     "mock-fs": "^4.10.4",
     "node-emoji": "^1.10.0",
     "patch-package": "^6.2.1",
-    "prompts": "^2.3.0",
+    "prompts": "2.3.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
