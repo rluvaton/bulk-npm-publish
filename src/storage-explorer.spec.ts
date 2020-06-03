@@ -1,6 +1,6 @@
 import 'jest-extended';
 import * as mock from 'mock-fs';
-import storageExplorer, { Package } from './storage-explorer';
+import storageExplorer, {Package} from './storage-explorer';
 
 describe('Storage Explorer', () => {
 
@@ -62,15 +62,14 @@ describe('Storage Explorer', () => {
     // Test
     expect(packages).toBeArrayOfSize(2);
 
-    expect(packages).toContainEqual(
-      {
-        name: 'agent-base',
-        fullFileName: 'agent-base-4.2.1.tgz',
-        fullPackageName: 'agent-base@4.2.1',
-        version: '4.2.1',
-        scope: undefined,
-        path: 'storage/agent-base/agent-base-4.2.1.tgz'
-      } as Package);
+    expect(packages).toContainEqual({
+      name: 'agent-base',
+      fullFileName: 'agent-base-4.2.1.tgz',
+      fullPackageName: 'agent-base@4.2.1',
+      version: '4.2.1',
+      scope: undefined,
+      path: 'storage/agent-base/agent-base-4.2.1.tgz'
+    } as Package);
 
     expect(packages).toContainEqual({
         name: 'agent-base',

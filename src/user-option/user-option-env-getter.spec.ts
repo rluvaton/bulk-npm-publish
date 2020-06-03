@@ -1,6 +1,10 @@
 import 'jest-extended';
-import {UserOptions} from './user-options';
-import {userOptionEnvGetter as UserOptionEnvGetter} from './user-option-env-getter';
+import {setPlatform} from '../../tests/util';
+// Doing these because we drop support to env files
+setPlatform('linux');
+
+let UserOptions: any;
+let UserOptionEnvGetter: any;
 
 import * as mock from 'mock-fs';
 import * as dotenv from 'dotenv';
@@ -28,11 +32,16 @@ describe('Get User Options from Environment file', () => {
   // @ts-ignore
   dotenv.config = createSpy('config', dotenv.config);
 
-  afterAll(() => {
-    userOptionEnvGetter.mockReset();
-  });
-
   const OLD_ENV = process.env;
+
+  beforeAll(() => {
+    jest.isolateModules(() => {
+      // const utils = require('../utils');
+      UserOptions = require('./user-options').UserOptions;
+      UserOptionEnvGetter = require('./user-option-env-getter').userOptionEnvGetter;
+      userOptionEnvGetter = jest.fn(UserOptionEnvGetter);
+    });
+  });
 
   beforeEach(() => {
     jest.resetModules(); // this is important - it clears the cache
@@ -49,11 +58,15 @@ describe('Get User Options from Environment file', () => {
     mock.restore();
   });
 
+  afterAll(() => {
+    userOptionEnvGetter.mockReset();
+  });
+
   it('userOptionEnvGetter should be define', () => {
     expect(userOptionEnvGetter).toBeDefined();
   });
 
-  function getOptionsAndEnsureCalledTimeAndArgs(): Promise<UserOptions> {
+  function getOptionsAndEnsureCalledTimeAndArgs(): Promise<typeof UserOptions> {
     expect(userOptionEnvGetter).toHaveBeenCalledTimes(0);
     const pr = userOptionEnvGetter();
     expect(userOptionEnvGetter).toHaveBeenCalledTimes(1);
@@ -65,10 +78,10 @@ describe('Get User Options from Environment file', () => {
     (dotenv.config as Spy).and.returnValue(result);
   }
 
-  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', async () => {
-    const expectedUserOptions: UserOptions = {
-      storagePath: 'C://',
-      destPublishScriptFilePath: './publish.bat',
+  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry (Linux)', async () => {
+    const expectedUserOptions: typeof UserOptions = {
+      storagePath: '/home/user/my-storage/',
+      destPublishScriptFilePath: './publish.sh',
       npmPublishOptions: {
         registry: undefined
       },
@@ -81,10 +94,6 @@ describe('Get User Options from Environment file', () => {
     // Inject the values
     setDotEnvConfigReturnValue(setEnv(`STORAGE_PATH=${expectedUserOptions.storagePath}`));
 
-
-    // Set the result to successful one because there is not really .env file
-    // setDotEnvConfigReturnValue(result);
-
     const pr = getOptionsAndEnsureCalledTimeAndArgs();
     await expect(pr).toResolve();
 
@@ -93,7 +102,7 @@ describe('Get User Options from Environment file', () => {
   });
 
   it('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', async () => {
-    const expectedUserOptions: UserOptions = {
+    const expectedUserOptions: typeof UserOptions = {
       storagePath: 'C://',
       destPublishScriptFilePath: './my-publish-script.bat',
       npmPublishOptions: {
@@ -119,7 +128,7 @@ describe('Get User Options from Environment file', () => {
   });
 
   it('should get provided storage path, publish script file path and npmPublishOptions.registry', async () => {
-    const expectedUserOptions: UserOptions = {
+    const expectedUserOptions: typeof UserOptions = {
       storagePath: 'C://',
       destPublishScriptFilePath: './my-publish-script.bat',
       npmPublishOptions: {
@@ -146,8 +155,6 @@ describe('Get User Options from Environment file', () => {
   });
 
   it('should throw error when there are no `.env` file', async () => {
-
-    // The path don't exist on purpose simulate not existing env file
 
     // Set the result to failed one
     setDotEnvConfigReturnValue(setEnv(undefined));

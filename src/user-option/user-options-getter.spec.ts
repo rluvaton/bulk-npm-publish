@@ -4,6 +4,7 @@ import {UserOptions as UserOptionsLib} from './user-options';
 import {IUserOptionGetter as IUserOptionGetterLib} from './i-user-option-getter';
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
+import {setPlatform} from '../../tests/util';
 
 
 function getDeps(): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib } {
@@ -15,11 +16,6 @@ function getDeps(): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptio
 }
 
 describe('Get User Options (from the available option)', () => {
-  const setPlatform = (platform: string) => {
-    Object.defineProperty(process, 'platform', {
-      value: platform
-    });
-  };
 
   function startTest(platform: string): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib, userOptionPromptGetter: Spy & IUserOptionGetterLib } {
     setPlatform(platform);
