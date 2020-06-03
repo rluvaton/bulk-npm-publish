@@ -7,8 +7,8 @@ import {bold} from 'kleur';
 import * as emoji from 'node-emoji';
 import {UserOptions} from './user-option/user-options';
 import {IUserOptionGetter} from './user-option/i-user-option-getter';
-import {userOptionEnvGetter} from './user-option/user-option-env-getter';
-import {userOptionPromptGetter} from './user-option/user-option-prompt-getter';
+import {userOptionEnvGetter} from './user-option/env/user-option-env-getter';
+import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
 
 // The order is important
 const userOptionGetters: IUserOptionGetter[] = [

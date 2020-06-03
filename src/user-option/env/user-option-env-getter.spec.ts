@@ -1,5 +1,5 @@
 import 'jest-extended';
-import {setPlatform} from '../../tests/util';
+import {setPlatform} from '../../../tests/util';
 // Doing these because we drop support to env files
 setPlatform('linux');
 
@@ -9,7 +9,7 @@ let UserOptionEnvGetter: any;
 import * as mock from 'mock-fs';
 import * as dotenv from 'dotenv';
 import {DotenvConfigOutput} from 'dotenv';
-import {IUserOptionGetter} from './i-user-option-getter';
+import {IUserOptionGetter} from '../i-user-option-getter';
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
 import Mock = jest.Mock;
@@ -37,7 +37,7 @@ describe('Get User Options from Environment file', () => {
   beforeAll(() => {
     jest.isolateModules(() => {
       // const utils = require('../utils');
-      UserOptions = require('./user-options').UserOptions;
+      UserOptions = require('../user-options').UserOptions;
       UserOptionEnvGetter = require('./user-option-env-getter').userOptionEnvGetter;
       userOptionEnvGetter = jest.fn(UserOptionEnvGetter);
     });

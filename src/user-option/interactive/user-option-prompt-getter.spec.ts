@@ -2,15 +2,15 @@ import 'jest-extended';
 
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
-import {IUserOptionGetter as IUserOptionGetterLib} from './i-user-option-getter';
-import {UserOptions as UserOptionsLib} from './user-options';
-import {setPlatform} from '../../tests/util';
+import {IUserOptionGetter as IUserOptionGetterLib} from '../i-user-option-getter';
+import {UserOptions as UserOptionsLib} from '../user-options';
+import {setPlatform} from '../../../tests/util';
 
 
 function getDeps(): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib } {
   const prompts = require('prompts');
-  const {UserOptions} = require('./user-options');
-  const {IUserOptionGetter} = require('./i-user-option-getter');
+  const {UserOptions} = require('../user-options');
+  const {IUserOptionGetter} = require('../i-user-option-getter');
   const {userOptionPromptGetter: UserOptionPromptGetter} = require('./user-option-prompt-getter');
 
   return {prompts, UserOptions, IUserOptionGetter, UserOptionPromptGetter};

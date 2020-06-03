@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
-import {IUserOptionGetter} from './i-user-option-getter';
-import {DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions} from './user-options';
-import {logger} from '../logger';
+import {IUserOptionGetter} from '../i-user-option-getter';
+import {DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions} from '../user-options';
+import {logger} from '../../logger';
 import * as emoji from 'node-emoji';
 
 
