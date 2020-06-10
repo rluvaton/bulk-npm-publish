@@ -7,19 +7,19 @@ import {bold} from 'kleur';
 import * as emoji from 'node-emoji';
 import {UserOptions} from './user-option/user-options';
 import {IUserOptionGetter} from './user-option/i-user-option-getter';
-import {userOptionEnvGetter} from './user-option/env/user-option-env-getter';
 import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
+import {userOptionArgGetter} from './user-option/args';
 
 // The order is important
-const userOptionGetters: IUserOptionGetter[] = [
-  userOptionEnvGetter,
-  userOptionPromptGetter
-];
+const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGetter } = {
+  args: userOptionArgGetter,
+  interactive: userOptionPromptGetter
+};
 
 const run = async () => {
-  logger.info(bold().underline('⏳ Starting... ⏳'));
-
-  logger.info(bold().underline(`${emoji.get(':wrench:')} User configuration`));
+  // logger.info(bold().underline('⏳ Starting... ⏳'));
+  //
+  // logger.info(bold().underline(`${emoji.get(':wrench:')} User configuration`));
 
   let config: UserOptions;
   try {
@@ -39,12 +39,20 @@ const run = async () => {
     return;
   }
 
-  logger.verbose('User configuration loaded');
+  logger.info('User configuration loaded');
 
   logger.info(bold().underline(`Packages scanning ${emoji.get(':card_file_box:')}`));
   logger.verbose(`Scanning for packages in the provided storage path (${config.storagePath})`);
   let packages: Package[] = storageExplorer(config.storagePath);
-  logger.verbose(`Scan complete, found ${packages.length} packages`);
+
+  if(packages.length > 0) {
+    logger.verbose(`Scan complete, found ${packages.length} packages`);
+  } else {
+    logger.info(`Scan complete, no packages found`);
+
+    logger.info(bold().underline('Aborting'));
+    return;
+  }
 
   if (config.onlyNew.enable) {
     logger.info(bold().underline(`Scanning Exist Storage ${emoji.get(':card_file_box:')}`));
@@ -78,6 +86,6 @@ const run = async () => {
   logger.verbose(`Finish writing script`);
 
   logger.info(bold().underline(emoji.emojify(':fire: Finish! :fire:')));
-}
+};
 
 run();

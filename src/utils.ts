@@ -1,5 +1,6 @@
 import * as lodashDeepClone from 'lodash.clonedeep';
-import { platform } from 'process';
+import {platform} from 'process';
+let packageJson;
 
 export function deepClone<T = any>(val: T): T {
   return lodashDeepClone(val);
@@ -24,4 +25,12 @@ export const getCurrentOS = (): OSTypes => {
     default:
       return undefined;
   }
-}
+};
+
+export const getPackageName = () => {
+  if (!packageJson) {
+    packageJson = require('../package.json');
+  }
+
+  return packageJson.name;
+};
