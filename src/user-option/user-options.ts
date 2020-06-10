@@ -1,4 +1,5 @@
-import {NpmPublishOptions} from '../npm-publish-script-creator';
+import { NpmPublishOptions } from '../npm-publish-script-creator';
+import { getCurrentOS, OSTypes } from '../utils';
 
 export interface UserOptionsGetNewPackages {
   enable?: boolean,
@@ -12,9 +13,21 @@ export interface UserOptions {
   onlyNew?: UserOptionsGetNewPackages
 }
 
+const getExtensionBasedOnOS = () => {
+  const os = getCurrentOS();
+  
+  switch (os) {
+    case OSTypes.LINUX:
+      return 'sh';
+    case OSTypes.WINDOWS:
+    default:
+      return 'bat';
+  }
+}
+
 export const DEFAULT_USER_OPTIONS: UserOptions = {
   storagePath: undefined,
-  destPublishScriptFilePath: './publish.bat',
+  destPublishScriptFilePath: `./publish.${getExtensionBasedOnOS()}`,
   npmPublishOptions: {
     registry: undefined
   },

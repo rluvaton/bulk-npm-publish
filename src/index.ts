@@ -7,8 +7,8 @@ import {bold} from 'kleur';
 import * as emoji from 'node-emoji';
 import {UserOptions} from './user-option/user-options';
 import {IUserOptionGetter} from './user-option/i-user-option-getter';
-import {userOptionEnvGetter} from './user-option/user-option-env-getter';
-import {userOptionPromptGetter} from './user-option/user-option-prompt-getter';
+import {userOptionEnvGetter} from './user-option/env/user-option-env-getter';
+import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
 
 // The order is important
 const userOptionGetters: IUserOptionGetter[] = [
@@ -64,7 +64,6 @@ const run = async () => {
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
   logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
   let scripts: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
-  scripts = scripts.map((script) => `call ${script}`);
   logger.verbose(`Script creating finished`);
 
   logger.info(bold().underline(`Writing script file ${emoji.get(':pencil:')}`));

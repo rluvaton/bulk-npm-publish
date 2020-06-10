@@ -1,5 +1,5 @@
 import {IUserOptionGetter} from './i-user-option-getter';
-import {UserOptions} from './user-options';
+import {DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions} from './user-options';
 import {logger} from '../logger';
 
 /**
@@ -19,6 +19,7 @@ export const userOptionGetter: (userOptionGetters: IUserOptionGetter[]) => Retur
   for (const getter of userOptionGetters) {
     try {
       options = await getter();
+      options = setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
     } catch (e) {
       logger.debug('Couldn\'t get userOptions, thrown error:', e);
       continue;

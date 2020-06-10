@@ -1,8 +1,8 @@
-import {IUserOptionGetter} from './i-user-option-getter';
-import {DEFAULT_USER_OPTIONS} from './user-options';
+import {IUserOptionGetter} from '../i-user-option-getter';
+import {DEFAULT_USER_OPTIONS} from '../user-options';
 import * as prompts from 'prompts';
-import {logger} from '../logger';
-import {deepClone} from '../utils';
+import {logger} from '../../logger';
+import {deepClone} from '../../utils';
 
 const _questions = [
   {

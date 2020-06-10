@@ -1,79 +1,48 @@
 import 'jest-extended';
-import {UserOptions} from './user-options';
-import * as prompts from 'prompts';
-import {userOptionGetter as UserOptionGetter} from './user-options-getter';
+import {UserOptions as UserOptionsLib} from './user-options';
 
-import * as mock from 'mock-fs';
-import * as dotenv from 'dotenv';
-import {DotenvConfigOutput} from 'dotenv';
-import {IUserOptionGetter} from './i-user-option-getter';
-import {userOptionEnvGetter} from './user-option-env-getter';
-import {userOptionPromptGetter} from './user-option-prompt-getter';
+import {IUserOptionGetter as IUserOptionGetterLib} from './i-user-option-getter';
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
-import Mock = jest.Mock;
+import {setPlatform} from '../../tests/util';
 
 
-const setEnv = (dotEnvFileContent: string) => {
-  if (dotEnvFileContent) {
-    mock({
-      envFiles: {
-        '.env': dotEnvFileContent
-      }
-    });
-  }
+function getDeps(): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib } {
+  const {UserOptions} = require('./user-options');
+  const {IUserOptionGetter} = require('./i-user-option-getter');
+  const {userOptionGetter} = require('./user-options-getter');
 
-  return dotenv.config({path: 'envFiles/.env'});
-};
+  return {UserOptions, IUserOptionGetter, userOptionGetter};
+}
 
 describe('Get User Options (from the available option)', () => {
-  let userOptionGetter: (typeof UserOptionGetter) & Mock;
 
-  // @ts-ignore
-  dotenv.config = createSpy('config', dotenv.config);
+  function startTest(platform: string): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib, userOptionPromptGetter: Spy & IUserOptionGetterLib } {
+    setPlatform(platform);
+    const dep = getDeps();
+    const userOptionPromptGetter: Spy & IUserOptionGetterLib = createSpy('userOptionGetter', dep.userOptionGetter).and.callThrough();
+    return {...dep, userOptionPromptGetter};
+  }
 
   beforeAll(() => {
-    userOptionGetter = jest.fn(UserOptionGetter);
   });
-
-  const OLD_ENV = process.env;
 
   beforeEach(() => {
     jest.resetModules(); // this is important - it clears the cache
-    process.env = {...OLD_ENV};
-
-    userOptionGetter.mockClear();
-
-    // Reset to real implementation
-    (dotenv.config as Spy).and.callThrough();
   });
 
-  afterEach(() => {
-    process.env = OLD_ENV;
-    mock.restore();
-  });
-
-  function getOptionsAndEnsureCalledTimeAndArgs(userOptionGetters: IUserOptionGetter[]): Promise<UserOptions> {
-    expect(userOptionGetter).toHaveBeenCalledTimes(0);
-    const pr = userOptionGetter(userOptionGetters);
-    expect(userOptionGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionGetter).toBeCalledWith(userOptionGetters);
-    return pr;
-  }
-
-  function setDotEnvConfigReturnValue(result: DotenvConfigOutput) {
-    (dotenv.config as Spy).and.returnValue(result);
+  function getOptionsAndEnsureCalledTimeAndArgs<IUserOptionGetter>(userOptionGetter, userOptionGetters: IUserOptionGetter[]): Promise<UserOptionsLib> {
+    return userOptionGetter(userOptionGetters);
   }
 
   it('userOptionsGetter should be define', () => {
+    const {userOptionGetter} = startTest('windows');
     expect(userOptionGetter).toBeDefined();
   });
 
   it('should throw error when no userOptionGetters passed', async () => {
-    expect(userOptionGetter).toHaveBeenCalledTimes(0);
+    const {userOptionGetter} = startTest('linux');
     const pr = userOptionGetter();
-    expect(userOptionGetter).toHaveBeenCalledTimes(1);
-    expect(userOptionGetter).toBeCalledWith();
 
     await expect(pr).toReject();
 
@@ -84,7 +53,8 @@ describe('Get User Options (from the available option)', () => {
   });
 
   it('should throw error when empty userOptionGetters passed', async () => {
-    const pr = getOptionsAndEnsureCalledTimeAndArgs([]);
+    const {userOptionGetter} = startTest('linux');
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, []);
 
     await expect(pr).toReject();
 
@@ -94,9 +64,34 @@ describe('Get User Options (from the available option)', () => {
     expect(rejectResult).toHaveProperty('message', 'userOptionGetters not provided or has no items in it');
   });
 
-  it('When environment file provided get the options from environment', async () => {
-    const expectedUserOptions: UserOptions = {
-      storagePath: 'C://',
+  it('should throw error when userOptionGetters rejected', async () => {
+    const {userOptionGetter} = startTest('linux');
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.reject(new Error('Test for rejection'))]);
+
+    await expect(pr).toReject();
+
+    const rejectResult = await pr.catch((e) => e);
+    expect(rejectResult).toBeDefined();
+    expect(rejectResult).toBeInstanceOf(Error);
+    expect(rejectResult).toHaveProperty('message', 'Couldn\'t get user options');
+  });
+
+  it('should throw error when all userOptionGetters rejected', async () => {
+    const {userOptionGetter} = startTest('linux');
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.reject(new Error('Test for rejection 1')), () => Promise.reject(new Error('Test for rejection 2'))]);
+
+    await expect(pr).toReject();
+
+    const rejectResult = await pr.catch((e) => e);
+    expect(rejectResult).toBeDefined();
+    expect(rejectResult).toBeInstanceOf(Error);
+    expect(rejectResult).toHaveProperty('message', 'Couldn\'t get user options');
+  });
+
+  it('should get the first user options that resolved', async () => {
+    const {IUserOptionGetter, UserOptions, userOptionGetter} = startTest('windows');
+    const expectedUserOptions: typeof UserOptions = {
+      storagePath: 'C://storage/',
       destPublishScriptFilePath: './publish.bat',
       npmPublishOptions: {
         registry: undefined
@@ -107,26 +102,27 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    // Inject the values
-    setDotEnvConfigReturnValue(setEnv(`
-      STORAGE_PATH=${expectedUserOptions.storagePath}
-      PUBLISH_SCRIPT_DEST_PATH=${expectedUserOptions.destPublishScriptFilePath}
-    `));
-
-    const pr = getOptionsAndEnsureCalledTimeAndArgs([userOptionEnvGetter, userOptionPromptGetter]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs<typeof IUserOptionGetter>(userOptionGetter, [
+      () => Promise.resolve({
+        storagePath: expectedUserOptions.storagePath,
+        destPublishScriptFilePath: expectedUserOptions.destPublishScriptFilePath,
+      }),
+      () => Promise.resolve({
+        storagePath: 'C://some-other-storage/',
+        destPublishScriptFilePath: './publish-file.bat',
+      }),
+    ]);
     await expect(pr).toResolve();
 
     const userOptions = await pr;
     expect(userOptions).toEqual(expectedUserOptions);
   });
 
-  it('When no environment file provided get the options from user input', async () => {
+  it('should get the first user options that not rejected', async () => {
+    const {UserOptions, userOptionGetter} = startTest('windows');
 
-    // The path don't exist on purpose simulate not existing env file
-    setDotEnvConfigReturnValue(setEnv(undefined));
-
-    const expectedUserOptions: UserOptions = {
-      storagePath: 'C://',
+    const expectedUserOptions: typeof UserOptions = {
+      storagePath: 'C://storage/',
       destPublishScriptFilePath: './my-publish-script.bat',
       npmPublishOptions: {
         registry: undefined
@@ -137,19 +133,24 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    // Inject the values
-    prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, undefined]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [
+      () => Promise.reject(new Error('Rejected promise')),
+      () => Promise.resolve({
+        storagePath: expectedUserOptions.storagePath,
+        destPublishScriptFilePath: expectedUserOptions.destPublishScriptFilePath
+      })
+    ]);
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs([userOptionEnvGetter, userOptionPromptGetter]);
     await expect(pr).toResolve();
 
     const userOptions = await pr;
     expect(userOptions).toEqual(expectedUserOptions);
   });
 
-  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', async () => {
-    const expectedUserOptions: UserOptions = {
-      storagePath: 'C://',
+  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry (on Windows)', async () => {
+    const {UserOptions, userOptionGetter} = startTest('windows');
+    const expectedUserOptions: typeof UserOptions = {
+      storagePath: 'C://storage/',
       destPublishScriptFilePath: './publish.bat',
       npmPublishOptions: {
         registry: undefined
@@ -160,32 +161,32 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    // Inject the values
-    setDotEnvConfigReturnValue(setEnv(`
-      STORAGE_PATH=${expectedUserOptions.storagePath}
-    `));
-
-    const pr = getOptionsAndEnsureCalledTimeAndArgs([userOptionEnvGetter, userOptionPromptGetter]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.resolve({storagePath: expectedUserOptions.storagePath})]);
     await expect(pr).toResolve();
 
     const userOptions = await pr;
     expect(userOptions).toEqual(expectedUserOptions);
   });
 
-  it('When no environment file provided and user exited in the middle should throw Error with `cancel` message', async () => {
+  it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry (on Linux)', async () => {
+    const {UserOptions, userOptionGetter} = startTest('linux');
 
-    // Simulate not existing env file
-    setDotEnvConfigReturnValue(setEnv(undefined));
+    const expectedUserOptions: typeof UserOptions = {
+      storagePath: '/home/root/my-storage/',
+      destPublishScriptFilePath: './publish.sh',
+      npmPublishOptions: {
+        registry: undefined
+      },
+      onlyNew: {
+        enable: false,
+        currentStoragePath: undefined
+      }
+    };
 
-    // Inject simulated user abort
-    prompts.inject([new Error('simulate cancel')]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.resolve({storagePath: expectedUserOptions.storagePath})]);
+    await expect(pr).toResolve();
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs([userOptionEnvGetter, userOptionPromptGetter]);
-    await expect(pr).toReject();
-
-    const rejectResult = await pr.catch((e) => e);
-    expect(rejectResult).toBeDefined();
-    expect(rejectResult).toBeInstanceOf(Error);
-    expect(rejectResult).toHaveProperty('message', 'Couldn\'t get user options');
+    const userOptions = await pr;
+    expect(userOptions).toEqual(expectedUserOptions);
   });
 });
