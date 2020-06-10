@@ -5,12 +5,20 @@
   "main": "src/index.ts",
   "scripts": {
     "postinstall": "patch-package",
-    "pre:compile": "rm -rf ./dist",
-    "compile": "npm run pre:compile && tsc",
+    "prebuild": "rm -rf ./lib",
     "start": "ts-node src/index.ts --no-cache",
     "start:prod": "node ./bin/bulk-npm-publish.js",
     "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
-    "test": "jest",
+
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "jest .",
+    "lint": "tslint -p . --fix",
+
+    "build": "npm run clean:some && tsc -p .",
+    "global": "npm i -g && bulk-npm-publish",
+    "clean:some": "rm -rf ./lib",
+    "clean:all": "rm -rf ./node_modules ./package-lock.json ./lib",
+    "refresh": "npm run clean:all && npm install",
     "semantic-release": "semantic-release"
   },
   "husky": {
@@ -22,7 +30,7 @@
     "bulk-npm-publish": "./bin/bulk-npm-publish.js"
   },
   "files": [
-    "dist/**/*"
+    "lib/**/*"
   ],
   "repository": {
     "type": "git",

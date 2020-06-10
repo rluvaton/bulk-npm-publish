@@ -47,6 +47,10 @@ const run = async () => {
   logger.verbose(`Scan complete, found ${packages.length} packages`);
 
   if (config.onlyNew.enable) {
+    if (!config.onlyNew.currentStoragePath) {
+      logger.error('Current storage is undefined');
+      return;
+    }
     logger.info(bold().underline(`Scanning Exist Storage ${emoji.get(':card_file_box:')}`));
     logger.verbose(`Scanning for exist packages in the provided storage path (${config.onlyNew.currentStoragePath})`);
     const existPackages: Package[] = storageExplorer(config.onlyNew.currentStoragePath);
@@ -63,7 +67,7 @@ const run = async () => {
 
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
   logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
-  let scripts: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
+  const scripts: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
   logger.verbose(`Script creating finished`);
 
   logger.info(bold().underline(`Writing script file ${emoji.get(':pencil:')}`));
@@ -78,6 +82,6 @@ const run = async () => {
   logger.verbose(`Finish writing script`);
 
   logger.info(bold().underline(emoji.emojify(':fire: Finish! :fire:')));
-}
+};
 
 run();

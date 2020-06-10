@@ -10,8 +10,8 @@ import {logger} from '../logger';
  * @throws Error Reject if the couldn't get any options
  */
 export const userOptionGetter: (userOptionGetters: IUserOptionGetter[]) => ReturnType<IUserOptionGetter> = async (userOptionGetters: IUserOptionGetter[]) => {
-  if(!userOptionGetters || userOptionGetters.length === 0) {
-    throw new Error('userOptionGetters not provided or has no items in it')
+  if (!userOptionGetters || userOptionGetters.length === 0) {
+    throw new Error('userOptionGetters not provided or has no items in it');
   }
 
   let options: UserOptions;
@@ -22,6 +22,11 @@ export const userOptionGetter: (userOptionGetters: IUserOptionGetter[]) => Retur
       options = setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
     } catch (e) {
       logger.debug('Couldn\'t get userOptions, thrown error:', e);
+      if (e.message === 'Cancelled') {
+        logger.debug('Cancelled', e);
+        return Promise.reject(new Error('cancel'));
+
+      }
       continue;
     }
 

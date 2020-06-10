@@ -1,14 +1,15 @@
 import 'jest-extended';
-import {setDefaultUserOptionsProperties, UserOptions} from './user-options';
+import {setDefaultUserOptionsProperties, UserOptions} from '../../../src/user-option/user-options';
 
 describe('UserOptions', () => {
   describe('#setDefaultUserOptionsProperties', () => {
     it('when not destPublishScriptFilePath and npmPublishOptions.registry should set this to default', () => {
-      const currOptions: UserOptions = {
+      const currOptions: UserOptions | any = {
         storagePath: 'C://',
       };
 
-      const defaultOptions: UserOptions = {
+      const defaultOptions: UserOptions | any = {
+        // @ts-ignore:disable-next-line
         storagePath: undefined,
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
@@ -50,6 +51,7 @@ describe('UserOptions', () => {
       };
 
       const defaultOptions: UserOptions = {
+        // @ts-ignore:disable-next-line
         storagePath: undefined,
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {

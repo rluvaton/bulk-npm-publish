@@ -8,7 +8,7 @@ import {PathLike, WriteFileOptions} from 'fs';
  */
 const writeFile = (path: PathLike | number, data: any, options?: WriteFileOptions): Promise<void> => {
   return new Promise((resolve, reject) => {
-    fs.writeFile(path, data, options, (err) => {
+    fs.writeFile(path, data, options ?? {}, (err) => {
       if (err) {
         return reject(err);
       }

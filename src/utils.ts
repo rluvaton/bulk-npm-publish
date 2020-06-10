@@ -1,5 +1,5 @@
 import * as lodashDeepClone from 'lodash.clonedeep';
-import { platform } from 'process';
+import {platform} from 'process';
 
 export function deepClone<T = any>(val: T): T {
   return lodashDeepClone(val);
@@ -10,7 +10,7 @@ export enum OSTypes {
   WINDOWS = 'windows'
 }
 
-export const getCurrentOS = (): OSTypes => {
+export const getCurrentOS = (): OSTypes | undefined => {
   switch (platform) {
     case 'win32':
       return OSTypes.WINDOWS;
@@ -24,4 +24,4 @@ export const getCurrentOS = (): OSTypes => {
     default:
       return undefined;
   }
-}
+};
