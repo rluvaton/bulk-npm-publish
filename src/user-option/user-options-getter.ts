@@ -35,7 +35,6 @@ export const userOptionGetter: (userOptionGetters: {
   }
 
   if (interactive) {
-    logger.info('If you want')
     try {
       options = await getOptions(interactive);
     } catch (e) {
