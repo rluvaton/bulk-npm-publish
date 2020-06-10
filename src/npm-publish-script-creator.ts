@@ -17,7 +17,7 @@ const npmPublishScriptCreator = (
     // Combine the options
     .join(' ');
 
-  // We trim only right because there will only be a space in case of empty script options 
+  // We trim only right because there will only be a space in case of empty script options
   return packages.map(({ path }) => `npm publish ${path} ${scriptOptions}`.trimRight());
 };
 

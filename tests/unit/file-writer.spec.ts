@@ -1,6 +1,6 @@
 import 'jest-extended';
 import * as mock from 'mock-fs';
-import fileWriter from './file-writer';
+import fileWriter from '../../src/file-writer';
 
 describe('File Writer', () => {
   afterEach(() => {

@@ -1,6 +1,6 @@
 import 'jest-extended';
 import * as mock from 'mock-fs';
-import storageExplorer, {Package} from './storage-explorer';
+import storageExplorer, {Package} from '../../src/storage-explorer';
 
 describe('Storage Explorer', () => {
 

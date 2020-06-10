@@ -20,5 +20,5 @@ jobs:
           node_js: 'node' # pre-installed version
           script:
               - npm install -g semantic-release@^15
-              - npm run compile
+              - npm run build
               - semantic-release

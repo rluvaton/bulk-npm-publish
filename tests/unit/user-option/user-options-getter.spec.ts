@@ -1,16 +1,16 @@
 import 'jest-extended';
-import {UserOptions as UserOptionsLib} from './user-options';
+import {UserOptions, UserOptions as UserOptionsLib} from '../../../src/user-option/user-options';
 
-import {IUserOptionGetter as IUserOptionGetterLib} from './i-user-option-getter';
+import {IUserOptionGetter as IUserOptionGetterLib} from '../../../src/user-option/i-user-option-getter';
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
-import {setPlatform} from '../../tests/util';
+import {setPlatform} from '../../util';
 
 
 function getDeps(): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib } {
-  const {UserOptions} = require('./user-options');
-  const {IUserOptionGetter} = require('./i-user-option-getter');
-  const {userOptionGetter} = require('./user-options-getter');
+  const {UserOptions} = require('../../../src/user-option/user-options');
+  const {IUserOptionGetter} = require('../../../src/user-option/i-user-option-getter');
+  const {userOptionGetter} = require('../../../src/user-option/user-options-getter');
 
   return {UserOptions, IUserOptionGetter, userOptionGetter};
 }
@@ -102,7 +102,7 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs<typeof IUserOptionGetter>(userOptionGetter, [
+    const pr = getOptionsAndEnsureCalledTimeAndArgs<typeof IUserOptionGetter | any>(userOptionGetter, [
       () => Promise.resolve({
         storagePath: expectedUserOptions.storagePath,
         destPublishScriptFilePath: expectedUserOptions.destPublishScriptFilePath,

@@ -9,9 +9,16 @@
     "typeRoots": ["node_modules/@types", "typings"],
     "noImplicitAny": false,
     "sourceMap": false,
-    "outDir": "./dist"
+    "outDir": "lib",
+    "strict": true,
+    "types": ["node"],
+    "resolveJsonModule": true
   },
   "compileOnSave": false,
+  "include": [
+    "src",
+    "bin"
+  ],
   "exclude": [
     "node_modules"
   ]
