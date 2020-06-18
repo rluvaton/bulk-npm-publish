@@ -24,19 +24,19 @@ const _questions = [
     type: 'text',
     name: 'npmPublishOptions.registry',
     message: `What is the registry url you want to publish to`,
-    initial: DEFAULT_USER_OPTIONS.npmPublishOptions.registry,
+    initial: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
   },
   {
     type: 'confirm',
     name: 'createNewOnly',
     message: `Should publish only new packages`,
-    initial: DEFAULT_USER_OPTIONS.onlyNew.enable,
+    initial: DEFAULT_USER_OPTIONS?.onlyNew?.enable,
   },
   {
     type: (createNewOnlyRes) => createNewOnlyRes ? 'text' : null,
     name: 'currentStorage',
     message: `What's the path for the current storage`,
-    initial: DEFAULT_USER_OPTIONS.onlyNew.currentStoragePath,
+    initial: DEFAULT_USER_OPTIONS?.onlyNew?.currentStoragePath,
     validate: (path) => !!path
   },
 ];

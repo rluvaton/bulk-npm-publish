@@ -2,16 +2,23 @@ import 'jest-extended';
 
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
-import {IUserOptionGetter as IUserOptionGetterLib} from '../i-user-option-getter';
-import {UserOptions as UserOptionsLib} from '../user-options';
-import {setPlatform} from '../../../tests/util';
+import {IUserOptionGetter as IUserOptionGetterLib} from '../../../../src/user-option/i-user-option-getter';
+import {UserOptions as UserOptionsLib} from '../../../../src/user-option/user-options';
+import {setPlatform} from '../../../util';
 
+interface TestDeps {
+  prompts: any;
+  UserOptions: UserOptionsLib;
+  IUserOptionGetter: IUserOptionGetterLib;
+  UserOptionPromptGetter: IUserOptionGetterLib;
+}
 
-function getDeps(): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib } {
+function getDeps(): TestDeps {
   const prompts = require('prompts');
-  const {UserOptions} = require('../user-options');
-  const {IUserOptionGetter} = require('../i-user-option-getter');
-  const {userOptionPromptGetter: UserOptionPromptGetter} = require('./user-option-prompt-getter');
+  const {UserOptions} = require('../../../../src/user-option/user-options');
+  const {IUserOptionGetter} = require('../../../../src/user-option/i-user-option-getter');
+  // tslint:disable-next-line:variable-name
+  const {userOptionPromptGetter: UserOptionPromptGetter} = require('../../../../src/user-option/interactive/user-option-prompt-getter');
 
   return {prompts, UserOptions, IUserOptionGetter, UserOptionPromptGetter};
 }
@@ -19,7 +26,7 @@ function getDeps(): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGett
 describe('Get User Options from User Input', () => {
   let originalPlatform;
 
-  function startTest(platform: string): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib, userOptionPromptGetter: Spy & IUserOptionGetterLib}  {
+  function startTest(platform: string): TestDeps & { userOptionPromptGetter: Spy & IUserOptionGetterLib } {
     setPlatform(platform);
     const dep = getDeps();
     const userOptionPromptGetter: Spy & IUserOptionGetterLib = createSpy('userOptionPromptGetter', dep.UserOptionPromptGetter).and.callThrough();
@@ -54,7 +61,7 @@ describe('Get User Options from User Input', () => {
   });
 
   it('userOptionPromptGetter should be define', () => {
-    const {userOptionPromptGetter} = require('./user-option-prompt-getter');
+    const {userOptionPromptGetter} = require('../../../../src/user-option/interactive/user-option-prompt-getter');
     expect(userOptionPromptGetter).toBeDefined();
   });
 
@@ -131,7 +138,7 @@ describe('Get User Options from User Input', () => {
     };
 
     // Inject the values
-    prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions.npmPublishOptions.registry]);
+    prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions?.npmPublishOptions?.registry]);
     await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
   });
 
@@ -153,9 +160,9 @@ describe('Get User Options from User Input', () => {
     prompts.inject([
       expectedUserOptions.storagePath,
       expectedUserOptions.destPublishScriptFilePath,
-      expectedUserOptions.npmPublishOptions.registry,
-      expectedUserOptions.onlyNew.enable,
-      expectedUserOptions.onlyNew.currentStoragePath
+      expectedUserOptions?.npmPublishOptions?.registry,
+      expectedUserOptions?.onlyNew?.enable,
+      expectedUserOptions?.onlyNew?.currentStoragePath
     ]);
 
     await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);

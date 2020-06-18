@@ -1,11 +1,19 @@
 import 'jest-extended';
-import * as mock from 'mock-fs';
-import storageExplorer, {Package} from './storage-explorer';
+import * as path from 'path';
+import {fs, vol} from 'memfs';
+
+jest.mock('fs', () => fs);
+import storageExplorer, {Package} from '../../src/storage-explorer';
 
 describe('Storage Explorer', () => {
+  const mockFs = (fakeFsStructure) => vol.fromNestedJSON(fakeFsStructure, '/');
 
   afterEach(() => {
-    mock.restore();
+      vol.reset();
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
   });
 
   it('should be defined', () => {
@@ -14,7 +22,7 @@ describe('Storage Explorer', () => {
 
   it('should get all packages where each folder have 1 package', () => {
     // Prepare the mock FS
-    mock({
+    mockFs({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
@@ -26,7 +34,7 @@ describe('Storage Explorer', () => {
     const stubStorageExplorer = jest.fn(storageExplorer);
 
     // Evaluate
-    const packages: Package[] = stubStorageExplorer('./storage/');
+    const packages: Package[] = stubStorageExplorer('/storage/');
 
     expect(stubStorageExplorer).toBeCalledTimes(1);
 
@@ -40,13 +48,13 @@ describe('Storage Explorer', () => {
       fullFileName: 'agent-base-4.2.1.tgz',
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
-      path: 'storage/agent-base/agent-base-4.2.1.tgz'
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
     } as Package);
   });
 
   it('should get all packages where each folder have multiple packages', () => {
     // Prepare the mock FS
-    mock({
+    mockFs({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
@@ -57,7 +65,7 @@ describe('Storage Explorer', () => {
     });
 
     // Evaluate
-    const packages = storageExplorer('./storage/');
+    const packages = storageExplorer('/storage/');
 
     // Test
     expect(packages).toBeArrayOfSize(2);
@@ -68,7 +76,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
-      path: 'storage/agent-base/agent-base-4.2.1.tgz'
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
     } as Package);
 
     expect(packages).toContainEqual({
@@ -77,14 +85,14 @@ describe('Storage Explorer', () => {
         fullPackageName: 'agent-base@4.3.0',
         version: '4.3.0',
         scope: undefined,
-        path: 'storage/agent-base/agent-base-4.3.0.tgz'
+        path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz')
       } as Package
     );
   });
 
   it('should get all packages where each folder have 1/multiple/none packages', () => {
     // Prepare the mock FS
-    mock({
+    mockFs({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
@@ -102,7 +110,7 @@ describe('Storage Explorer', () => {
     });
 
     // Evaluate
-    const packages = storageExplorer('./storage/');
+    const packages = storageExplorer('/storage/');
 
     // Test
 
@@ -115,7 +123,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
-      path: 'storage/agent-base/agent-base-4.2.1.tgz'
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
     } as Package);
 
     expect(packages).toContainEqual({
@@ -124,7 +132,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.3.0',
       version: '4.3.0',
       scope: undefined,
-      path: 'storage/agent-base/agent-base-4.3.0.tgz'
+      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz')
     } as Package);
 
     expect(packages).toContainEqual({
@@ -133,13 +141,13 @@ describe('Storage Explorer', () => {
       fullPackageName: 'abbrev@1.1.1',
       version: '1.1.1',
       scope: undefined,
-      path: 'storage/abbrev/abbrev-1.1.1.tgz'
+      path: path.normalize('/storage/abbrev/abbrev-1.1.1.tgz')
     } as Package);
   });
 
   it('should get all packages where there are packages and scoped packages and each folder have 1/multiple/none package', () => {
     // Prepare the mock FS
-    mock({
+    mockFs({
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
@@ -157,7 +165,7 @@ describe('Storage Explorer', () => {
     });
 
     // Evaluate
-    const packages = storageExplorer('./storage/');
+    const packages = storageExplorer('/storage/');
 
     // Validate that the folder only contain 3 file/folder
     expect(packages).toBeArrayOfSize(3);
@@ -168,7 +176,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
-      path: 'storage/agent-base/agent-base-4.2.1.tgz'
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
     } as Package);
 
     expect(packages).toContainEqual({
@@ -177,7 +185,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.3.0',
       version: '4.3.0',
       scope: undefined,
-      path: 'storage/agent-base/agent-base-4.3.0.tgz'
+      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz')
     } as Package);
 
     expect(packages).toContainEqual({
@@ -186,20 +194,20 @@ describe('Storage Explorer', () => {
       fullPackageName: '@types/node@8.9.5',
       version: '8.9.5',
       scope: '@types',
-      path: 'storage/@types/node/node-8.9.5.tgz'
+      path: path.normalize('/storage/@types/node/node-8.9.5.tgz')
     } as Package);
   });
 
   it('should not get any packages when the directory is empty', () => {
     // Prepare the mock FS
-    mock({
+    mockFs({
       storage: {}
     });
 
     const stubStorageExplorer = jest.fn(storageExplorer);
 
     // Evaluate
-    const packages: Package[] = stubStorageExplorer('./storage/');
+    const packages: Package[] = stubStorageExplorer('/storage/');
 
     expect(stubStorageExplorer).toBeCalledTimes(1);
 
@@ -211,7 +219,7 @@ describe('Storage Explorer', () => {
 
   it('should not get any packages when there are not tgz file', () => {
     // Prepare the mock FS
-    mock({
+    mockFs({
       storage: {
         'agent-base': {
           'package.json': 'dummy data'
@@ -228,7 +236,7 @@ describe('Storage Explorer', () => {
     const stubStorageExplorer = jest.fn(storageExplorer);
 
     // Evaluate
-    const packages: Package[] = stubStorageExplorer('./storage/');
+    const packages: Package[] = stubStorageExplorer('/storage/');
 
     expect(stubStorageExplorer).toBeCalledTimes(1);
 

@@ -2,20 +2,20 @@ import { NpmPublishOptions } from '../npm-publish-script-creator';
 import { getCurrentOS, OSTypes } from '../utils';
 
 export interface UserOptionsGetNewPackages {
-  enable?: boolean,
-  currentStoragePath?: string
+  enable?: boolean;
+  currentStoragePath?: string;
 }
 
 export interface UserOptions {
   storagePath: string;
-  destPublishScriptFilePath?: string;
-  npmPublishOptions?: NpmPublishOptions;
-  onlyNew?: UserOptionsGetNewPackages
+  destPublishScriptFilePath: string;
+  npmPublishOptions: NpmPublishOptions;
+  onlyNew: UserOptionsGetNewPackages;
 }
 
 const getExtensionBasedOnOS = () => {
   const os = getCurrentOS();
-  
+
   switch (os) {
     case OSTypes.LINUX:
       return 'sh';
@@ -23,9 +23,10 @@ const getExtensionBasedOnOS = () => {
     default:
       return 'bat';
   }
-}
+};
 
 export const DEFAULT_USER_OPTIONS: UserOptions = {
+  // @ts-ignore:disable-next-line
   storagePath: undefined,
   destPublishScriptFilePath: `./publish.${getExtensionBasedOnOS()}`,
   npmPublishOptions: {

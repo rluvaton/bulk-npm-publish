@@ -3,6 +3,6 @@ module.exports = {
     testEnvironment: "node",
     verbose: true,
     testMatch: [
-        "<rootDir>/**/*.spec.ts",
+        "<rootDir>/tests/**/*.spec.ts",
     ]
 };

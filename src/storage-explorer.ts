@@ -1,6 +1,7 @@
 import * as dirTree from 'directory-tree';
 import {logger} from './logger';
 import * as emoji from 'node-emoji';
+import * as path from 'path';
 
 
 /**
@@ -83,7 +84,7 @@ function getVersionFromFileName(packageName, fullPackageName: string): string {
 }
 
 const storageExplorer = (dir: string): Package[] => {
-  const packages: Package[] = [];
+  let packages: Package[] = [];
   let packageVersion: string;
 
   // Get all folder in dir
@@ -97,16 +98,16 @@ const storageExplorer = (dir: string): Package[] => {
 
   const storageFolders = filteredTree.children;
 
-  storageFolders.forEach((packagesFolders) => {
+  storageFolders?.forEach((packagesFolders) => {
     const packageOrScopeName: string = packagesFolders.name;
 
-    packagesFolders.children.forEach((packageOrScope) => {
+    packagesFolders?.children?.forEach((packageOrScope) => {
       switch (packageOrScope.type) {
         case 'directory':
           // Meaning it's a scope
           const packageName = packageOrScope.name;
 
-          const scopePackages = packageOrScope.children
+          const scopePackages = (packageOrScope?.children || [])
             // Fix #9 (adding none `tgz` file to the script)
             .filter((packageInScope) => packageInScope.type === 'file' && packageInScope.extension === '.tgz')
             .map((packageInScope) => {
@@ -115,7 +116,7 @@ const storageExplorer = (dir: string): Package[] => {
                 name: packageName,
                 fullFileName: packageInScope.name,
                 fullPackageName: `${packageOrScopeName}/${packageName}@${packageVersion}`,
-                path: packageInScope.path,
+                path: path.normalize(packageInScope.path),
                 version: packageVersion,
                 scope: packageOrScopeName
               };
@@ -126,7 +127,7 @@ const storageExplorer = (dir: string): Package[] => {
             });
 
           // Can't `concat` because packages is `constant`
-          packages.push(...scopePackages);
+          packages = packages.concat(...scopePackages);
           break;
         case 'file':
           // without scope
@@ -136,7 +137,7 @@ const storageExplorer = (dir: string): Package[] => {
             name: packageOrScopeName,
             fullFileName: packageOrScope.name,
             fullPackageName: `${packageOrScopeName}@${packageVersion}`,
-            path: packageOrScope.path,
+            path: path.normalize(packageOrScope.path),
             version: packageVersion,
           };
           packages.push(p);

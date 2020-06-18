@@ -1,23 +1,30 @@
 import 'jest-extended';
-import {UserOptions as UserOptionsLib} from './user-options';
+import {UserOptions as UserOptionsLib} from '../../../src/user-option/user-options';
 
-import {IUserOptionGetter, IUserOptionGetter as IUserOptionGetterLib} from './i-user-option-getter';
+import {IUserOptionGetter as IUserOptionGetterLib} from '../../../src/user-option/i-user-option-getter';
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
-import {setPlatform} from '../../tests/util';
+import {setPlatform} from '../../util';
 
+interface TestsDep {
+  UserOptions: UserOptionsLib;
+  IUserOptionGetter: IUserOptionGetterLib;
+  userOptionGetter: IUserOptionGetterLib;
+}
 
-function getDeps(): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib } {
-  const {UserOptions} = require('./user-options');
-  const {IUserOptionGetter} = require('./i-user-option-getter');
-  const {userOptionGetter} = require('./user-options-getter');
+function getDeps(): TestsDep {
+
+  // tslint:disable-next-line:variable-name
+  const {UserOptions} = require('../../../src/user-option/user-options');
+  const {IUserOptionGetter} = require('../../../src/user-option/i-user-option-getter');
+  const {userOptionGetter} = require('../../../src/user-option/user-options-getter');
 
   return {UserOptions, IUserOptionGetter, userOptionGetter};
 }
 
 describe('Get User Options (from the available option)', () => {
 
-  function startTest(platform: string): { UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, userOptionGetter: IUserOptionGetterLib, userOptionPromptGetter: Spy & IUserOptionGetterLib } {
+  function startTest(platform: string): TestsDep & { userOptionPromptGetter: Spy & IUserOptionGetterLib } {
     setPlatform(platform);
     const dep = getDeps();
     const userOptionPromptGetter: Spy & IUserOptionGetterLib = createSpy('userOptionGetter', dep.userOptionGetter).and.callThrough();

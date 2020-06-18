@@ -39,6 +39,10 @@ export const userOptionGetter: (userOptionGetters: {
       options = await getOptions(interactive);
     } catch (e) {
       logger.debug('Couldn\'t get userOptions using the interactive one, thrown error:', e);
+      if (e.message === 'Cancelled') {
+        logger.debug('Cancelled', e);
+        return new Error('cancel');
+      }
     }
   }
 
