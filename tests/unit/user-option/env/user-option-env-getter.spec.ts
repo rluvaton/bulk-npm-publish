@@ -2,11 +2,14 @@ import 'jest-extended';
 import {setPlatform} from '../../../util';
 // Doing these because we drop support to env files
 setPlatform('linux');
+import {fs, vol} from 'memfs';
 
+jest.mock('fs', () => fs);
+
+// tslint:disable-next-line:variable-name
 let UserOptions: any;
+// tslint:disable-next-line:variable-name
 let UserOptionEnvGetter: any;
-
-import * as mock from 'mock-fs';
 import * as dotenv from 'dotenv';
 import {DotenvConfigOutput} from 'dotenv';
 import {IUserOptionGetter} from '../../../../src/user-option/i-user-option-getter';
@@ -14,16 +17,18 @@ import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
 import Mock = jest.Mock;
 
+const mockFs = (fakeFsStructure) => vol.fromNestedJSON(fakeFsStructure, '/');
+
 const setEnv = (dotEnvFileContent?: string) => {
   if (dotEnvFileContent) {
-    mock({
+    mockFs({
       envFiles: {
         '.env': dotEnvFileContent
       }
     });
   }
 
-  return dotenv.config({path: 'envFiles/.env'});
+  return dotenv.config({path: '/envFiles/.env'});
 };
 
 describe('Get User Options from Environment file', () => {
@@ -36,7 +41,6 @@ describe('Get User Options from Environment file', () => {
 
   beforeAll(() => {
     jest.isolateModules(() => {
-      // const utils = require('../utils');
       UserOptions = require('../../../../src/user-option/user-options').UserOptions;
       UserOptionEnvGetter = require('../../../../src/user-option/env/user-option-env-getter').userOptionEnvGetter;
       userOptionEnvGetter = jest.fn(UserOptionEnvGetter);
@@ -55,11 +59,11 @@ describe('Get User Options from Environment file', () => {
 
   afterEach(() => {
     process.env = OLD_ENV;
-    mock.restore();
+    vol.reset();
   });
 
   afterAll(() => {
-    userOptionEnvGetter.mockReset();
+    jest.resetAllMocks();
   });
 
   it('userOptionEnvGetter should be define', () => {

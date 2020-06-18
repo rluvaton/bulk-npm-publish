@@ -16,8 +16,7 @@
   },
   "compileOnSave": false,
   "include": [
-    "src",
-    "bin"
+    "src"
   ],
   "exclude": [
     "node_modules"

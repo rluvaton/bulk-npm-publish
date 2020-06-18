@@ -1,10 +1,18 @@
 import 'jest-extended';
-import * as mock from 'mock-fs';
+import {fs, vol} from 'memfs';
+
+jest.mock('fs', () => fs);
 import fileWriter from '../../src/file-writer';
 
 describe('File Writer', () => {
+  const mockFs = (fakeFsStructure) => vol.fromNestedJSON(fakeFsStructure, '/');
+
   afterEach(() => {
-    mock.restore();
+    vol.reset();
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
   });
 
   it('should be defined', () => {
@@ -12,40 +20,34 @@ describe('File Writer', () => {
   });
 
   it('should write file to file system', async () => {
-    mock({});
+    mockFs({});
 
-    const fs = require('fs');
+    expect(vol.toJSON()).toEqual({});
 
-    let filePath = './file.txt';
-    let fileContent = 'some text';
+    const filePath = '/file.txt';
+    const fileContent = 'some text';
 
-    const fileWriterPr = fileWriter(filePath, fileContent);
-    expect(fileWriterPr).toResolve();
-    await fileWriterPr;
-    const fsFileContent = fs.readFileSync(filePath, {encoding: 'utf8'});
+    await expect(fileWriter(filePath, fileContent)).toResolve();
 
-    expect(fsFileContent).toEqual(fileContent);
+    expect(vol.toJSON()).toEqual({
+      [filePath]: fileContent
+    });
   });
 
   it('should overwrite file to file system if exist', async () => {
-    let fileName = 'file.txt';
-    let filePath = `./${fileName}`;
-    let prevFileContent = 'old';
-    let fileContent = 'new';
+    const fileName = 'file.txt';
+    const filePath = `/${fileName}`;
+    const prevFileContent = 'old';
+    const fileContent = 'new';
 
-    mock({
-      [fileName]: prevFileContent
+    mockFs({
+      [filePath]: prevFileContent
     });
 
-    const fs = require('fs');
+    await expect(fileWriter(filePath, fileContent)).toResolve();
 
-    let fsFileContent = fs.readFileSync(filePath, {encoding: 'utf8'});
-    expect(fsFileContent).toEqual(prevFileContent);
-
-    const fileWriterPr = fileWriter(filePath, fileContent);
-    expect(fileWriterPr).toResolve();
-    await fileWriterPr;
-    fsFileContent = fs.readFileSync(filePath, {encoding: 'utf8'});
-    expect(fsFileContent).toEqual(fileContent);
+    expect(vol.toJSON()).toEqual({
+      [filePath]: fileContent
+    });
   });
 });

@@ -5,20 +5,22 @@
   "main": "src/index.ts",
   "scripts": {
     "postinstall": "patch-package",
-    "prebuild": "rm -rf ./lib",
+
     "start": "ts-node src/index.ts --no-cache",
     "start:prod": "node ./bin/bulk-npm-publish.js",
     "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
 
-    "test": "npm run lint && npm run test:unit",
-    "test:unit": "jest .",
     "lint": "tslint -p . --fix",
+    "test:unit": "jest .",
+    "test": "npm run lint && npm run test:unit",
 
     "build": "npm run clean:some && tsc -p .",
     "global": "npm i -g && bulk-npm-publish",
+
     "clean:some": "rm -rf ./lib",
     "clean:all": "rm -rf ./node_modules ./package-lock.json ./lib",
     "refresh": "npm run clean:all && npm install",
+
     "semantic-release": "semantic-release"
   },
   "husky": {
@@ -52,7 +54,6 @@
     "dotenv": "^8.2.0",
     "kleur": "^3.0.3",
     "lodash.clonedeep": "^4.5.0",
-    "mock-fs": "^4.10.4",
     "node-emoji": "^1.10.0",
     "patch-package": "^6.2.1",
     "prompts": "2.3.2",
@@ -62,11 +63,11 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@types/jest": "^25.1.0",
-    "@types/mock-fs": "^4.10.0",
     "@types/node-emoji": "^1.8.1",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "jest-extended": "^0.11.5",
+    "memfs": "^3.2.0",
     "nodemon": "^2.0.3",
     "semantic-release": "^17.0.4",
     "ts-jest": "^25.1.0",

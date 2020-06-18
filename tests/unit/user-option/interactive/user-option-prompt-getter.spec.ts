@@ -6,11 +6,18 @@ import {IUserOptionGetter as IUserOptionGetterLib} from '../../../../src/user-op
 import {UserOptions as UserOptionsLib} from '../../../../src/user-option/user-options';
 import {setPlatform} from '../../../util';
 
+interface TestDeps {
+  prompts: any;
+  UserOptions: UserOptionsLib;
+  IUserOptionGetter: IUserOptionGetterLib;
+  UserOptionPromptGetter: IUserOptionGetterLib;
+}
 
-function getDeps(): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib } {
+function getDeps(): TestDeps {
   const prompts = require('prompts');
   const {UserOptions} = require('../../../../src/user-option/user-options');
   const {IUserOptionGetter} = require('../../../../src/user-option/i-user-option-getter');
+  // tslint:disable-next-line:variable-name
   const {userOptionPromptGetter: UserOptionPromptGetter} = require('../../../../src/user-option/interactive/user-option-prompt-getter');
 
   return {prompts, UserOptions, IUserOptionGetter, UserOptionPromptGetter};
@@ -19,7 +26,7 @@ function getDeps(): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGett
 describe('Get User Options from User Input', () => {
   let originalPlatform;
 
-  function startTest(platform: string): { prompts: any, UserOptions: UserOptionsLib, IUserOptionGetter: IUserOptionGetterLib, UserOptionPromptGetter: IUserOptionGetterLib, userOptionPromptGetter: Spy & IUserOptionGetterLib}  {
+  function startTest(platform: string): TestDeps & { userOptionPromptGetter: Spy & IUserOptionGetterLib } {
     setPlatform(platform);
     const dep = getDeps();
     const userOptionPromptGetter: Spy & IUserOptionGetterLib = createSpy('userOptionPromptGetter', dep.UserOptionPromptGetter).and.callThrough();
