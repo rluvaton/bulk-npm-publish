@@ -1,6 +1,7 @@
 import * as dirTree from 'directory-tree';
 import {logger} from './logger';
 import * as emoji from 'node-emoji';
+import * as path from 'path';
 
 
 /**
@@ -115,7 +116,7 @@ const storageExplorer = (dir: string): Package[] => {
                 name: packageName,
                 fullFileName: packageInScope.name,
                 fullPackageName: `${packageOrScopeName}/${packageName}@${packageVersion}`,
-                path: packageInScope.path,
+                path: path.normalize(packageInScope.path),
                 version: packageVersion,
                 scope: packageOrScopeName
               };
@@ -136,7 +137,7 @@ const storageExplorer = (dir: string): Package[] => {
             name: packageOrScopeName,
             fullFileName: packageOrScope.name,
             fullPackageName: `${packageOrScopeName}@${packageVersion}`,
-            path: packageOrScope.path,
+            path: path.normalize(packageOrScope.path),
             version: packageVersion,
           };
           packages.push(p);

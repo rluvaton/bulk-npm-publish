@@ -9,6 +9,7 @@ import {UserOptions} from './user-option/user-options';
 import {IUserOptionGetter} from './user-option/i-user-option-getter';
 import {userOptionEnvGetter} from './user-option/env/user-option-env-getter';
 import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
+import * as path from 'path';
 
 // The order is important
 const userOptionGetters: IUserOptionGetter[] = [
@@ -38,6 +39,10 @@ const run = async () => {
     logger.error('Invalid user options, exiting', config);
     return;
   }
+
+
+  // Make it absolute path in case the user move the file
+  config.storagePath = config.storagePath ?? path.resolve(config.storagePath);
 
   logger.verbose('User configuration loaded');
 
