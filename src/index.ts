@@ -50,7 +50,7 @@ const run = async () => {
   logger.verbose(`Scanning for packages in the provided storage path (${config.storagePath})`);
   let packages: Package[] = storageExplorer(config.storagePath);
 
-  if(packages.length > 0) {
+  if (packages.length > 0) {
     logger.verbose(`Scan complete, found ${packages.length} packages`);
   } else {
     logger.info(`Scan complete, no packages found`);
@@ -59,7 +59,7 @@ const run = async () => {
     return;
   }
 
-  if (config.onlyNew.enable) {
+  if (config?.onlyNew?.enable) {
     if (!config.onlyNew.currentStoragePath) {
       logger.error('Current storage is undefined');
       return;

@@ -1,7 +1,7 @@
 import {IUserOptionGetter} from '../i-user-option-getter';
 import * as yargs from 'yargs';
 import {logger} from '../../logger';
-import {getCurrentOS, getPackageName} from '../../utils';
+import {getCurrentOS, getPackageName, OSTypes} from '../../utils';
 import {DEFAULT_USER_OPTIONS} from '../user-options';
 import * as chalk from 'chalk';
 
@@ -32,7 +32,7 @@ const usageExamples: ((...params: any[]) => [string, string])[] = [
 
   // new Only
   (storagePath: string, currentStorage: string) => [
-    `$0 --sp ${storagePath} -cs ${currentStorage}`,
+    `$0 --sp ${storagePath} --cs ${currentStorage}`,
     `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that doesn't exist in \`${currentStorage}\``
   ],
 ];
@@ -61,7 +61,7 @@ const defaultUsageExamplesParams: ({ windows: string[], linux: string[] })[] = [
 ];
 
 export const userOptionArgGetter: IUserOptionGetter = async () => {
-  const os = getCurrentOS();
+  const os = getCurrentOS() ?? OSTypes.LINUX;
   const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map(param => param[os]);
 
   let _yargs = yargs
@@ -71,6 +71,9 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
     .alias('h', 'help')
 
     .usage(`Usage: $0 ${chalk.gray('[')}options${chalk.gray(']')}`)
+
+    // Default command (to fix middleware not been called)
+    .command('$0', false)
 
     // Interactive
     .option('i', {
@@ -85,7 +88,6 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
       alias: 'storage-path',
       string: true,
       description: 'What is the path for the storage you want to publish',
-      // demandOption: 'you must provide storage path (using -sp or --storage-path), so we can know what is the storage folder you want to publish (or you can pass -i for interactive input)',
       normalize: true,
       nargs: 1,
       requiresArg: true,
@@ -107,12 +109,12 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
       alias: 'registry',
       string: true,
       description: 'What is the registry url you want to publish to',
-      default: DEFAULT_USER_OPTIONS.npmPublishOptions.registry,
+      default: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
       nargs: 1,
       requiresArg: false,
     })
-    // The current storage path to check for existing packages
 
+    // The current storage path to check for existing packages
     .option('cs', {
       alias: 'current-storage',
       string: true,
@@ -123,16 +125,16 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
     })
 
     .check((argv) => {
-      if (!argv.i && !argv.sp) {
-        throw new Error('You must pass either -i (interactive input) or -sp (storage path, for args pass)' + JSON.stringify(argv));
+      if (!argv.h && !argv.i && !argv.sp) {
+        throw new Error('You must pass either -i (interactive input) or -sp (storage path, for args pass)');
       }
-      // you must provide storage path (using -sp or --storage-path), so we can know what is the storage folder you want to publish (or you can pass -i for interactive input)
       return true;
     })
 
     .showHelpOnFail(false, chalk.gray('Specify -h or --help for available options'));
 
 
+  // tslint:disable-next-line:variable-name
   _yargs = usageExamples.reduce((__yargs, usage: (...args) => [string, string], index) => __yargs.example(...usage(...usageExampleParamForCurrentOs[index])), _yargs);
 
   const args = _yargs.argv;
@@ -141,7 +143,7 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
 
   return {
     interactive: args.i,
-    storagePath: args.sp,
+    storagePath: args.sp as string,
     destPublishScriptFilePath: args.o,
     npmPublishOptions: {
       registry: args.r

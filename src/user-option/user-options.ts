@@ -9,8 +9,8 @@ export interface UserOptionsGetNewPackages {
 export interface UserOptions {
   storagePath: string;
   destPublishScriptFilePath: string;
-  npmPublishOptions: NpmPublishOptions;
-  onlyNew: UserOptionsGetNewPackages;
+  npmPublishOptions?: NpmPublishOptions;
+  onlyNew?: UserOptionsGetNewPackages;
 }
 
 const getExtensionBasedOnOS = () => {

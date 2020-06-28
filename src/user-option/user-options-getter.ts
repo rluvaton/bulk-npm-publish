@@ -19,7 +19,7 @@ export const userOptionGetter: (userOptionGetters: {
 
   const {args, interactive} = userOptionGetters;
 
-  let options: UserOptions;
+  let options: UserOptions | undefined;
 
   if (args) {
     try {
@@ -41,7 +41,7 @@ export const userOptionGetter: (userOptionGetters: {
       logger.debug('Couldn\'t get userOptions using the interactive one, thrown error:', e);
       if (e.message === 'Cancelled') {
         logger.debug('Cancelled', e);
-        return new Error('cancel');
+        throw new Error('cancel');
       }
     }
   }
@@ -54,6 +54,6 @@ export const userOptionGetter: (userOptionGetters: {
 };
 
 const getOptions = async (getter: IUserOptionGetter) => {
-  let options: UserOptions = await getter();
+  const options: UserOptions = await getter();
   return setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
 };
