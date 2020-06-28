@@ -67,13 +67,10 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
   let _yargs = yargs
     .scriptName(getPackageName())
 
-    .help('h')
-    .alias('h', 'help')
-
     .usage(`Usage: $0 ${chalk.gray('[')}options${chalk.gray(']')}`)
 
-    // Default command (to fix middleware not been called)
-    .command('$0', false)
+    .help('h')
+    .alias('h', 'help')
 
     // Interactive
     .option('i', {
