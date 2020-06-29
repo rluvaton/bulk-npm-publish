@@ -54,6 +54,6 @@ export const userOptionGetter: (userOptionGetters: {
 };
 
 const getOptions = async (getter: IUserOptionGetter) => {
-  const options: UserOptions = await getter();
+  const options: Partial<UserOptions> = await getter();
   return setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
 };

@@ -34,3 +34,6 @@ export const getPackageName = () => {
 
   return packageJson.name;
 };
+
+export const removeEmpty = (obj: object, shouldRemoveFn: (value) => boolean = (value) => value === undefined) =>
+  Object.keys(obj).forEach(key => shouldRemoveFn(obj[key]) && delete obj[key]);

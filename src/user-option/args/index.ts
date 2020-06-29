@@ -1,7 +1,7 @@
 import {IUserOptionGetter} from '../i-user-option-getter';
 import * as yargs from 'yargs';
 import {logger} from '../../logger';
-import {getCurrentOS, getPackageName, OSTypes} from '../../utils';
+import {getCurrentOS, getPackageName, OSTypes, removeEmpty} from '../../utils';
 import {DEFAULT_USER_OPTIONS, UserOptions} from '../user-options';
 import * as chalk from 'chalk';
 
@@ -60,7 +60,9 @@ const defaultUsageExamplesParams: ({ windows: string[], linux: string[] })[] = [
   },
 ];
 
-export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOptions & {interactive: boolean}> => {
+export type UserOptionArgGetterResult = Partial<UserOptions> & { interactive?: boolean };
+
+export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOptionArgGetterResult> => {
   const os = getCurrentOS() ?? OSTypes.LINUX;
   const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map(param => param[os]);
 
@@ -85,7 +87,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'storage-path',
       string: true,
       description: 'What is the path for the storage you want to publish',
-      normalize: true,
+      // normalize: true,
       nargs: 1,
       requiresArg: true,
     })
@@ -95,8 +97,8 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'output',
       string: true,
       description: 'Where the publish script will be created',
-      default: DEFAULT_USER_OPTIONS.destPublishScriptFilePath,
-      normalize: true,
+      // default: DEFAULT_USER_OPTIONS.destPublishScriptFilePath,
+      // normalize: true,
       nargs: 1,
       requiresArg: false,
     })
@@ -106,7 +108,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'registry',
       string: true,
       description: 'What is the registry url you want to publish to',
-      default: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
+      // default: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
       nargs: 1,
       requiresArg: false,
     })
@@ -116,7 +118,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'current-storage',
       string: true,
       description: 'What\'s the path for the current storage so the script will publish only new packages',
-      normalize: true,
+      // normalize: true,
       nargs: 1,
       requiresArg: false,
     })
@@ -138,16 +140,24 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
 
   logger.debug('user input in args', args);
 
-  return {
-    interactive: args.i,
+  if (args.i) {
+    return {interactive: true};
+  }
+
+  const userOptions: UserOptions = {
     storagePath: args.sp as string,
-    destPublishScriptFilePath: args.o,
-    npmPublishOptions: {
+    destPublishScriptFilePath: args.o as string,
+    npmPublishOptions: !args.r ? undefined : {
       registry: args.r
     },
-    onlyNew: {
-      enable: !!args.cs,
+    onlyNew: !args.cs ? undefined : {
+      enable: true,
       currentStoragePath: args.cs
     }
   };
+
+  // Remove properties that are empty or undefined
+  removeEmpty(userOptions, (value) => !value);
+
+  return userOptions;
 };

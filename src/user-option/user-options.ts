@@ -39,7 +39,7 @@ export const DEFAULT_USER_OPTIONS: UserOptions = {
 };
 
 
-export const setDefaultUserOptionsProperties = (options: UserOptions, defaultOptions: UserOptions): UserOptions => {
+export const setDefaultUserOptionsProperties = (options: Partial<UserOptions>, defaultOptions: UserOptions): UserOptions => {
   const combineNpmPublishOptions: NpmPublishOptions = Object.assign({}, defaultOptions.npmPublishOptions, options.npmPublishOptions);
   const combineOnlyNewOptions: UserOptionsGetNewPackages = Object.assign({}, defaultOptions.onlyNew, options.onlyNew);
 
