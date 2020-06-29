@@ -154,4 +154,22 @@ describe('Get User Options from User Argument Input', () => {
       });
     });
   });
+
+  describe('should return interactive=true when passing one of the interactive aliases', () => {
+    describe.each([['-i'], ['--interactive']])(`when passing %s`, (alias) => {
+      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+        const onFailFn = jest.fn();
+        const onYargsInstanceFn = jest.fn();
+
+        const {userOptionGetter} = prepareForTest(platform, alias, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+
+        await expect(testUserOptionGetter(userOptionGetter)).resolves.toHaveProperty('interactive', true);
+
+        // Check that test hasn't failed
+        expect(onFailFn.mock.calls).toBeArrayOfSize(0);
+
+        (userOptionGetter as Mock).mockRestore();
+      });
+    });
+  });
 });
