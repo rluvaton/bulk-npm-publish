@@ -207,13 +207,37 @@ describe('Get User Options from User Argument Input', () => {
 
           await testUserOptionGetter(userOptionGetter);
 
-          // Check that test hasn't failed
+          // Check that test failed
           expect(onFailFn.mock.calls).toBeArrayOfSize(1);
           expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
           expect(onFailFn.mock.calls[0][0]).toEqual(`Not enough arguments following: ${alias.slice(2)}`);
 
           (userOptionGetter as Mock).mockRestore();
         });
+      });
+    });
+  });
+
+  describe('should fail when not passing one of the required arguments (h [help], i [interactive] and sp [storage path])', () => {
+    describe.each([
+      ['-o ./custom-publish.sh'],
+      ['-r http://localhost:4873'],
+      ['--cs ~/new-storage']
+    ])(`when passing %s`, (args) => {
+      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+        const onFailFn = jest.fn();
+        const onYargsInstanceFn = jest.fn();
+
+        const {userOptionGetter} = prepareForTest(platform, args, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+
+        await testUserOptionGetter(userOptionGetter);
+
+        // Check that test failed
+        expect(onFailFn.mock.calls).toBeArrayOfSize(1);
+        expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
+        expect(onFailFn.mock.calls[0][0]).toEqual(`You must pass either -i (interactive input) or --sp (storage path, for args pass)`);
+
+        (userOptionGetter as Mock).mockRestore();
       });
     });
   });
