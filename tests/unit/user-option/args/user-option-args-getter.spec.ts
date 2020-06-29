@@ -107,7 +107,7 @@ describe('Get User Options from User Argument Input', () => {
       await testUserOptionGetter(userOptionGetter);
       expect(onFailFn.mock.calls).toBeArrayOfSize(1);
       expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
-      expect(onFailFn.mock.calls[0][0]).toEqual('You must pass either -i (interactive input) or -sp (storage path, for args pass)');
+      expect(onFailFn.mock.calls[0][0]).toEqual('You must pass either -i (interactive input) or --sp (storage path, for args pass)');
 
       (userOptionGetter as Mock).mockRestore();
     });
