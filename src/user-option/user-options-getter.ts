@@ -12,7 +12,7 @@ import {logger} from '../logger';
 export const userOptionGetter: (userOptionGetters: {
   args?: IUserOptionGetter,
   interactive?: IUserOptionGetter,
-}) => UserOptions = async (userOptionGetters = {}) => {
+}) => Promise<UserOptions> = async (userOptionGetters = {}) => {
   if (!userOptionGetters || Object.keys(userOptionGetters).length === 0) {
     throw new Error('One of the user option getter must be provided');
   }
