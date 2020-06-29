@@ -2,7 +2,7 @@ import {IUserOptionGetter} from '../i-user-option-getter';
 import * as yargs from 'yargs';
 import {logger} from '../../logger';
 import {getCurrentOS, getPackageName, OSTypes} from '../../utils';
-import {DEFAULT_USER_OPTIONS} from '../user-options';
+import {DEFAULT_USER_OPTIONS, UserOptions} from '../user-options';
 import * as chalk from 'chalk';
 
 const usageExamples: ((...params: any[]) => [string, string])[] = [
@@ -60,7 +60,7 @@ const defaultUsageExamplesParams: ({ windows: string[], linux: string[] })[] = [
   },
 ];
 
-export const userOptionArgGetter: IUserOptionGetter = async () => {
+export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOptions & {interactive: boolean}> => {
   const os = getCurrentOS() ?? OSTypes.LINUX;
   const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map(param => param[os]);
 
@@ -123,7 +123,7 @@ export const userOptionArgGetter: IUserOptionGetter = async () => {
 
     .check((argv) => {
       if (!argv.h && !argv.i && !argv.sp) {
-        throw new Error('You must pass either -i (interactive input) or -sp (storage path, for args pass)');
+        throw new Error('You must pass either -i (interactive input) or --sp (storage path, for args pass)');
       }
       return true;
     })
