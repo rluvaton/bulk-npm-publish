@@ -218,4 +218,29 @@ describe('Get User Options from User Argument Input', () => {
     });
   });
 
+  describe('should return user options with the provided registry when passing one of the registry aliases', () => {
+    describe.each([['-r'], ['--registry']])(`when passing %s`, (alias) => {
+      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+        const onFailFn = jest.fn();
+        const onYargsInstanceFn = jest.fn();
+        const storagePath = '~/storage';
+        const registry = 'http://localhost:4873';
+
+        const {userOptionGetter} = prepareForTest(platform, `--sp ${storagePath} ${alias} ${registry}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+
+        await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
+          storagePath,
+          npmPublishOptions: {
+            registry
+          }
+        });
+
+        // Check that test hasn't failed
+        expect(onFailFn.mock.calls).toBeArrayOfSize(0);
+
+        (userOptionGetter as Mock).mockRestore();
+      });
+    });
+  });
+
 });
