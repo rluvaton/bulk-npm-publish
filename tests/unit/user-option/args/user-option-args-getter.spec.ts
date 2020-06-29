@@ -218,7 +218,7 @@ describe('Get User Options from User Argument Input', () => {
     });
   });
 
-  describe('should return user options with the provided registry when passing one of the registry aliases', () => {
+  describe('should return user options with the provided registry (and storage path) when passing one of the registry aliases', () => {
     describe.each([['-r'], ['--registry']])(`when passing %s`, (alias) => {
       test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
         const onFailFn = jest.fn();
@@ -232,6 +232,32 @@ describe('Get User Options from User Argument Input', () => {
           storagePath,
           npmPublishOptions: {
             registry
+          }
+        });
+
+        // Check that test hasn't failed
+        expect(onFailFn.mock.calls).toBeArrayOfSize(0);
+
+        (userOptionGetter as Mock).mockRestore();
+      });
+    });
+  });
+
+  describe('should return user options with the current storage (and storage path) when passing one of the registry aliases', () => {
+    describe.each([['--cs'], ['--current-storage']])(`when passing %s`, (alias) => {
+      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+        const onFailFn = jest.fn();
+        const onYargsInstanceFn = jest.fn();
+        const storagePath = '~/storage';
+        const currentStoragePath = 'http://localhost:4873';
+
+        const {userOptionGetter} = prepareForTest(platform, `--sp ${storagePath} ${alias} ${currentStoragePath}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+
+        await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
+          storagePath,
+          onlyNew: {
+            enable: true,
+            currentStoragePath
           }
         });
 
