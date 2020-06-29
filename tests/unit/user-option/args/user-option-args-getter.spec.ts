@@ -176,23 +176,46 @@ describe('Get User Options from User Argument Input', () => {
     });
   });
 
-  describe('should return the userOptions object with only the storagePath', () => {
-    describe.each([['--sp', '~/storage'], ['--storage-path', '~/storage']])(`when passing %s`, (alias, storagePath) => {
-      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
-        const onFailFn = jest.fn();
-        const onYargsInstanceFn = jest.fn();
+  describe('storagePath', () => {
+    describe('should return the userOptions object with only the storagePath', () => {
+      describe.each([['--sp', '~/storage'], ['--storage-path', '~/storage']])(`when passing %s`, (alias, storagePath) => {
+        test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+          const onFailFn = jest.fn();
+          const onYargsInstanceFn = jest.fn();
 
-        const {userOptionGetter} = prepareForTest(platform, `${alias} ${storagePath}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+          const {userOptionGetter} = prepareForTest(platform, `${alias} ${storagePath}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
 
-        await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
-          storagePath: storagePath,
+          await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
+            storagePath: storagePath,
+          });
+
+          // Check that test hasn't failed
+          expect(onFailFn.mock.calls).toBeArrayOfSize(0);
+
+          (userOptionGetter as Mock).mockRestore();
         });
+      });
+    });
 
-        // Check that test hasn't failed
-        expect(onFailFn.mock.calls).toBeArrayOfSize(0);
+    describe('should fail when passing empty storage path', () => {
+      describe.each([['--sp'], ['--storage-path']])(`when passing %s`, (alias) => {
+        test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+          const onFailFn = jest.fn();
+          const onYargsInstanceFn = jest.fn();
 
-        (userOptionGetter as Mock).mockRestore();
+          const {userOptionGetter} = prepareForTest(platform, `${alias}  `, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+
+          await testUserOptionGetter(userOptionGetter);
+
+          // Check that test hasn't failed
+          expect(onFailFn.mock.calls).toBeArrayOfSize(1);
+          expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
+          expect(onFailFn.mock.calls[0][0]).toEqual(`Not enough arguments following: ${alias.slice(2)}`);
+
+          (userOptionGetter as Mock).mockRestore();
+        });
       });
     });
   });
+
 });
