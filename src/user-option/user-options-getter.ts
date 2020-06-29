@@ -12,7 +12,7 @@ import {logger} from '../logger';
 export const userOptionGetter: (userOptionGetters: {
   args?: IUserOptionGetter,
   interactive?: IUserOptionGetter,
-}) => ReturnType<IUserOptionGetter> = async (userOptionGetters = {}) => {
+}) => UserOptions = async (userOptionGetters = {}) => {
   if (!userOptionGetters || Object.keys(userOptionGetters).length === 0) {
     throw new Error('One of the user option getter must be provided');
   }
@@ -53,7 +53,7 @@ export const userOptionGetter: (userOptionGetters: {
   throw new Error('Couldn\'t get user options');
 };
 
-const getOptions = async (getter: IUserOptionGetter) => {
+const getOptions = async (getter: IUserOptionGetter): Promise<UserOptions> => {
   const options: Partial<UserOptions> = await getter();
   return setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
 };
