@@ -4,6 +4,7 @@ import {IUserOptionGetter as IUserOptionGetterLib} from '../../../../src/user-op
 import {UserOptions as UserOptionsLib} from '../../../../src/user-option/user-options';
 import {setPlatform} from '../../../util';
 import Mock = jest.Mock;
+import {UserOptionArgGetterResult} from '../../../../src/user-option/args';
 
 interface TestDeps {
   UserOptions: UserOptionsLib;
@@ -57,7 +58,7 @@ describe('Get User Options from User Argument Input', () => {
     return {...deps, userOptionGetter: jest.spyOn(deps.UserOptionGetter, 'userOptionArgGetter') as Mock};
   }
 
-  async function testUserOptionGetter<TUserOptions>(userOptionGetter: IUserOptionGetterLib): Promise<UserOptionsLib> {
+  async function testUserOptionGetter<TUserOptions>(userOptionGetter: IUserOptionGetterLib): Promise<UserOptionArgGetterResult> {
     expect(userOptionGetter).toHaveBeenCalledTimes(0);
     const promiseResult = userOptionGetter();
     expect(userOptionGetter).toHaveBeenCalledTimes(1);
@@ -163,7 +164,29 @@ describe('Get User Options from User Argument Input', () => {
 
         const {userOptionGetter} = prepareForTest(platform, alias, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
 
-        await expect(testUserOptionGetter(userOptionGetter)).resolves.toHaveProperty('interactive', true);
+        await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
+          interactive: true
+        });
+
+        // Check that test hasn't failed
+        expect(onFailFn.mock.calls).toBeArrayOfSize(0);
+
+        (userOptionGetter as Mock).mockRestore();
+      });
+    });
+  });
+
+  describe('should return the userOptions object with only the storagePath', () => {
+    describe.each([['--sp', '~/storage'], ['--storage-path', '~/storage']])(`when passing %s`, (alias, storagePath) => {
+      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+        const onFailFn = jest.fn();
+        const onYargsInstanceFn = jest.fn();
+
+        const {userOptionGetter} = prepareForTest(platform, `${alias} ${storagePath}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+
+        await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
+          storagePath: storagePath,
+        });
 
         // Check that test hasn't failed
         expect(onFailFn.mock.calls).toBeArrayOfSize(0);
