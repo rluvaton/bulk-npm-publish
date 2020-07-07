@@ -3,8 +3,6 @@ import {DEFAULT_USER_OPTIONS} from '../user-options';
 import * as prompts from 'prompts';
 import {logger} from '../../logger';
 import {deepClone} from '../../utils';
-import * as yargs from 'yargs';
-
 
 
 const _questions = [
@@ -48,7 +46,6 @@ const getQuestions = () => {
 
 export const userOptionPromptGetter: IUserOptionGetter = async () => {
   let isCanceled = false;
-  prompts.override(yargs.argv);
   const questions = getQuestions();
   const response = await prompts(questions, {
     onCancel: () => {
