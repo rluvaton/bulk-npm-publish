@@ -32,7 +32,10 @@ npm i bulk-npm-publish -g
 ## Usage
 > In different OS you would get different examples
 
-![Help](./docs/help.png)
+
+<p align="center">
+  <img alt="help" src="https://cdn.jsdelivr.net/gh/rluvaton/bulk-npm-publish@master/docs/help.png">
+</p>
 <details><summary>Help as text</summary>
 <p>
 
