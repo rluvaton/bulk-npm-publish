@@ -66,7 +66,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
   const os = getCurrentOS() ?? OSTypes.LINUX;
   const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map(param => param[os]);
 
-  let _yargs = yargs
+  const args = yargs
     .scriptName(getPackageName())
 
     .usage(`Usage: $0 ${chalk.gray('[')}options${chalk.gray(']')}`)
@@ -87,7 +87,6 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'storage-path',
       string: true,
       description: 'What is the path for the storage you want to publish',
-      // normalize: true,
       nargs: 1,
       requiresArg: true,
     })
@@ -97,8 +96,6 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'output',
       string: true,
       description: 'Where the publish script will be created',
-      // default: DEFAULT_USER_OPTIONS.destPublishScriptFilePath,
-      // normalize: true,
       nargs: 1,
       requiresArg: false,
     })
@@ -108,7 +105,6 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       alias: 'registry',
       string: true,
       description: 'What is the registry url you want to publish to',
-      // default: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
       nargs: 1,
       requiresArg: false,
     })
@@ -117,8 +113,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
     .option('cs', {
       alias: 'current-storage',
       string: true,
-      description: 'What\'s the path for the current storage so the script will publish only new packages',
-      // normalize: true,
+      description: 'What is the current storage path so the script will only publish new packages',
       nargs: 1,
       requiresArg: false,
     })
@@ -130,13 +125,13 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       return true;
     })
 
-    .showHelpOnFail(false, chalk.gray('Specify -h or --help for available options'));
+    // Ts ignore because the yargs types not updated yet with multiple example at once feature
+    // @ts-ignore
+    .example(usageExamples.map((usage, index) => usage(...usageExampleParamForCurrentOs[index])))
 
-
-  // tslint:disable-next-line:variable-name
-  _yargs = usageExamples.reduce((__yargs, usage: (...args) => [string, string], index) => __yargs.example(...usage(...usageExampleParamForCurrentOs[index])), _yargs);
-
-  const args = _yargs.argv;
+    .showHelpOnFail(false, chalk.gray('Specify -h or --help for available options'))
+    .wrap(yargs.terminalWidth())
+    .argv;
 
   logger.debug('user input in args', args);
 
