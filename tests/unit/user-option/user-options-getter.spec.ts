@@ -38,7 +38,10 @@ describe('Get User Options (from the available option)', () => {
     jest.resetModules(); // this is important - it clears the cache
   });
 
-  function getOptionsAndEnsureCalledTimeAndArgs<IUserOptionGetter>(userOptionGetter, userOptionGetters: IUserOptionGetter[]): Promise<UserOptionsLib> {
+  function getOptionsAndEnsureCalledTimeAndArgs<IUserOptionGetter>(userOptionGetter, userOptionGetters: {
+    args?: IUserOptionGetter,
+    interactive?: IUserOptionGetter,
+  }): Promise<UserOptionsLib> {
     return userOptionGetter(userOptionGetters);
   }
 
@@ -56,24 +59,24 @@ describe('Get User Options (from the available option)', () => {
     const rejectResult = await pr.catch((e) => e);
     expect(rejectResult).toBeDefined();
     expect(rejectResult).toBeInstanceOf(Error);
-    expect(rejectResult).toHaveProperty('message', 'userOptionGetters not provided or has no items in it');
+    expect(rejectResult).toHaveProperty('message', 'One of the user option getter must be provided');
   });
 
   it('should throw error when empty userOptionGetters passed', async () => {
     const {userOptionGetter} = startTest('linux');
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, []);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {});
 
     await expect(pr).toReject();
 
     const rejectResult = await pr.catch((e) => e);
     expect(rejectResult).toBeDefined();
     expect(rejectResult).toBeInstanceOf(Error);
-    expect(rejectResult).toHaveProperty('message', 'userOptionGetters not provided or has no items in it');
+    expect(rejectResult).toHaveProperty('message', 'One of the user option getter must be provided');
   });
 
   it('should throw error when userOptionGetters rejected', async () => {
     const {userOptionGetter} = startTest('linux');
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.reject(new Error('Test for rejection'))]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {args: () => Promise.reject(new Error('Test for rejection'))});
 
     await expect(pr).toReject();
 
@@ -85,7 +88,7 @@ describe('Get User Options (from the available option)', () => {
 
   it('should throw error when all userOptionGetters rejected', async () => {
     const {userOptionGetter} = startTest('linux');
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.reject(new Error('Test for rejection 1')), () => Promise.reject(new Error('Test for rejection 2'))]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {args: () => Promise.reject(new Error('Test for rejection 1')), interactive: () => Promise.reject(new Error('Test for rejection 2'))});
 
     await expect(pr).toReject();
 
@@ -109,16 +112,16 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs<typeof IUserOptionGetter | any>(userOptionGetter, [
-      () => Promise.resolve({
+    const pr = getOptionsAndEnsureCalledTimeAndArgs<typeof IUserOptionGetter>(userOptionGetter, {
+      args: () => Promise.resolve({
         storagePath: expectedUserOptions.storagePath,
         destPublishScriptFilePath: expectedUserOptions.destPublishScriptFilePath,
       }),
-      () => Promise.resolve({
+      interactive: () => Promise.resolve({
         storagePath: 'C://some-other-storage/',
         destPublishScriptFilePath: './publish-file.bat',
       }),
-    ]);
+    });
     await expect(pr).toResolve();
 
     const userOptions = await pr;
@@ -140,13 +143,13 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [
-      () => Promise.reject(new Error('Rejected promise')),
-      () => Promise.resolve({
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {
+      args: () => Promise.reject(new Error('Rejected promise')),
+      interactive: () => Promise.resolve({
         storagePath: expectedUserOptions.storagePath,
         destPublishScriptFilePath: expectedUserOptions.destPublishScriptFilePath
       })
-    ]);
+    });
 
     await expect(pr).toResolve();
 
@@ -168,7 +171,7 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.resolve({storagePath: expectedUserOptions.storagePath})]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {args: () => Promise.resolve({storagePath: expectedUserOptions.storagePath})});
     await expect(pr).toResolve();
 
     const userOptions = await pr;
@@ -190,7 +193,7 @@ describe('Get User Options (from the available option)', () => {
       }
     };
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, [() => Promise.resolve({storagePath: expectedUserOptions.storagePath})]);
+    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {args: () => Promise.resolve({storagePath: expectedUserOptions.storagePath})});
     await expect(pr).toResolve();
 
     const userOptions = await pr;

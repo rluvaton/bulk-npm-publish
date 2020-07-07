@@ -7,20 +7,20 @@ import {bold} from 'kleur';
 import * as emoji from 'node-emoji';
 import {UserOptions} from './user-option/user-options';
 import {IUserOptionGetter} from './user-option/i-user-option-getter';
-import {userOptionEnvGetter} from './user-option/env/user-option-env-getter';
 import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
 import * as path from 'path';
+import {userOptionArgGetter} from './user-option/args';
 
 // The order is important
-const userOptionGetters: IUserOptionGetter[] = [
-  userOptionEnvGetter,
-  userOptionPromptGetter
-];
+const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGetter } = {
+  args: userOptionArgGetter,
+  interactive: userOptionPromptGetter
+};
 
 const run = async () => {
-  logger.info(bold().underline('⏳ Starting... ⏳'));
-
-  logger.info(bold().underline(`${emoji.get(':wrench:')} User configuration`));
+  // logger.info(bold().underline('⏳ Starting... ⏳'));
+  //
+  // logger.info(bold().underline(`${emoji.get(':wrench:')} User configuration`));
 
   let config: UserOptions;
   try {
@@ -44,14 +44,22 @@ const run = async () => {
   // Make it absolute path in case the user move the file
   config.storagePath = config.storagePath ?? path.resolve(config.storagePath);
 
-  logger.verbose('User configuration loaded');
+  logger.info('User configuration loaded');
 
   logger.info(bold().underline(`Packages scanning ${emoji.get(':card_file_box:')}`));
   logger.verbose(`Scanning for packages in the provided storage path (${config.storagePath})`);
   let packages: Package[] = storageExplorer(config.storagePath);
-  logger.verbose(`Scan complete, found ${packages.length} packages`);
 
-  if (config.onlyNew.enable) {
+  if (packages.length > 0) {
+    logger.verbose(`Scan complete, found ${packages.length} packages`);
+  } else {
+    logger.info(`Scan complete, no packages found`);
+
+    logger.info(bold().underline('Aborting'));
+    return;
+  }
+
+  if (config?.onlyNew?.enable) {
     if (!config.onlyNew.currentStoragePath) {
       logger.error('Current storage is undefined');
       return;

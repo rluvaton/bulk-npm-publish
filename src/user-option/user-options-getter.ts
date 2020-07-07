@@ -9,29 +9,51 @@ import {logger} from '../logger';
  * @throws Error Reject if the userOptionGetters isn't provided or is empty
  * @throws Error Reject if the couldn't get any options
  */
-export const userOptionGetter: (userOptionGetters: IUserOptionGetter[]) => ReturnType<IUserOptionGetter> = async (userOptionGetters: IUserOptionGetter[]) => {
-  if (!userOptionGetters || userOptionGetters.length === 0) {
-    throw new Error('userOptionGetters not provided or has no items in it');
+export const userOptionGetter: (userOptionGetters: {
+  args?: IUserOptionGetter,
+  interactive?: IUserOptionGetter,
+}) => Promise<UserOptions> = async (userOptionGetters = {}) => {
+  if (!userOptionGetters || Object.keys(userOptionGetters).length === 0) {
+    throw new Error('One of the user option getter must be provided');
   }
 
-  let options: UserOptions;
+  const {args, interactive} = userOptionGetters;
 
-  for (const getter of userOptionGetters) {
+  let options: UserOptions | undefined;
+
+  if (args) {
     try {
-      options = await getter();
-      options = setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
+      options = await getOptions(args);
     } catch (e) {
-      logger.debug('Couldn\'t get userOptions, thrown error:', e);
-      if (e.message === 'Cancelled') {
-        logger.debug('Cancelled', e);
-        return Promise.reject(new Error('cancel'));
-
-      }
-      continue;
+      logger.error('Couldn\'t get userOptions using the args one, thrown error:', e);
+      options = undefined;
     }
 
+    if (options && !(options as UserOptions & { interactive?: boolean }).interactive) {
+      return options;
+    }
+  }
+
+  if (interactive) {
+    try {
+      options = await getOptions(interactive);
+    } catch (e) {
+      logger.debug('Couldn\'t get userOptions using the interactive one, thrown error:', e);
+      if (e.message === 'Cancelled') {
+        logger.debug('Cancelled', e);
+        throw new Error('cancel');
+      }
+    }
+  }
+
+  if (options) {
     return options;
   }
 
   throw new Error('Couldn\'t get user options');
+};
+
+const getOptions = async (getter: IUserOptionGetter): Promise<UserOptions> => {
+  const options: Partial<UserOptions> = await getter();
+  return setDefaultUserOptionsProperties(options, DEFAULT_USER_OPTIONS);
 };
