@@ -31,6 +31,11 @@ npm i bulk-npm-publish -g
 
 ## Usage
 > In different OS you would get different examples
+
+![Help](./docs/help.png)
+<details><summary>Help as text</summary>
+<p>
+
 ```bash
 $ bulk-npm-publish -h
 Usage: bulk-npm-publish [options]
@@ -66,6 +71,10 @@ Examples:
                                             from `~/new-storage` that doesn't
                                             exist in `~/verdaccio/storage`
 ```
+
+</p>
+</details>
+
 
 
 ## Example
