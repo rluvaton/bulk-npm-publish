@@ -6,7 +6,7 @@ _CLI Tool for Publishing Multiple NPM packages from [verdaccio](https://verdacci
 
 
 <p align="center">
-  <img alt="demo" src="https://cdn.jsdelivr.net/gh/rluvaton/bulk-npm-publish@latest/docs/demo.svg">
+  <img alt="demo" src="https://cdn.jsdelivr.net/gh/rluvaton/bulk-npm-publish@master/docs/demo.svg">
 </p>
 
 ## Features
