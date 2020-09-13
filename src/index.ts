@@ -80,7 +80,7 @@ const run = async () => {
 
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
   logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
-  const outputScript: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
+  const outputScript: string = npmPublishScriptCreator(packages, config.npmPublishOptions);
   logger.verbose(`Script creating finished`);
 
   logger.info(bold().underline(`Writing script file ${emoji.get(':pencil:')}`));
