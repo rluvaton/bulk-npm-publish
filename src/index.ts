@@ -56,7 +56,7 @@ const run = async () => {
     logger.info(bold().underline('Aborting'));
     return;
   }
-  
+
   logger.verbose(`Scan complete, found ${packages.length} packages`);
 
   if (config?.onlyNew?.enable) {
