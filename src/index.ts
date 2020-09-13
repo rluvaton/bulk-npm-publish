@@ -50,14 +50,14 @@ const run = async () => {
   logger.verbose(`Scanning for packages in the provided storage path (${config.storagePath})`);
   let packages: Package[] = storageExplorer(config.storagePath);
 
-  if (packages.length > 0) {
-    logger.verbose(`Scan complete, found ${packages.length} packages`);
-  } else {
+  if (packages.length === 0) {
     logger.info(`Scan complete, no packages found`);
 
     logger.info(bold().underline('Aborting'));
     return;
   }
+  
+  logger.verbose(`Scan complete, found ${packages.length} packages`);
 
   if (config?.onlyNew?.enable) {
     if (!config.onlyNew.currentStoragePath) {
@@ -80,16 +80,17 @@ const run = async () => {
 
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
   logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
-  const scripts: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
+  const outputScript: string[] = npmPublishScriptCreator(packages, config.npmPublishOptions);
   logger.verbose(`Script creating finished`);
 
   logger.info(bold().underline(`Writing script file ${emoji.get(':pencil:')}`));
 
   logger.verbose(`Writing script to file at path (${config.destPublishScriptFilePath})`);
+
   try {
-    await fileWriter(config.destPublishScriptFilePath, scripts.join('\n'));
+    await fileWriter(config.destPublishScriptFilePath, outputScript);
   } catch (e) {
-    logger.error('Error on writing to file ', e);
+    logger.error('Error on writing to file', e);
     return;
   }
   logger.verbose(`Finish writing script`);

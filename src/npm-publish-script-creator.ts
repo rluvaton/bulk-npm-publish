@@ -1,4 +1,5 @@
 import { Package } from './storage-explorer';
+import { EOL } from 'os';
 
 export interface NpmPublishOptions {
   registry?: string;
@@ -7,7 +8,7 @@ export interface NpmPublishOptions {
 const npmPublishScriptCreator = (
   packages: Package[],
   options: NpmPublishOptions = {}
-): string[] => {
+): string => {
   const scriptOptions: string = [
     options.registry ? `--registry=${options.registry}` : ''
   ]
@@ -18,7 +19,9 @@ const npmPublishScriptCreator = (
     .join(' ');
 
   // We trim only right because there will only be a space in case of empty script options
-  return packages.map(({ path }) => `npm publish ${path} ${scriptOptions}`.trimRight());
+  return packages
+    .map(({ path }) => `npm publish ${path} ${scriptOptions}`.trimRight())
+    .join(EOL);
 };
 
 export default npmPublishScriptCreator;
