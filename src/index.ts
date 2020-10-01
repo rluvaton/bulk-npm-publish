@@ -10,6 +10,7 @@ import {IUserOptionGetter} from './user-option/i-user-option-getter';
 import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
 import * as path from 'path';
 import {userOptionArgGetter} from './user-option/args';
+import {validateUserOptions} from './user-option/validator';
 
 // The order is important
 const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGetter } = {
@@ -35,7 +36,7 @@ const run = async () => {
     return;
   }
 
-  if (!config) {
+  if (!config || !(await validateUserOptions(config))) {
     logger.error('Invalid user options, exiting', config);
     return;
   }
