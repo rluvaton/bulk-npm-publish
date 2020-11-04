@@ -1,5 +1,6 @@
 import * as lodashDeepClone from 'lodash.clonedeep';
 import {platform} from 'process';
+import {extname} from 'path';
 let packageJson;
 
 export function deepClone<T = any>(val: T): T {
@@ -25,6 +26,17 @@ export const getCurrentOS = (): OSTypes | undefined => {
     default:
       return undefined;
   }
+};
+
+export const getLineTransformer = (outputFilePath: string) => {
+  let transformer: undefined | ((line: string) => string);
+
+  if (extname(outputFilePath) === '.bat') {
+    // Issue #70 | https://superuser.com/a/175813/930671
+    transformer = (line) => `CALL ${line}`;
+  }
+
+  return transformer;
 };
 
 export const getPackageName = () => {
