@@ -11,6 +11,7 @@ import {userOptionPromptGetter} from './user-option/interactive/user-option-prom
 import * as path from 'path';
 import {userOptionArgGetter} from './user-option/args';
 import {validateUserOptions} from './user-option/validator';
+import {getLineTransformer} from './utils';
 
 // The order is important
 const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGetter } = {
@@ -81,7 +82,12 @@ const run = async () => {
 
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
   logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
-  const outputScript: string = npmPublishScriptCreator(packages, config.npmPublishOptions);
+
+  const outputScript: string = npmPublishScriptCreator(packages, {
+    npmPublishOptions: config.npmPublishOptions,
+    lineTransformer: getLineTransformer(config.destPublishScriptFilePath)
+  });
+
   logger.verbose(`Script creating finished`);
 
   logger.info(bold().underline(`Writing script file ${emoji.get(':pencil:')}`));
