@@ -1,11 +1,15 @@
 import {UserOptions} from './user-options';
 import {isDirectoryExists} from '../fs-utils';
 import {dirname} from 'path';
+import {isWebUri} from 'valid-url';
+import isValidPath from 'is-valid-path';
 
-export const validateUserOptions = async (user: Partial<UserOptions>): Promise<boolean> => {
+export const validateUserOptions = async (options: Partial<UserOptions>): Promise<boolean> => {
   return (await Promise.all([
-    validateStorage(user.storagePath),
-    validateDestPublishScriptFilePath(user.destPublishScriptFilePath)
+    validateStorage(options?.storagePath),
+    validateDestPublishScriptFilePath(options?.destPublishScriptFilePath),
+    validateNpmPublishOptionsIfSpecified(options?.npmPublishOptions),
+    validateOnlyNewOptionsIfSpecified(options?.onlyNew)
   ])).every((isValid) => isValid);
 };
 
@@ -21,6 +25,19 @@ export const validateStorage = (path?: UserOptions['storagePath']): Promise<bool
  * @param path file path
  * @return If the parent directory exists.
  */
-export const validateDestPublishScriptFilePath = (path?: UserOptions['destPublishScriptFilePath']): Promise<boolean> => isDirectoryExists(path && dirname(path));
+export const validateDestPublishScriptFilePath = async (path?: UserOptions['destPublishScriptFilePath']): Promise<boolean> =>
+  !!path && isValidPath(path) && isDirectoryExists(dirname(path));
 
-export default validator;
+export const validateNpmPublishOptionsIfSpecified = async (npmPublishOptions?: UserOptions['npmPublishOptions']) => {
+  // If npmPublishOptions.registry isn't provided then it's valid if it's provided but not a url it's not
+  return (npmPublishOptions?.registry && isWebUri(npmPublishOptions.registry)) ?? true;
+};
+
+export const validateOnlyNewOptionsIfSpecified = async (onlyNewOptions?: UserOptions['onlyNew']) =>
+  !onlyNewOptions?.enable ||
+  (
+    onlyNewOptions.currentStoragePath &&
+    isValidPath(onlyNewOptions.currentStoragePath) &&
+    // tslint:disable-next-line:no-return-await
+    await (validateStorage(onlyNewOptions.currentStoragePath).catch(() => false))
+  );
