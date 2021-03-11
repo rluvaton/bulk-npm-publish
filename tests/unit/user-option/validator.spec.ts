@@ -209,7 +209,7 @@ describe('Validator', () => {
     it(`should return false when passing undefined`, async () => {
 
       // Act
-      const isStorageValid = validator.validateStorage(undefined);
+      const isStorageValid = validator.validateStorage();
 
       // Assert
       await expect(isStorageValid).resolves.toBe(false);
@@ -223,81 +223,21 @@ describe('Validator', () => {
     });
 
     it.each([
-      ['Linux', '../someDir/publish.sh'],
-      ['Windows', '..\\someDir\\publish.bat'],
-    ])('should return true when the dest publish script file path pointing to some file in relative path in %s', async (osTypePath, destPublishScriptFilePath) => {
-      // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+      ['../someDir/publish.sh', 'Linux'],
+      ['..\\someDir\\publish.bat', 'Windows'],
 
-      // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
-
-      // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
-    });
-
-    it.each([
       ['Linux', '../someDir/.sh'],
       ['Windows', '..\\someDir\\.bat'],
-    ])('should return true when the dest publish script file path pointing to file without file name and only extension in relative path in %s',
-      async (osTypePath, destPublishScriptFilePath) => {
-      // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
 
-      // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
-
-      // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
-    });
-
-    it.each([
       ['Linux', '../someDir/publish'],
       ['Windows', '..\\someDir\\publish'],
-    ])('should return true when the dest publish script file path pointing to file path without extension in relative path in %s',
-      async (osTypePath, destPublishScriptFilePath) => {
-        // Arrange
-        jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
 
-        // Act
-        const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
-
-        // Assert
-        await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
-      });
-
-    it.each([
-      ['Linux', '../someDir/publish.sh'],
-      ['Windows', '..\\someDir\\publish.bat'],
-    ])('should return true when the dest publish script file path pointing to some file in relative path in %s', async (osTypePath, destPublishScriptFilePath) => {
-      // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
-
-      // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
-
-      // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
-    });
-
-    it.each([
-      ['Linux', '/publish.sh'],
-      ['Windows', 'C:\\publish.bat'],
-    ])('should return true when the dest publish script file path pointing to some file in absolute path in %s', async (osTypePath, destPublishScriptFilePath) => {
-      // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
-
-      // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
-
-      // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
-    });
-
-    it.each([
       ['Linux', '../'],
       ['Windows', '..\\'],
-    ])('should return false the dest publish script file path pointing to a relative directory in %s', async (osTypePath, destPublishScriptFilePath) => {
+
+      ['Linux', '/publish.sh'],
+      ['Windows', 'C:\\publish.bat'],
+    ])('should return true when the dest publish script file path is %s like in %s', async (destPublishScriptFilePath, _osTypePath) => {
       // Arrange
       jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
 
@@ -305,8 +245,9 @@ describe('Validator', () => {
       const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
 
       // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
     });
+
 
     it.each([
       ['Linux', '/tmp/'],
