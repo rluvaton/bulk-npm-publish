@@ -2,7 +2,8 @@ import {UserOptions} from './user-options';
 import {isDirectoryExists} from '../fs-utils';
 import {dirname} from 'path';
 import {isWebUri} from 'valid-url';
-import isValidPath from 'is-valid-path';
+// @ts-ignore
+import * as isValidPath from 'is-valid-path';
 
 export const validateUserOptions = async (options: Partial<UserOptions>): Promise<boolean> => {
   return (await Promise.all([
@@ -18,7 +19,7 @@ export const validateUserOptions = async (options: Partial<UserOptions>): Promis
  * @param path Verdaccio storage path.
  * @return If the path valid.
  */
-export const validateStorage = (path?: UserOptions['storagePath']): Promise<boolean> => isDirectoryExists(path);
+export const validateStorage = async (path?: UserOptions['storagePath']): Promise<boolean> => !!path && await isDirectoryExists(path);
 
 /**
  * Validate that the parent folder of the file path exists
