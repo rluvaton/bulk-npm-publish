@@ -1,32 +1,15 @@
 import 'jest-extended';
 
-jest.mock('../../../src/fs-utils');
 import {UserOptions} from '../../../src/user-option/user-options';
-
-import type * as _validator from '../../../src/user-option/validator';
+import * as validator from '../../../src/user-option/validator';
 import * as fsUtils from '../../../src/fs-utils';
-import MockedFunction = jest.MockedFunction;
-
 
 describe('Validator', () => {
 
   describe('#validateUserOptions', () => {
 
-    let validator: typeof _validator;
-    let validateUserOptions: typeof _validator.validateUserOptions;
-
-    beforeEach(() => {
-      validator = require('../../../src/user-option/validator');
-      jest.mock('../../../src/user-option/validator');
-      validateUserOptions = jest.requireActual('../../../src/user-option/validator').validateUserOptions;
-    });
-
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
     it('should be defined', () => {
-      expect(validateUserOptions).toBeDefined();
+      expect(validator.validateUserOptions).toBeDefined();
     });
 
     it('should return true if the user options contain existing storage path and destPublishScriptFilePath', async () => {
@@ -36,10 +19,10 @@ describe('Validator', () => {
         destPublishScriptFilePath: './publish.bat',
       };
 
-      (fsUtils as jest.Mocked<typeof fsUtils>).isDirectoryExists.mockResolvedValue(true);
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
 
       // Act
-      const isUserOptionsValid = validateUserOptions(userOptions);
+      const isUserOptionsValid = validator.validateUserOptions(userOptions);
 
       // Assert
       await expect(isUserOptionsValid).resolves.toBe(true);
@@ -47,11 +30,11 @@ describe('Validator', () => {
 
     it('should return false if the user options is undefined', async () => {
       // @ts-expect-error
-      await expect(validateUserOptions(undefined)).resolves.toBe(false);
+      await expect(validator.validateUserOptions(undefined)).resolves.toBe(false);
     });
 
     it('should return false if the user options is empty object', async () => {
-      await expect(validateUserOptions({})).resolves.toBe(false);
+      await expect(validator.validateUserOptions({})).resolves.toBe(false);
     });
 
     it('should return false if the user options contain missing storage path', async () => {
@@ -60,9 +43,9 @@ describe('Validator', () => {
         destPublishScriptFilePath: './publish.bat',
       };
 
-      (fsUtils as jest.Mocked<typeof fsUtils>).isDirectoryExists.mockResolvedValue(false);
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(false);
 
-      await expect(validateUserOptions(userOptions)).resolves.toBe(false);
+      await expect(validator.validateUserOptions(userOptions)).resolves.toBe(false);
     });
 
     it('should return false if the user options.storagePath is empty string', async () => {
@@ -71,7 +54,7 @@ describe('Validator', () => {
         destPublishScriptFilePath: './publish.bat',
       };
 
-      await expect(validateUserOptions(userOptions)).resolves.toBe(false);
+      await expect(validator.validateUserOptions(userOptions)).resolves.toBe(false);
     });
 
     it('should return false if the user options.npmPublishOptions.registry is an empty string', async () => {
@@ -85,7 +68,7 @@ describe('Validator', () => {
       };
 
       // Act
-      const isValid = validateUserOptions(userOptions);
+      const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
       await expect(isValid).resolves.toBe(false);
@@ -102,7 +85,7 @@ describe('Validator', () => {
       };
 
       // Act
-      const isValid = validateUserOptions(userOptions);
+      const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
       await expect(isValid).resolves.toBe(false);
@@ -111,22 +94,14 @@ describe('Validator', () => {
     // tslint:disable-next-line:max-line-length
     it('should return true if `validateStorage`, `validateDestPublishScriptFilePath`, `validateNpmPublishOptionsIfSpecified` and `validateOnlyNewOptionsIfSpecified` return true', async () => {
       // Arrange
-      (validator.validateStorage as MockedFunction<typeof validator.validateStorage>).mockImplementation(async () => {
-        return true;
-      });
-      (validator.validateDestPublishScriptFilePath as MockedFunction<typeof validator.validateDestPublishScriptFilePath>).mockImplementation(async () => {
-        return true;
-      });
-      (validator.validateNpmPublishOptionsIfSpecified as MockedFunction<typeof validator.validateNpmPublishOptionsIfSpecified>).mockImplementation(async () => {
-        return true;
-      });
-      (validator.validateOnlyNewOptionsIfSpecified as MockedFunction<typeof validator.validateOnlyNewOptionsIfSpecified>).mockImplementation(async () => {
-        return true;
-      });
+      jest.spyOn(validator, 'validateStorage').mockResolvedValue(true);
+      jest.spyOn(validator, 'validateDestPublishScriptFilePath').mockResolvedValue(true);
+      jest.spyOn(validator, 'validateNpmPublishOptionsIfSpecified').mockResolvedValue(true);
+      jest.spyOn(validator, 'validateOnlyNewOptionsIfSpecified').mockResolvedValue(true);
 
       // Act
 
-      const isValid = validateUserOptions({});
+      const isValid = validator.validateUserOptions({});
 
       // Assert
       await expect(isValid).resolves.toBe(true);
@@ -141,10 +116,11 @@ describe('Validator', () => {
         ['validateOnlyNewOptionsIfSpecified'],
       ])('should return false if `%s` return false', async (functionName) => {
         // Arrange
-        validator[functionName].mockResolvedValueOnce(false);
+        // @ts-ignore
+        jest.spyOn(validator, functionName).mockResolvedValue(false);
 
         // Act
-        const isValid = validateUserOptions({});
+        const isValid = validator.validateUserOptions({});
 
         // Assert
         await expect(isValid).resolves.toBe(false);
@@ -156,26 +132,16 @@ describe('Validator', () => {
 
   describe('#validateStorage', () => {
 
-    let validator: typeof _validator;
-    let validateStorage: typeof _validator.validateStorage;
-
-    beforeEach(() => {
-      validator = require('../../../src/user-option/validator');
-      jest.mock('../../../src/user-option/validator');
-
-      validateStorage = jest.requireActual('../../../src/user-option/validator').validateStorage;
-    });
-
     it('should be defined', () => {
-      expect(validateStorage).toBeDefined();
+      expect(validator.validateStorage).toBeDefined();
     });
 
     it('should return true when storage folder exists', async () => {
       // Arrange
-      (fsUtils as jest.Mocked<typeof fsUtils>).isDirectoryExists.mockResolvedValueOnce(true);
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
 
       // Act
-      const isStorageValid = validateStorage('./storage');
+      const isStorageValid = validator.validateStorage('./storage');
 
       // Assert
       await expect(isStorageValid).resolves.toBe(true);
@@ -183,19 +149,191 @@ describe('Validator', () => {
 
     it(`should return false when storage folder doesn't exist`, async () => {
       // Arrange
-      (fsUtils as jest.Mocked<typeof fsUtils>).isDirectoryExists.mockResolvedValueOnce(false);
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(false);
 
       // Act
-      const isStorageValid = validateStorage('./storage');
+      const isStorageValid = validator.validateStorage('./storage');
 
       // Assert
       await expect(isStorageValid).resolves.toBe(false);
     });
 
+    it.each([
+      ['/tmp/../', 'Linux'],
+      ['C:\\Users\\..\\', 'Windows'],
+
+      ['../', 'Linux'],
+      ['..\\', 'Windows'],
+
+
+      ['/tmp/../.', 'Linux'],
+      ['C:\\Users\\..\\.', 'Windows'],
+
+      ['../.', 'Linux'],
+      ['..\\.', 'Windows'],
+
+      ['/tmp/storage', 'Linux'],
+      ['C:\\storage', 'Windows'],
+
+      ['../storage', 'Linux'],
+      ['..\\storage', 'Windows'],
+
+      ['/tmp/storage/', 'Linux'],
+      ['C:\\storage\\', 'Windows'],
+
+      ['../storage/', 'Linux'],
+      ['..\\storage\\', 'Windows'],
+
+      ['/some dir with spaces/storage', 'Linux'],
+      ['C:\\some dir with spaces\\storage', 'Windows'],
+
+      ['../some dir with spaces/storage', 'Linux'],
+      ['..\\some dir with spaces\\storage', 'Windows'],
+
+      ['/some dir with spaces/storage/', 'Linux'],
+      ['C:\\some dir with spaces\\storage\\', 'Windows'],
+
+      ['../some dir with spaces/storage/', 'Linux'],
+      ['..\\some dir with spaces\\storage\\', 'Windows'],
+    ])('should return true when storage path is %s like in %s', async (destPublishScriptFilePath, _osTypePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isStorageValid = validator.validateStorage(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isStorageValid).resolves.toBe(true);
+    });
+
     it(`should return false when passing undefined`, async () => {
 
       // Act
-      const isStorageValid = validateStorage(undefined);
+      const isStorageValid = validator.validateStorage(undefined);
+
+      // Assert
+      await expect(isStorageValid).resolves.toBe(false);
+    });
+  });
+
+  describe('#validateDestPublishScriptFilePath', () => {
+
+    it('should be defined', () => {
+      expect(validator.validateDestPublishScriptFilePath).toBeDefined();
+    });
+
+    it.each([
+      ['Linux', '../someDir/publish.sh'],
+      ['Windows', '..\\someDir\\publish.bat'],
+    ])('should return true when the dest publish script file path pointing to some file in relative path in %s', async (osTypePath, destPublishScriptFilePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
+    });
+
+    it.each([
+      ['Linux', '../someDir/.sh'],
+      ['Windows', '..\\someDir\\.bat'],
+    ])('should return true when the dest publish script file path pointing to file without file name and only extension in relative path in %s',
+      async (osTypePath, destPublishScriptFilePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
+    });
+
+    it.each([
+      ['Linux', '../someDir/publish'],
+      ['Windows', '..\\someDir\\publish'],
+    ])('should return true when the dest publish script file path pointing to file path without extension in relative path in %s',
+      async (osTypePath, destPublishScriptFilePath) => {
+        // Arrange
+        jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+        // Act
+        const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+        // Assert
+        await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
+      });
+
+    it.each([
+      ['Linux', '../someDir/publish.sh'],
+      ['Windows', '..\\someDir\\publish.bat'],
+    ])('should return true when the dest publish script file path pointing to some file in relative path in %s', async (osTypePath, destPublishScriptFilePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
+    });
+
+    it.each([
+      ['Linux', '/publish.sh'],
+      ['Windows', 'C:\\publish.bat'],
+    ])('should return true when the dest publish script file path pointing to some file in absolute path in %s', async (osTypePath, destPublishScriptFilePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
+    });
+
+    it.each([
+      ['Linux', '../'],
+      ['Windows', '..\\'],
+    ])('should return false the dest publish script file path pointing to a relative directory in %s', async (osTypePath, destPublishScriptFilePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
+    });
+
+    it.each([
+      ['Linux', '/tmp/'],
+      ['Windows', 'C:\\Program Files\\'],
+    ])('should return false the dest publish script file path pointing to a absolute directory in %s', async (osTypePath, destPublishScriptFilePath) => {
+      // Arrange
+      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
+    });
+
+    it(`should return false when passing undefined`, async () => {
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath();
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
+    });
+
+    it(`should return false when passing empty string`, async () => {
+
+      // Act
+      const isStorageValid = validator.validateDestPublishScriptFilePath('');
 
       // Assert
       await expect(isStorageValid).resolves.toBe(false);

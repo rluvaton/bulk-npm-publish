@@ -22,12 +22,12 @@ export const validateUserOptions = async (options: Partial<UserOptions>): Promis
 export const validateStorage = async (path?: UserOptions['storagePath']): Promise<boolean> => !!path && await isDirectoryExists(path);
 
 /**
- * Validate that the parent folder of the file path exists
+ * Validate that the path is valid and parent folder of the file path exists
  * @param path file path
  * @return If the parent directory exists.
  */
 export const validateDestPublishScriptFilePath = async (path?: UserOptions['destPublishScriptFilePath']): Promise<boolean> =>
-  !!path && isValidPath(path) && isDirectoryExists(dirname(path));
+  !!path && isValidPath(path) && !path.endsWith('\\') && !path.endsWith('/') && isDirectoryExists(dirname(path));
 
 export const validateNpmPublishOptionsIfSpecified = async (npmPublishOptions?: UserOptions['npmPublishOptions']) => {
   // If npmPublishOptions.registry isn't provided then it's valid if it's provided but not a url it's not
