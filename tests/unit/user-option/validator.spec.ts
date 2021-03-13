@@ -264,16 +264,15 @@ describe('User Options Validator', () => {
     });
 
     it(`should return false when passing undefined`, async () => {
-
       // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath();
+      // NOSONAR
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(undefined);
 
       // Assert
       await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
     });
 
     it(`should return false when passing empty string`, async () => {
-
       // Act
       const isStorageValid = validator.validateDestPublishScriptFilePath('');
 
@@ -290,6 +289,7 @@ describe('User Options Validator', () => {
 
     it('should return true when passing undefined', async () => {
       // Act
+      // NOSONAR
       const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(undefined);
 
       // Assert
@@ -372,6 +372,7 @@ describe('User Options Validator', () => {
 
     it('should return true when passing undefined', async () => {
       // Act
+      // NOSONAR
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(undefined);
 
       // Assert
@@ -404,7 +405,7 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing enable true with currentStoragePath: '/storage' and validateStorage return true`, async () => {
       // Arrange
-      jest.spyOn(validator, 'validateStorage').mockResolvedValue(true);
+      jest.spyOn(validator, 'validateStorage').mockResolvedValueOnce(true);
 
       // Act
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: '/storage'});
