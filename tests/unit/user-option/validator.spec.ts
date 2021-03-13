@@ -4,9 +4,9 @@ import {UserOptions} from '../../../src/user-option/user-options';
 import * as validator from '../../../src/user-option/validator';
 import * as fsUtils from '../../../src/fs-utils';
 
-describe('Validator', () => {
+describe('User Options Validator', () => {
 
-  describe('#validateUserOptions', () => {
+  describe('Validate User Options', () => {
 
     it('should be defined', () => {
       expect(validator.validateUserOptions).toBeDefined();
@@ -130,7 +130,7 @@ describe('Validator', () => {
 
   });
 
-  describe('#validateStorage', () => {
+  describe('Validate Storage path', () => {
 
     it('should be defined', () => {
       expect(validator.validateStorage).toBeDefined();
@@ -216,7 +216,7 @@ describe('Validator', () => {
     });
   });
 
-  describe('#validateDestPublishScriptFilePath', () => {
+  describe('Validate Output publish Script File Path', () => {
 
     it('should be defined', () => {
       expect(validator.validateDestPublishScriptFilePath).toBeDefined();
@@ -264,6 +264,7 @@ describe('Validator', () => {
     });
 
     it(`should return false when passing undefined`, async () => {
+
       // Act
       const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath();
 
@@ -279,5 +280,154 @@ describe('Validator', () => {
       // Assert
       await expect(isStorageValid).resolves.toBe(false);
     });
+  });
+
+  describe('Validate NPM publish options If Specified', () => {
+
+    it('should be defined', () => {
+      expect(validator.validateNpmPublishOptionsIfSpecified).toBeDefined();
+    });
+
+    it('should return true when passing undefined', async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(undefined);
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it('should return true when passing empty object', async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return true when passing {registry: 'http://localhost:4873'}`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'http://localhost:4873'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return true when passing not passing port in the registry key`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'http://localhost'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return false when not passing http or https protocol in the registry key`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'ftp://localhost:4873'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+    });
+
+    it(`should return false when not passing protocol in the registry key`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'localhost:4873'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+    });
+
+    it(`should return false when not passing protocol and port in the registry key`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'localhost'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+
+    });
+
+    it(`should return false when not passing web uri in the registry key`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'hello how are you'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+    });
+
+    it(`should return false when passing empty string in the registry key`, async () => {
+
+      // Act
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: ''});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+    });
+
+  });
+
+  describe('Validate Only New Options If Specified', () => {
+
+    it('should be defined', () => {
+      expect(validator.validateOnlyNewOptionsIfSpecified).toBeDefined();
+    });
+
+    it('should return true when passing undefined', async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(undefined);
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it('should return true when passing empty object', async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return true when passing {enable: false}`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: false});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return true when passing enable false and some value in currentStoragePath`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: false, currentStoragePath: 'something'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return true when passing enable true with currentStoragePath: '/storage' and validateStorage return true`, async () => {
+      // Arrange
+      jest.spyOn(validator, 'validateStorage').mockResolvedValue(true);
+
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: '/storage'});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should return false when enable is true and no currentStoragePath key passed`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+    });
+
+    it(`should return false when passing {enable: true, currentStoragePath: ''}`, async () => {
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: ''});
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+    });
+
   });
 });

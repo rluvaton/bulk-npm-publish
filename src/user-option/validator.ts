@@ -19,7 +19,7 @@ export const validateUserOptions = async (options: Partial<UserOptions>): Promis
  * @param path Verdaccio storage path.
  * @return If the path valid.
  */
-export const validateStorage = async (path?: UserOptions['storagePath']): Promise<boolean> => !!path && await isDirectoryExists(path);
+export const validateStorage = async (path?: UserOptions['storagePath']): Promise<boolean> => isValidPath(path) && await isDirectoryExists(path);
 
 /**
  * Validate that the path is valid and parent folder of the file path exists
@@ -29,16 +29,14 @@ export const validateStorage = async (path?: UserOptions['storagePath']): Promis
 export const validateDestPublishScriptFilePath = async (path?: UserOptions['destPublishScriptFilePath']): Promise<boolean> =>
   !!path && isValidPath(path) && !path.endsWith('\\') && !path.endsWith('/') && isDirectoryExists(dirname(path));
 
-export const validateNpmPublishOptionsIfSpecified = async (npmPublishOptions?: UserOptions['npmPublishOptions']) => {
+export const validateNpmPublishOptionsIfSpecified = async (npmPublishOptions?: UserOptions['npmPublishOptions']): Promise<boolean> => {
   // If npmPublishOptions.registry isn't provided then it's valid if it's provided but not a url it's not
-  return (npmPublishOptions?.registry && isWebUri(npmPublishOptions.registry)) ?? true;
+  return npmPublishOptions?.registry === undefined || typeof isWebUri(npmPublishOptions.registry) === 'string';
 };
 
-export const validateOnlyNewOptionsIfSpecified = async (onlyNewOptions?: UserOptions['onlyNew']) =>
+export const validateOnlyNewOptionsIfSpecified = async (onlyNewOptions?: UserOptions['onlyNew']): Promise<boolean> =>
   !onlyNewOptions?.enable ||
   (
-    onlyNewOptions.currentStoragePath &&
-    isValidPath(onlyNewOptions.currentStoragePath) &&
-    // tslint:disable-next-line:no-return-await
+    !!onlyNewOptions.currentStoragePath &&
     await (validateStorage(onlyNewOptions.currentStoragePath).catch(() => false))
   );
