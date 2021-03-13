@@ -265,8 +265,7 @@ describe('User Options Validator', () => {
 
     it(`should return false when passing undefined`, async () => {
       // Act
-      // NOSONAR
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(undefined);
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(undefined); // NOSONAR
 
       // Assert
       await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
@@ -289,8 +288,7 @@ describe('User Options Validator', () => {
 
     it('should return true when passing undefined', async () => {
       // Act
-      // NOSONAR
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(undefined);
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(undefined); // NOSONAR
 
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
@@ -372,8 +370,7 @@ describe('User Options Validator', () => {
 
     it('should return true when passing undefined', async () => {
       // Act
-      // NOSONAR
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(undefined);
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(undefined); // NOSONAR
 
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
