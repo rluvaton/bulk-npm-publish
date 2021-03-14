@@ -1,5 +1,4 @@
-import * as fs from 'fs';
-import {Stats} from 'fs';
+import fs, {Stats} from 'fs';
 
 export const getPathType = (path: string): Promise<Stats> => new Promise((resolve, reject) =>
   fs.lstat(path, (err, stats) => err ? reject(err) : resolve(stats))

@@ -4,11 +4,11 @@ import fileWriter from './file-writer';
 import {userOptionGetter} from './user-option/user-options-getter';
 import {logger} from './logger';
 import {bold} from 'kleur';
-import * as emoji from 'node-emoji';
+import emoji from 'node-emoji';
 import {UserOptions} from './user-option/user-options';
 import {IUserOptionGetter} from './user-option/i-user-option-getter';
 import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
-import * as path from 'path';
+import path from 'path';
 import {userOptionArgGetter} from './user-option/args';
 import {validateUserOptions} from './user-option/validator';
 import {getLineTransformer} from './utils';
@@ -20,9 +20,6 @@ const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGett
 };
 
 const run = async () => {
-  // logger.info(bold().underline('⏳ Starting... ⏳'));
-  //
-  // logger.info(bold().underline(`${emoji.get(':wrench:')} User configuration`));
 
   let config: UserOptions;
   try {

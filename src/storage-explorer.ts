@@ -1,7 +1,7 @@
-import * as dirTree from 'directory-tree';
+import dirTree from 'directory-tree';
 import {logger} from './logger';
-import * as emoji from 'node-emoji';
-import * as path from 'path';
+import emoji from 'node-emoji';
+import path from 'path';
 
 
 /**

@@ -1,4 +1,4 @@
-import * as lodashDeepClone from 'lodash.clonedeep';
+import lodashDeepClone from 'lodash.clonedeep';
 import {platform} from 'process';
 import {extname} from 'path';
 
