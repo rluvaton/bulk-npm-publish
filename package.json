@@ -4,7 +4,6 @@
   "description": "Publish Multiple NPM packages from verdaccio storage",
   "main": "src/index.ts",
   "scripts": {
-    "postinstall": "patch-package",
     "start": "ts-node src/index.ts --no-cache",
     "start:prod": "node ./bin/bulk-npm-publish.js",
     "start:debug": "nodemon %NODE_DEBUG_OPTION% --config nodemon-debug.json",
@@ -52,8 +51,7 @@
     "kleur": "^3.0.3",
     "lodash.clonedeep": "^4.5.0",
     "node-emoji": "^1.10.0",
-    "patch-package": "6.2.2",
-    "prompts": "2.3.2",
+    "prompts": "^2.4.0",
     "valid-url": "^1.0.9",
     "winston": "^3.2.1",
     "yargs": "^15.4.0"
