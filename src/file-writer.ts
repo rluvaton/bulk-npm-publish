@@ -1,5 +1,4 @@
-import * as fs from 'fs';
-import {PathLike, WriteFileOptions} from 'fs';
+import fs, {PathLike, WriteFileOptions} from 'fs';
 
 
 /**

@@ -2,8 +2,7 @@ import {UserOptions} from './user-options';
 import {isDirectoryExists} from '../fs-utils';
 import {dirname} from 'path';
 import {isWebUri} from 'valid-url';
-// @ts-ignore
-import * as isValidPath from 'is-valid-path';
+import isValidPath from 'is-valid-path';
 
 export const validateUserOptions = async (options: Partial<UserOptions>): Promise<boolean> => {
   return (await Promise.all([

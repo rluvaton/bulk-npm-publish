@@ -12,7 +12,8 @@
     "outDir": "lib",
     "strict": true,
     "types": ["node"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "compileOnSave": false,
   "include": [
