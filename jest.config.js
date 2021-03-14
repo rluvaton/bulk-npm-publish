@@ -4,5 +4,6 @@ module.exports = {
     verbose: true,
     testMatch: [
         "<rootDir>/tests/**/*.spec.ts",
-    ]
+    ],
+    restoreMocks: true,
 };

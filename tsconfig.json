@@ -16,7 +16,8 @@
   },
   "compileOnSave": false,
   "include": [
-    "src"
+    "src",
+    "tests/**/*.spec.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,6 +1,7 @@
 import * as lodashDeepClone from 'lodash.clonedeep';
 import {platform} from 'process';
 import {extname} from 'path';
+
 let packageJson;
 
 export function deepClone<T = any>(val: T): T {

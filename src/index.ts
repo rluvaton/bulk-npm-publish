@@ -10,6 +10,7 @@ import {IUserOptionGetter} from './user-option/i-user-option-getter';
 import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
 import * as path from 'path';
 import {userOptionArgGetter} from './user-option/args';
+import {validateUserOptions} from './user-option/validator';
 import {getLineTransformer} from './utils';
 
 // The order is important
@@ -38,6 +39,13 @@ const run = async () => {
 
   if (!config) {
     logger.error('Invalid user options, exiting', config);
+    return;
+  }
+
+  try {
+    await validateUserOptions(config);
+  } catch (err) {
+    logger.error(err.message);
     return;
   }
 

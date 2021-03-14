@@ -59,6 +59,7 @@
     "no-inferrable-types": false,
     "only-arrow-functions": false,
     "interface-name": false,
-    "no-object-literal-type-assertion": false
+    "no-object-literal-type-assertion": false,
+    "no-return-await": false
   }
 }
