@@ -121,15 +121,13 @@ describe('User Options Validator', () => {
         }
       };
 
-      const invalidRegistryError = new Error('Registry is not valid http(s) url');
-
       setValidStoragePathAndDestPublishScriptFilePath(userOptions);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
-      await expect(isValid).rejects.toThrowError(invalidRegistryError);
+      await expect(isValid).resolves.toBe(true);
     });
 
     it(`should reject with 'Registry is not valid http(s) url' if the user options.npmPublishOptions.registry is not a url`, async () => {
@@ -536,16 +534,15 @@ describe('User Options Validator', () => {
       await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    it(`should reject with 'Registry is not valid http(s) url' error when passing empty string in the registry key`, async () => {
+    it(`should return true when passing empty string in the registry key`, async () => {
       // Arrange
       const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: ''};
-      const invalidRegistryError = new Error('Registry is not valid http(s) url');
 
       // Act
       const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
   });

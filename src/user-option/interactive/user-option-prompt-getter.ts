@@ -3,6 +3,7 @@ import {DEFAULT_USER_OPTIONS} from '../user-options';
 import * as prompts from 'prompts';
 import {logger} from '../../logger';
 import {deepClone} from '../../utils';
+import {validateStorage, validateDestPublishScriptFilePath, validateNpmPublishOptionsIfSpecified, validateOnlyNewOptionsIfSpecified} from '../validator';
 
 
 const _questions = [
@@ -10,19 +11,21 @@ const _questions = [
     type: 'text',
     name: 'storagePath',
     message: `What's the storage path to publish?`,
-    validate: (path) => !!path,
+    validate: (path) => validateStorage(path).catch(err => err.message),
   },
   {
     type: 'text',
     name: 'destPublishScriptFilePath',
     message: `Where the publish script will be created`,
     initial: DEFAULT_USER_OPTIONS.destPublishScriptFilePath,
+    validate: (path) => validateDestPublishScriptFilePath(path).catch(err => err.message),
   },
   {
     type: 'text',
     name: 'npmPublishOptions.registry',
     message: `What is the registry url you want to publish to`,
     initial: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
+    validate: (registry) => !registry || validateNpmPublishOptionsIfSpecified({registry}).catch(err => err.message)
   },
   {
     type: 'confirm',
@@ -35,7 +38,7 @@ const _questions = [
     name: 'currentStorage',
     message: `What's the path for the current storage`,
     initial: DEFAULT_USER_OPTIONS?.onlyNew?.currentStoragePath,
-    validate: (path) => !!path
+    validate: (path) => validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: path}).catch(err => err.message)
   },
 ];
 

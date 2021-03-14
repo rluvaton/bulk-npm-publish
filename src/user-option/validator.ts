@@ -57,7 +57,7 @@ export const validateDestPublishScriptFilePath = async (path?: UserOptions['dest
 };
 
 export const validateNpmPublishOptionsIfSpecified = async (npmPublishOptions?: UserOptions['npmPublishOptions']): Promise<boolean> => {
-  if (npmPublishOptions?.registry === undefined) {
+  if (!npmPublishOptions?.registry) {
     return true;
   }
 

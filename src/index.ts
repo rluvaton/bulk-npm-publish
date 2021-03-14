@@ -37,8 +37,15 @@ const run = async () => {
     return;
   }
 
-  if (!config || !(await validateUserOptions(config))) {
+  if (!config) {
     logger.error('Invalid user options, exiting', config);
+    return;
+  }
+
+  try {
+    await validateUserOptions(config);
+  } catch (err) {
+    logger.error(err.message);
     return;
   }
 
