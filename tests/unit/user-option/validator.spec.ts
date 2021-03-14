@@ -5,6 +5,7 @@ import {dirname} from 'path';
 import {UserOptions} from '../../../src/user-option/user-options';
 import * as validator from '../../../src/user-option/validator';
 import * as fsUtils from '../../../src/fs-utils';
+import * as npmUtils from '../../../src/npm-utils';
 
 describe('User Options Validator', () => {
 
@@ -186,57 +187,65 @@ describe('User Options Validator', () => {
       await expect(isUserOptionsValid).resolves.toBe(true);
     });
 
-    it(`should reject with 'Directory does not exist' Error if the user options contain missing onlyNew.currentStoragePath`, async () => {
+    it(`should reject with 'Registry is not valid http(s) url' Error if the user options contain invalid onlyNew.registry url`, async () => {
       // Arrange
       const userOptions: UserOptions = {
         storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
         onlyNew: {
           enable: true,
-          currentStoragePath: './storage-2'
+          registry: 'localhost:4873'
         }
       };
 
-      const directoryNotExistError = new Error('Directory does not exist');
+      const invalidOnlyNewRegistry = new Error('Registry is not valid http(s) url');
 
       const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
       when(spiedIsDirectoryExists)
         .calledWith(userOptions.storagePath).mockResolvedValue(true)
         .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
-        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true)
-        .calledWith(userOptions.onlyNew?.currentStoragePath).mockResolvedValue(false);
+        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
-      await expect(isValid).rejects.toThrowError(directoryNotExistError);
+      await expect(isValid).rejects.toThrowError(invalidOnlyNewRegistry);
     });
 
-    it(`should reject with 'Invalid path' error if the user options.onlyNew.currentStoragePath is empty string`, async () => {
+    it(`should resolve if the user options.onlyNew.registry is empty string and ping to default registry is successful`, async () => {
       // Arrange
       const userOptions: UserOptions = {
-        storagePath: '',
+        storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
         onlyNew: {
           enable: true,
-          currentStoragePath: ''
+          registry: ''
         }
       };
 
-      const invalidPathError = new Error('Invalid path');
+      const currentRegistry = 'http://localhost:4873';
 
       setValidStoragePathAndDestPublishScriptFilePath(userOptions);
+
+      const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
+      const spiedPingNpmRegistry = jest.spyOn(npmUtils, 'pingNpmRegistry');
+
+      when(spiedGetCurrentRegistry)
+        .calledWith().mockReturnValue(currentRegistry);
+
+      when(spiedPingNpmRegistry)
+        .calledWith(currentRegistry).mockResolvedValue(true);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
-      await expect(isValid).rejects.toThrowError(invalidPathError);
+      await expect(isValid).resolves.toBe(true);
     });
 
-    describe('should reject with the error that one of the validation rejcted with', () => {
+    describe('should reject with the error that one of the validation rejected with', () => {
 
       it.each([
         ['validateStorage'],
@@ -549,6 +558,20 @@ describe('User Options Validator', () => {
 
   describe('Validate Only New Options If Specified', () => {
 
+    const mockGetCurrentRegistry = (getCurrentRegistryResult: string) => {
+      const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
+
+      when(spiedGetCurrentRegistry)
+        .calledWith().mockReturnValue(getCurrentRegistryResult);
+    };
+
+    const mockPingNpmRegistry = (registry: string, pingRegistryResult: boolean) => {
+      const spiedPingNpmRegistry = jest.spyOn(npmUtils, 'pingNpmRegistry');
+
+      when(spiedPingNpmRegistry)
+        .calledWith(registry).mockResolvedValue(pingRegistryResult);
+    };
+
     it('should be defined', () => {
       expect(validator.validateOnlyNewOptionsIfSpecified).toBeDefined();
     });
@@ -580,9 +603,9 @@ describe('User Options Validator', () => {
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
-    it(`should return true when passing enable false and some value in currentStoragePath`, async () => {
+    it(`should return true when passing enable false and some value in registry`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: false, currentStoragePath: 'something'};
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: false, registry: 'something'};
 
       // Act
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
@@ -591,44 +614,68 @@ describe('User Options Validator', () => {
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
-    it(`should return true when passing enable true with currentStoragePath: '/storage' and validateStorage return true`, async () => {
+    it(`should return true when passing { enable: true, registry: undefined } and successfully pinging to current registry`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, currentStoragePath: '/storage'};
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, registry: undefined};
 
-      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+      const currentRegistry = 'http://localhost:4873';
 
-      when(spiedIsDirectoryExists).expectCalledWith(onlyNewOptions.currentStoragePath).mockResolvedValue(true);
+      mockGetCurrentRegistry(currentRegistry);
+      mockPingNpmRegistry(currentRegistry, true);
 
       // Act
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
-      verifyAllWhenMocksCalled();
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
-    it(`should reject with 'Missing path' error when enable is true and no currentStoragePath key passed`, async () => {
+
+    it(`should return true when passing { enable: true, registry: '' } and successfully pinging to current registry`, async () => {
+      // Arrange
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, registry: ''};
+
+      const currentRegistry = 'http://localhost:4873';
+
+      mockGetCurrentRegistry(currentRegistry);
+      mockPingNpmRegistry(currentRegistry, true);
+
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should reject with 'Ping registry failed, make sure the NPM registry support ping and accessible' error when failing to ping the provided registry url`, async () => {
+      // Arrange
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, registry: 'http://localhost:4873'};
+      const pingRegistryFailed = new Error('Ping registry failed, make sure the NPM registry support ping and accessible');
+
+      mockPingNpmRegistry(onlyNewOptions.registry as string, false);
+
+      // Act
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
+
+      // Assert
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(pingRegistryFailed);
+    });
+
+    it(`should reject with 'Ping registry failed, make sure the NPM registry support ping and accessible' error when failing to ping current registry url`, async () => {
       // Arrange
       const onlyNewOptions: UserOptions['onlyNew'] = {enable: true};
-      const missingPathError = new Error('Missing path');
+      const pingRegistryFailed = new Error('Ping registry failed, make sure the NPM registry support ping and accessible');
+
+      const currentRegistry = 'http://localhost:4873';
+
+      mockGetCurrentRegistry(currentRegistry);
+      mockPingNpmRegistry(currentRegistry, false);
 
       // Act
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).rejects.toThrowError(missingPathError);
-    });
-
-    it(`should reject with 'Invalid path' error when passing {enable: true, currentStoragePath: ''}`, async () => {
-      // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, currentStoragePath: ''};
-      const invalidPathError = new Error('Invalid path');
-
-      // Act
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
-
-      // Assert
-      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidPathError);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(pingRegistryFailed);
     });
 
   });

@@ -12,6 +12,7 @@ import path from 'path';
 import {userOptionArgGetter} from './user-option/args';
 import {validateUserOptions} from './user-option/validator';
 import {getLineTransformer} from './utils';
+import {filterExistingNpmPackages} from './helpers/filter-existing-npm-packages';
 
 // The order is important
 const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGetter } = {
@@ -66,22 +67,16 @@ const run = async () => {
   logger.verbose(`Scan complete, found ${packages.length} packages`);
 
   if (config?.onlyNew?.enable) {
-    if (!config.onlyNew.currentStoragePath) {
-      logger.error('Current storage is undefined');
-      return;
+    if (!config.onlyNew.registry) {
+      logger.info('using current registry to check for published packages');
     }
-    logger.info(bold().underline(`Scanning Exist Storage ${emoji.get(':card_file_box:')}`));
-    logger.verbose(`Scanning for exist packages in the provided storage path (${config.onlyNew.currentStoragePath})`);
-    const existPackages: Package[] = storageExplorer(config.onlyNew.currentStoragePath);
-    logger.verbose(`Scan complete, found ${packages.length} packages`);
 
-    logger.info(bold().underline(`Filtering duplicate packages ${emoji.get(':card_file_box:')}`));
-    logger.verbose(`Start filtering`);
-    const beforeReducePackagesLength = packages.length;
-    packages = packages.filter((p) => !existPackages.find((existPackage) => p.fullPackageName === existPackage.fullPackageName));
-    const newPackagesLength = packages.length;
-    const reducedPackagesCount = beforeReducePackagesLength - newPackagesLength;
-    logger.verbose(`Filter complete, reduce ${reducedPackagesCount} duplicate packages`);
+    logger.info(bold().underline(`Scanning exist packages ${emoji.get(':card_file_box:')}`));
+    logger.verbose(`Scanning for existing packages in the provided registry (${config.onlyNew.registry})`);
+    const allPackagesLength = packages.length;
+
+    packages = await filterExistingNpmPackages(packages, config.onlyNew.registry);
+    logger.verbose(`Scan complete, reduced ${allPackagesLength - packages.length} duplicate packages from ${allPackagesLength}`);
   }
 
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));

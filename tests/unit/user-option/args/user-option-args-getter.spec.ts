@@ -267,21 +267,21 @@ describe('Get User Options from User Argument Input', () => {
     });
   });
 
-  describe('should return user options with the current storage (and storage path) when passing one of the registry aliases', () => {
-    describe.each([['--cs'], ['--current-storage']])(`when passing %s`, (alias) => {
+  describe('should return user options with the remote registry (and storage path) when passing one of the remote registry aliases', () => {
+    describe.each([['--rg'], ['--remote-registry']])(`when passing %s`, (alias) => {
       test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
         const onFailFn = jest.fn();
         const onYargsInstanceFn = jest.fn();
         const storagePath = '~/storage';
-        const currentStoragePath = 'http://localhost:4873';
+        const registry = 'http://localhost:4873';
 
-        const {userOptionGetter} = prepareForTest(platform, `--sp ${storagePath} ${alias} ${currentStoragePath}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+        const {userOptionGetter} = prepareForTest(platform, `--sp ${storagePath} ${alias} ${registry}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
 
         await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
           storagePath,
           onlyNew: {
             enable: true,
-            currentStoragePath
+            registry
           }
         });
 

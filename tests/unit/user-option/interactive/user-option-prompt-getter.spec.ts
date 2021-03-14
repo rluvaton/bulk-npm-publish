@@ -79,7 +79,7 @@ describe('Get User Options from User Interactive Input', () => {
           },
           onlyNew: {
             enable: false,
-            currentStoragePath: undefined
+            registry: undefined
           }
         };
 
@@ -118,7 +118,7 @@ describe('Get User Options from User Interactive Input', () => {
           },
           onlyNew: {
             enable: false,
-            currentStoragePath: undefined
+            registry: undefined
           }
         };
 
@@ -157,7 +157,7 @@ describe('Get User Options from User Interactive Input', () => {
           },
           onlyNew: {
             enable: false,
-            currentStoragePath: undefined
+            registry: undefined
           }
         };
 
@@ -198,7 +198,7 @@ describe('Get User Options from User Interactive Input', () => {
           expectedUserOptions.destPublishScriptFilePath,
           expectedUserOptions?.npmPublishOptions?.registry,
           expectedUserOptions?.onlyNew?.enable,
-          expectedUserOptions?.onlyNew?.currentStoragePath
+          expectedUserOptions?.onlyNew?.registry
         ]);
         await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
       });
@@ -213,7 +213,7 @@ describe('Get User Options from User Interactive Input', () => {
         },
         onlyNew: {
           enable: true,
-          currentStoragePath: '.C://Users/user/storage'
+          registry: 'http://localhost:4873'
         }
       }],
       ['linux', {
@@ -224,7 +224,7 @@ describe('Get User Options from User Interactive Input', () => {
         },
         onlyNew: {
           enable: true,
-          currentStoragePath: '/root/curr-storage'
+          registry: 'http://localhost:4873'
         }
       }]
     ];

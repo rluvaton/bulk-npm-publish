@@ -3,6 +3,7 @@ import {isDirectoryExists} from '../fs-utils';
 import {dirname} from 'path';
 import {isWebUri} from 'valid-url';
 import isValidPath from 'is-valid-path';
+import {getCurrentRegistry, pingNpmRegistry} from '../npm-utils';
 
 export const validateUserOptions = async (options: Partial<UserOptions>): Promise<boolean> => {
   return (await Promise.all([
@@ -72,5 +73,20 @@ export const validateOnlyNewOptionsIfSpecified = async (onlyNewOptions?: UserOpt
     return true;
   }
 
-  return await validateStorage(onlyNewOptions.currentStoragePath);
+  let registry: string = onlyNewOptions.registry ?? '';
+
+  // If not specified than it should use the current user registry
+  if (registry === undefined || registry === '') {
+    registry = getCurrentRegistry();
+  }
+
+  if (isWebUri(registry) === undefined) {
+    throw new Error('Registry is not valid http(s) url');
+  }
+
+  if (!await pingNpmRegistry(registry)) {
+    throw new Error('Ping registry failed, make sure the NPM registry support ping and accessible');
+  }
+
+  return true;
 };

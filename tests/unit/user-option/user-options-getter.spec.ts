@@ -108,7 +108,7 @@ describe('Get User Options (from the available option)', () => {
       },
       onlyNew: {
         enable: false,
-        currentStoragePath: undefined
+        registry: undefined
       }
     };
 
@@ -139,7 +139,7 @@ describe('Get User Options (from the available option)', () => {
       },
       onlyNew: {
         enable: false,
-        currentStoragePath: undefined
+        registry: undefined
       }
     };
 
@@ -167,7 +167,7 @@ describe('Get User Options (from the available option)', () => {
       },
       onlyNew: {
         enable: false,
-        currentStoragePath: undefined
+        registry: undefined
       }
     };
 
@@ -189,7 +189,7 @@ describe('Get User Options (from the available option)', () => {
       },
       onlyNew: {
         enable: false,
-        currentStoragePath: undefined
+        registry: undefined
       }
     };
 

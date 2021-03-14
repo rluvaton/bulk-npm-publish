@@ -35,10 +35,10 @@ const _questions = [
   },
   {
     type: (createNewOnlyRes) => createNewOnlyRes ? 'text' : null,
-    name: 'currentStorage',
-    message: `What's the path for the current storage`,
-    initial: DEFAULT_USER_OPTIONS?.onlyNew?.currentStoragePath,
-    validate: (path) => validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: path}).catch(err => err.message)
+    name: 'onlyNew.registry',
+    message: `What's the registry to check for published packages`,
+    initial: DEFAULT_USER_OPTIONS?.onlyNew?.registry,
+    validate: (registry) => validateOnlyNewOptionsIfSpecified({enable: true, registry: registry}).catch(err => err.message)
   },
 ];
 
@@ -76,7 +76,7 @@ export const userOptionPromptGetter: IUserOptionGetter = async () => {
     },
     onlyNew: {
       enable: response.createNewOnly,
-      currentStoragePath: response.currentStorage
+      registry: response['onlyNew.registry']
     }
   };
 };

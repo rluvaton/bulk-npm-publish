@@ -3,7 +3,7 @@ import { getCurrentOS, OSTypes } from '../utils';
 
 export interface UserOptionsGetNewPackages {
   enable?: boolean;
-  currentStoragePath?: string;
+  registry?: string;
 }
 
 export interface UserOptions {
@@ -34,7 +34,7 @@ export const DEFAULT_USER_OPTIONS: UserOptions = {
   },
   onlyNew: {
     enable: false,
-    currentStoragePath: undefined
+    registry: undefined
   }
 };
 

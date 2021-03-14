@@ -44,35 +44,26 @@ $ bulk-npm-publish -h
 Usage: bulk-npm-publish [options]
 
 Options:
-  --version                Show version number                         [boolean]
-  -h, --help               Show help                                   [boolean]
-  -i, --interactive        If you want to provide input interactively
-                                                      [boolean] [default: false]
-  --sp, --storage-path     What is the path for the storage you want to publish
-                                                                        [string]
-  -o, --output             Where the publish script will be created
-                                              [string] [default: "./publish.sh"]
-  -r, --registry           What is the registry url you want to publish to
-                                                                        [string]
-  --cs, --current-storage  What's the path for the current storage so the script
-                           will publish only new packages               [string]
+  --version                Show version number                                                                                                            [boolean]
+  -h, --help               Show help                                                                                                                      [boolean]
+  -i, --interactive        If you want to provide input interactively                                                                    [boolean] [default: false]
+  --sp, --storage-path     What is the path for the storage you want to publish                                                                            [string]
+  -o, --output             Where the publish script will be created                                                                                        [string]
+  -r, --registry           What is the registry url you want to publish to                                                                                 [string]
+  --only-new               Should publish only new packages? (specify --rg|--remote-registry to use custom registry to check for published packages)
+                                                                                                                                         [boolean] [default: false]
+  --rg, --remote-registry  What is the registry url you want to check for already published packages                                                       [string]
 
 Examples:
-  bulk-npm-publish -i                       Create publish script interactively
-  bulk-npm-publish --sp ~/new-storage       Create publish script at
-                                            `./publish.sh` with storage content
-                                            from `~/new-storage`
-  bulk-npm-publish --sp ~/new-storage -o    Create publish script at
-  /root/publish-script.sh                   `/root/publish-script.sh` with
-                                            storage content from `~/new-storage`
-  bulk-npm-publish --sp ~/new-storage -r    Create publish script at
-  http://localhost:4873                     `./publish.sh` with storage content
-                                            from `~/new-storage` that will
-                                            publish to `http://localhost:4873`
-  bulk-npm-publish --sp ~/new-storage --cs  Create publish script at
-  ~/verdaccio/storage                       `./publish.sh` with storage content
-                                            from `~/new-storage` that doesn't
-                                            exist in `~/verdaccio/storage`
+  bulk-npm-publish -i                                             Create publish script interactively
+  bulk-npm-publish --sp ~/new-storage                             Create publish script at `./publish.sh` with storage content from `~/new-storage`
+  bulk-npm-publish --sp ~/new-storage -o /root/publish-script.sh  Create publish script at `/root/publish-script.sh` with storage content from `~/new-storage`
+  bulk-npm-publish --sp ~/new-storage -r http://localhost:4873    Create publish script at `./publish.sh` with storage content from `~/new-storage` that will
+                                                                  publish to `http://localhost:4873`
+  bulk-npm-publish --sp ~/new-storage --only-new                  Create publish script at `./publish.sh` with storage content from `~/new-storage` that doesn't
+                                                                  exist in the currnt registry
+  bulk-npm-publish --sp ~/new-storage --rg http://localhost:4873  Create publish script at `./publish.sh` with storage content from `~/new-storage` that doesn't
+                                                                  exist in `http://localhost:4873`
 ```
 
 </p>
