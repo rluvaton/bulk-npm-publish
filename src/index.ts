@@ -20,9 +20,6 @@ const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGett
 };
 
 const run = async () => {
-  // logger.info(bold().underline('⏳ Starting... ⏳'));
-  //
-  // logger.info(bold().underline(`${emoji.get(':wrench:')} User configuration`));
 
   let config: UserOptions;
   try {
