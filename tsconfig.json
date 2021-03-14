@@ -6,7 +6,7 @@
       "es2017",
       "dom"
     ],
-    "typeRoots": ["node_modules/@types", "typings"],
+    "typeRoots": ["node_modules/@types"],
     "noImplicitAny": false,
     "sourceMap": false,
     "outDir": "lib",

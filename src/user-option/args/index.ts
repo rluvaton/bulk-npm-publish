@@ -30,10 +30,16 @@ const usageExamples: ((...params: any[]) => [string, string])[] = [
     `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that will publish to \`${customRegistry}\``
   ],
 
-  // new Only
-  (storagePath: string, currentStorage: string) => [
-    `$0 --sp ${storagePath} --cs ${currentStorage}`,
-    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that doesn't exist in \`${currentStorage}\``
+  // Only new with current registry
+  (storagePath: string) => [
+    `$0 --sp ${storagePath} --only-new`,
+    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that doesn't exist in the currnt registry`,
+  ],
+
+  // Only new with custom registry
+  (storagePath: string, remoteRegistry: string) => [
+    `$0 --sp ${storagePath} --rg ${remoteRegistry}`,
+    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that doesn't exist in \`${remoteRegistry}\``,
   ],
 ];
 
@@ -55,8 +61,12 @@ const defaultUsageExamplesParams: ({ windows: string[], linux: string[] })[] = [
     linux: ['~/new-storage', 'http://localhost:4873']
   },
   {
-    windows: ['C:\\new-storage', 'C:\\Users\\username\\AppData\\Roaming\\verdaccio\\storage'],
-    linux: ['~/new-storage', '~/verdaccio/storage']
+    windows: ['C:\\new-storage'],
+    linux: ['~/new-storage']
+  },
+  {
+    windows: ['C:\\new-storage', 'http://localhost:4873'],
+    linux: ['~/new-storage', 'http://localhost:4873']
   },
 ];
 
@@ -109,13 +119,21 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       requiresArg: false,
     })
 
-    // The current storage path to check for existing packages
-    .option('cs', {
-      alias: 'current-storage',
-      string: true,
-      description: 'What is the current storage path so the script will only publish new packages',
-      nargs: 1,
+    // Should publish only new packages
+    .option('only-new', {
+      boolean: true,
+      description: 'Should publish only new packages? (specify --rg|--remote-registry to use custom registry to check for published packages)',
       requiresArg: false,
+      default: false
+    })
+
+    // The registry url to check for existing packages
+    .option('rg', {
+      alias: 'remote-registry',
+      string: true,
+      description: 'What is the registry url you want to check for already published packages',
+      nargs: 1,
+      requiresArg: false
     })
 
     .check((argv) => {
@@ -145,9 +163,9 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
     npmPublishOptions: !args.r ? undefined : {
       registry: args.r
     },
-    onlyNew: !args.cs ? undefined : {
+    onlyNew: !args.rg && !args['only-new'] ? undefined : {
       enable: true,
-      currentStoragePath: args.cs
+      registry: args.rg
     }
   };
 

@@ -1,5 +1,6 @@
 import 'jest-extended';
-import {setDefaultUserOptionsProperties, UserOptions} from '../../../src/user-option/user-options';
+import {DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions} from '../../../src/user-option/user-options';
+import {deepClone} from '../../../src/utils';
 
 describe('UserOptions', () => {
   describe('#setDefaultUserOptionsProperties', () => {
@@ -46,22 +47,11 @@ describe('UserOptions', () => {
         },
         onlyNew: {
           enable: true,
-          currentStoragePath: '../../storage/'
+          registry: 'http://localhost:4873'
         }
       };
 
-      const defaultOptions: UserOptions = {
-        // @ts-ignore:disable-next-line
-        storagePath: undefined,
-        destPublishScriptFilePath: './publish.bat',
-        npmPublishOptions: {
-          registry: undefined
-        },
-        onlyNew: {
-          enable: false,
-          currentStoragePath: undefined
-        }
-      };
+      const defaultOptions: UserOptions = deepClone(DEFAULT_USER_OPTIONS);
 
       const combinedOptions = setDefaultUserOptionsProperties(currOptions, defaultOptions);
 
