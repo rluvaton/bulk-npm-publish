@@ -1,25 +1,63 @@
 import 'jest-extended';
+import {when, verifyAllWhenMocksCalled, resetAllWhenMocks} from 'jest-when';
 
+import {dirname} from 'path';
 import {UserOptions} from '../../../src/user-option/user-options';
 import * as validator from '../../../src/user-option/validator';
 import * as fsUtils from '../../../src/fs-utils';
 
 describe('User Options Validator', () => {
 
+  afterEach(() => {
+    resetAllWhenMocks();
+  });
+
   describe('Validate User Options', () => {
+
+    const setValidStoragePathAndDestPublishScriptFilePath = (userOptions: UserOptions) => {
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists)
+        .calledWith(userOptions.storagePath).mockResolvedValue(true)
+        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+    };
 
     it('should be defined', () => {
       expect(validator.validateUserOptions).toBeDefined();
     });
 
-    it('should return true if the user options contain existing storage path and destPublishScriptFilePath', async () => {
+    it(`should reject with 'Missing Path' Error if the user options is undefined`, async () => {
+      // Arrange
+      const missingPathError = new Error('Missing path');
+
+      // Act
+      // @ts-expect-error
+      const isValid = validator.validateUserOptions(undefined);
+
+      // Assert
+      await expect(isValid).rejects.toThrowError(missingPathError);
+    });
+
+    it(`should reject with 'Missing Path' Error if the user options is empty object`, async () => {
+      // Arrange
+      const missingPathError = new Error('Missing path');
+
+      // Act
+      const isValid = validator.validateUserOptions({});
+
+      // Assert
+      await expect(isValid).rejects.toThrowError(missingPathError);
+    });
+
+    it('should return true if the user options contain existing storage path and non existing destPublishScriptFilePath path', async () => {
       // Arrange
       const userOptions: UserOptions = {
         storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
       };
 
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+      setValidStoragePathAndDestPublishScriptFilePath(userOptions);
 
       // Act
       const isUserOptionsValid = validator.validateUserOptions(userOptions);
@@ -28,36 +66,52 @@ describe('User Options Validator', () => {
       await expect(isUserOptionsValid).resolves.toBe(true);
     });
 
-    it('should return false if the user options is undefined', async () => {
-      // @ts-expect-error
-      await expect(validator.validateUserOptions(undefined)).resolves.toBe(false);
-    });
-
-    it('should return false if the user options is empty object', async () => {
-      await expect(validator.validateUserOptions({})).resolves.toBe(false);
-    });
-
-    it('should return false if the user options contain missing storage path', async () => {
+    it(`should reject with 'Directory does not exist' Error if the user options contain missing storage path`, async () => {
+      // Arrange
       const userOptions: UserOptions = {
         storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
       };
 
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(false);
+      const directoryNotExistError = new Error('Directory does not exist');
 
-      await expect(validator.validateUserOptions(userOptions)).resolves.toBe(false);
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists)
+        .calledWith(userOptions.storagePath).mockResolvedValue(false)
+        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+
+      // Act
+      const isValid = validator.validateUserOptions(userOptions);
+
+      // Assert
+      await expect(isValid).rejects.toThrowError(directoryNotExistError);
     });
 
-    it('should return false if the user options.storagePath is empty string', async () => {
+    it(`should reject with 'Invalid path' error if the user options.storagePath is empty string`, async () => {
+      // Arrange
       const userOptions: UserOptions = {
         storagePath: '',
         destPublishScriptFilePath: './publish.bat',
       };
 
-      await expect(validator.validateUserOptions(userOptions)).resolves.toBe(false);
+      const invalidPathError = new Error('Invalid path');
+
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists)
+        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+
+      // Act
+      const isValid = validator.validateUserOptions(userOptions);
+
+      // Assert
+      await expect(isValid).rejects.toThrowError(invalidPathError);
     });
 
-    it('should return false if the user options.npmPublishOptions.registry is an empty string', async () => {
+    it(`should reject with 'Registry is not valid http(s) url' if the user options npmPublishOptions.registry is an empty string`, async () => {
       // Arrange
       const userOptions: UserOptions = {
         storagePath: './storage',
@@ -67,14 +121,18 @@ describe('User Options Validator', () => {
         }
       };
 
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
+
+      setValidStoragePathAndDestPublishScriptFilePath(userOptions);
+
       // Act
       const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
-      await expect(isValid).resolves.toBe(false);
+      await expect(isValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    it('should return false if the user options.npmPublishOptions.registry is not a url', async () => {
+    it(`should reject with 'Registry is not valid http(s) url' if the user options.npmPublishOptions.registry is not a url`, async () => {
       // Arrange
       const userOptions: UserOptions = {
         storagePath: './storage',
@@ -84,11 +142,15 @@ describe('User Options Validator', () => {
         }
       };
 
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
+
+      setValidStoragePathAndDestPublishScriptFilePath(userOptions);
+
       // Act
       const isValid = validator.validateUserOptions(userOptions);
 
       // Assert
-      await expect(isValid).resolves.toBe(false);
+      await expect(isValid).rejects.toThrowError(invalidRegistryError);
     });
 
     // tslint:disable-next-line:max-line-length
@@ -107,7 +169,76 @@ describe('User Options Validator', () => {
       await expect(isValid).resolves.toBe(true);
     });
 
-    describe('should return false if one of the validation failed', () => {
+    it('should return true if the user options contain existing storage path and non existing destPublishScriptFilePath path and onlyNew.enable is false', async () => {
+      // Arrange
+      const userOptions: UserOptions = {
+        storagePath: './storage',
+        destPublishScriptFilePath: './publish.bat',
+        onlyNew: {
+          enable: false
+        }
+      };
+
+      setValidStoragePathAndDestPublishScriptFilePath(userOptions);
+
+      // Act
+      const isUserOptionsValid = validator.validateUserOptions(userOptions);
+
+      // Assert
+      await expect(isUserOptionsValid).resolves.toBe(true);
+    });
+
+    it(`should reject with 'Directory does not exist' Error if the user options contain missing onlyNew.currentStoragePath`, async () => {
+      // Arrange
+      const userOptions: UserOptions = {
+        storagePath: './storage',
+        destPublishScriptFilePath: './publish.bat',
+        onlyNew: {
+          enable: true,
+          currentStoragePath: './storage-2'
+        }
+      };
+
+      const directoryNotExistError = new Error('Directory does not exist');
+
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists)
+        .calledWith(userOptions.storagePath).mockResolvedValue(true)
+        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true)
+        .calledWith(userOptions.onlyNew?.currentStoragePath).mockResolvedValue(false);
+
+      // Act
+      const isValid = validator.validateUserOptions(userOptions);
+
+      // Assert
+      await expect(isValid).rejects.toThrowError(directoryNotExistError);
+    });
+
+    it(`should reject with 'Invalid path' error if the user options.onlyNew.currentStoragePath is empty string`, async () => {
+      // Arrange
+      const userOptions: UserOptions = {
+        storagePath: '',
+        destPublishScriptFilePath: './publish.bat',
+        onlyNew: {
+          enable: true,
+          currentStoragePath: ''
+        }
+      };
+
+      const invalidPathError = new Error('Invalid path');
+
+      setValidStoragePathAndDestPublishScriptFilePath(userOptions);
+
+      // Act
+      const isValid = validator.validateUserOptions(userOptions);
+
+      // Assert
+      await expect(isValid).rejects.toThrowError(invalidPathError);
+    });
+
+    describe('should reject with the error that one of the validation rejcted with', () => {
 
       it.each([
         ['validateStorage'],
@@ -116,14 +247,21 @@ describe('User Options Validator', () => {
         ['validateOnlyNewOptionsIfSpecified'],
       ])('should return false if `%s` return false', async (functionName) => {
         // Arrange
+        const unknownError = new Error('Unknown error');
+
+        jest.spyOn(validator, 'validateStorage').mockResolvedValue(true);
+        jest.spyOn(validator, 'validateDestPublishScriptFilePath').mockResolvedValue(true);
+        jest.spyOn(validator, 'validateNpmPublishOptionsIfSpecified').mockResolvedValue(true);
+        jest.spyOn(validator, 'validateOnlyNewOptionsIfSpecified').mockResolvedValue(true);
+
         // @ts-ignore
-        jest.spyOn(validator, functionName).mockResolvedValue(false);
+        jest.spyOn(validator, functionName).mockRejectedValue(unknownError);
 
         // Act
         const isValid = validator.validateUserOptions({});
 
         // Assert
-        await expect(isValid).resolves.toBe(false);
+        await expect(isValid).rejects.toThrowError(unknownError);
       });
 
     });
@@ -138,24 +276,32 @@ describe('User Options Validator', () => {
 
     it('should return true when storage folder exists', async () => {
       // Arrange
+      const storagePath: UserOptions['storagePath'] = './storage';
       jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
 
       // Act
-      const isStorageValid = validator.validateStorage('./storage');
+      const isStorageValid = validator.validateStorage(storagePath);
 
       // Assert
       await expect(isStorageValid).resolves.toBe(true);
     });
 
-    it(`should return false when storage folder doesn't exist`, async () => {
+    it(`should reject with 'Directory does not exist' Error when storage folder doesn't exist`, async () => {
       // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(false);
+      const storagePath: UserOptions['storagePath'] = './storage';
+
+      const directoryNotExistError = new Error('Directory does not exist');
+
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists).expectCalledWith(storagePath).mockResolvedValue(false);
 
       // Act
       const isStorageValid = validator.validateStorage('./storage');
 
       // Assert
-      await expect(isStorageValid).resolves.toBe(false);
+      verifyAllWhenMocksCalled();
+      await expect(isStorageValid).rejects.toThrowError(directoryNotExistError);
     });
 
     it.each([
@@ -195,24 +341,29 @@ describe('User Options Validator', () => {
 
       ['../some dir with spaces/storage/', 'Linux'],
       ['..\\some dir with spaces\\storage\\', 'Windows'],
-    ])('should return true when storage path is %s like in %s', async (destPublishScriptFilePath, _osTypePath) => {
+    ])('should return true when storage path is %s like in %s', async (destPublishScriptFilePath: UserOptions['storagePath'], _osTypePath) => {
       // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists).expectCalledWith(destPublishScriptFilePath).mockResolvedValue(true);
 
       // Act
       const isStorageValid = validator.validateStorage(destPublishScriptFilePath);
 
       // Assert
+      verifyAllWhenMocksCalled();
       await expect(isStorageValid).resolves.toBe(true);
     });
 
-    it(`should return false when passing undefined`, async () => {
+    it(`should reject 'Missing path' Error when passing undefined`, async () => {
+      // Arrange
+      const missingPathError = new Error('Missing path');
 
       // Act
       const isStorageValid = validator.validateStorage();
 
       // Assert
-      await expect(isStorageValid).resolves.toBe(false);
+      await expect(isStorageValid).rejects.toThrowError(missingPathError);
     });
   });
 
@@ -237,9 +388,13 @@ describe('User Options Validator', () => {
 
       ['Linux', '/publish.sh'],
       ['Windows', 'C:\\publish.bat'],
-    ])('should return true when the dest publish script file path is %s like in %s', async (destPublishScriptFilePath, _osTypePath) => {
+    ])('should return true when the dest publish script file path is %s like in %s', async (destPublishScriptFilePath: UserOptions['destPublishScriptFilePath'], _osTypePath) => {
       // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists)
+        .calledWith(destPublishScriptFilePath).mockResolvedValue(false)
+        .calledWith(dirname(destPublishScriptFilePath)).mockResolvedValue(true);
 
       // Act
       const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
@@ -252,31 +407,40 @@ describe('User Options Validator', () => {
     it.each([
       ['Linux', '/tmp/'],
       ['Windows', 'C:\\Program Files\\'],
-    ])('should return false the dest publish script file path pointing to a absolute directory in %s', async (osTypePath, destPublishScriptFilePath) => {
+    ])(`should reject with 'Invalid path' error the dest publish script file path pointing to a absolute directory in %s`,
+      async (osTypePath, destPublishScriptFilePath: UserOptions['destPublishScriptFilePath']) => {
+        // Arrange
+        const invalidPathError = new Error('Invalid path');
+
+        // Act
+        const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+
+        // Assert
+        await expect(isDestPublishScriptFilePathValid).rejects.toThrowError(invalidPathError);
+      });
+
+    it(`should reject with 'Invalid path' error when passing undefined`, async () => {
       // Arrange
-      jest.spyOn(fsUtils, 'isDirectoryExists').mockResolvedValue(true);
+      const invalidPathError = new Error('Invalid path');
+
+      // Act
+      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(undefined); // NOSONAR
+
+      // Assert
+      await expect(isDestPublishScriptFilePathValid).rejects.toThrowError(invalidPathError);
+    });
+
+    it(`should reject with 'Invalid path' error when passing empty string`, async () => {
+      // Arrange
+      const destPublishScriptFilePath = '';
+
+      const invalidPathError = new Error('Invalid path');
 
       // Act
       const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
 
       // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
-    });
-
-    it(`should return false when passing undefined`, async () => {
-      // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(undefined); // NOSONAR
-
-      // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(false);
-    });
-
-    it(`should return false when passing empty string`, async () => {
-      // Act
-      const isStorageValid = validator.validateDestPublishScriptFilePath('');
-
-      // Assert
-      await expect(isStorageValid).resolves.toBe(false);
+      await expect(isDestPublishScriptFilePathValid).rejects.toThrowError(invalidPathError);
     });
   });
 
@@ -303,61 +467,85 @@ describe('User Options Validator', () => {
     });
 
     it(`should return true when passing {registry: 'http://localhost:4873'}`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'http://localhost:4873'};
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'http://localhost:4873'});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
     it(`should return true when passing not passing port in the registry key`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'http://localhost'};
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'http://localhost'});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
-    it(`should return false when not passing http or https protocol in the registry key`, async () => {
+    it(`should reject with 'Registry is not valid http(s) url' error when not using different protcol than http or https protocol in the registry key`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'ftp://localhost:5873'};
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'ftp://localhost:4873'});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    it(`should return false when not passing protocol in the registry key`, async () => {
+    it(`should reject with 'Registry is not valid http(s) url' error when not passing protocol in the registry key`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'localhost:5873'};
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'localhost:4873'});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    it(`should return false when not passing protocol and port in the registry key`, async () => {
+    it(`should reject with 'Registry is not valid http(s) url' error when not passing protocol and port in the registry key`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'localhost'};
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'localhost'});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
-
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    it(`should return false when not passing web uri in the registry key`, async () => {
+    it(`should reject with 'Registry is not valid http(s) url' error when not passing web uri in the registry key`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'Hello how are you'};
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: 'hello how are you'});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    it(`should return false when passing empty string in the registry key`, async () => {
+    it(`should reject with 'Registry is not valid http(s) url' error when passing empty string in the registry key`, async () => {
+      // Arrange
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: ''};
+      const invalidRegistryError = new Error('Registry is not valid http(s) url');
 
       // Act
-      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified({registry: ''});
+      const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidRegistryError);
     });
 
   });
@@ -385,16 +573,22 @@ describe('User Options Validator', () => {
     });
 
     it(`should return true when passing {enable: false}`, async () => {
+      // Arrange
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: false};
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: false});
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
     it(`should return true when passing enable false and some value in currentStoragePath`, async () => {
+      // Arrange
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: false, currentStoragePath: 'something'};
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: false, currentStoragePath: 'something'});
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
@@ -402,29 +596,42 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing enable true with currentStoragePath: '/storage' and validateStorage return true`, async () => {
       // Arrange
-      jest.spyOn(validator, 'validateStorage').mockResolvedValueOnce(true);
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, currentStoragePath: '/storage'};
+
+      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+
+      when(spiedIsDirectoryExists).expectCalledWith(onlyNewOptions.currentStoragePath).mockResolvedValue(true);
 
       // Act
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: '/storage'});
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
+      verifyAllWhenMocksCalled();
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
-    it(`should return false when enable is true and no currentStoragePath key passed`, async () => {
+    it(`should reject with 'Missing path' error when enable is true and no currentStoragePath key passed`, async () => {
+      // Arrange
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true};
+      const missingPathError = new Error('Missing path');
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true});
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(missingPathError);
     });
 
-    it(`should return false when passing {enable: true, currentStoragePath: ''}`, async () => {
+    it(`should reject with 'Invalid path' error when passing {enable: true, currentStoragePath: ''}`, async () => {
+      // Arrange
+      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, currentStoragePath: ''};
+      const invalidPathError = new Error('Invalid path');
+
       // Act
-      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified({enable: true, currentStoragePath: ''});
+      const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
 
       // Assert
-      await expect(isNpmPublishOptionsValid).resolves.toBe(false);
+      await expect(isNpmPublishOptionsValid).rejects.toThrowError(invalidPathError);
     });
 
   });
