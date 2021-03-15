@@ -17,7 +17,7 @@ const generateIsPublishedPromises = function* (packages: Package[], registry: st
   }
 };
 
-export const filterExistingNpmPackages = async (packages: Package[], registry: string | undefined): Promise<Package[]> => {
+export const filterExistingNpmPackages = async (packages: Package[], registry?: string): Promise<Package[]> => {
   const unpublishedPackages: Package[] = [];
 
   if (!registry) {

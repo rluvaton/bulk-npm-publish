@@ -68,7 +68,7 @@ const getTarballEndpointFromPackageInfo = ({scope, name, version}: { scope?: str
   let tarballEndpoint: string = '';
 
   if (scope) {
-    tarballEndpoint = `@${scope}/`;
+    tarballEndpoint = `${scope.startsWith('@') ? '' : '@'}${scope}/`;
   }
 
   tarballEndpoint += `${name}/-/${name}-${version}.tgz`;
