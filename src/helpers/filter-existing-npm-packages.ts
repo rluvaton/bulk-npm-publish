@@ -6,8 +6,14 @@ import {logger} from '../logger';
 const generateIsPublishedPromises = function* (packages: Package[], registry: string | undefined): Generator<Promise<{ isPublished: boolean, package: Package }>> {
   const packagesLength = packages.length;
   for (let index = 0; index < packagesLength; index++) {
-    yield isNpmPackagePublished({name: packages[index].name, version: packages[index].version, registry})
-      .then((isPublished) => ({isPublished, package: packages[index]}));
+    const currentPackage = packages[index];
+    yield isNpmPackagePublished({
+      scope: currentPackage.scope,
+      name: currentPackage.name,
+      version: currentPackage.version,
+      registry
+    })
+      .then((isPublished) => ({isPublished, package: currentPackage}));
   }
 };
 
@@ -28,7 +34,7 @@ export const filterExistingNpmPackages = async (packages: Package[], registry: s
   });
 
   // @ts-ignore
-  pool.addEventListener('fulfilled', (event:{ data: { result: { isPublished: boolean, package: Package }}}) => {
+  pool.addEventListener('fulfilled', (event: { data: { result: { isPublished: boolean, package: Package } } }) => {
     const {isPublished, package: _package} = event?.data?.result;
     if (!isPublished) {
       unpublishedPackages.push(_package);
