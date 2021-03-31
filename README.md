@@ -12,7 +12,7 @@ _CLI Tool for Publishing Multiple NPM packages from [verdaccio](https://verdacci
 ## Features
 - Support publishing to registry
 - Publish scoped packages too (i.e `@angular\cli@7.3.9`)
-- Support publishing only exists packages' versions (need to provide storage path)
+- Support publishing only exists packages' versions (using the `--only-new` flag for current registry or `--rg` for other registry)
 - Have interactive mode (if you don't like the args passing way just pass `-i`)
 
 ## Why I did this tool
