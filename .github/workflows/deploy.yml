@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     # Don't run this workflow on forks
-    if: github.repository == "rluvaton/bulk-npm-publish"
+    if: github.repository == 'rluvaton/bulk-npm-publish'
 
     steps:
       - name: Checkout Code
@@ -34,5 +34,6 @@ jobs:
       - name: Publish project
         run: npx semantic-release@^15
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # For some reason if we're using NPM_TOKEN: ${{ ... }} it wouldn't work as it said it's unauthorized
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
