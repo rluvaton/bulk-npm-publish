@@ -31,10 +31,8 @@ describe('Get User Options (from the available option)', () => {
     return {...dep, userOptionPromptGetter};
   }
 
-  beforeAll(() => {
-  });
-
   beforeEach(() => {
+    // TODO(rluvaton): set reset modules option in the jest config instead
     jest.resetModules(); // this is important - it clears the cache
   });
 
