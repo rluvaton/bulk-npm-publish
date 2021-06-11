@@ -1,5 +1,5 @@
 # Bulk NPM Publish
-[![Build Status](https://travis-ci.com/rluvaton/bulk-npm-publish.svg?branch=master)](https://travis-ci.com/rluvaton/bulk-npm-publish)
+[![Test Actions Status](https://github.com/rluvaton/bulk-npm-publish/workflows/test/badge.svg)](https://github.com/rluvaton/bulk-npm-publish/actions) [![Deploy Actions Status](https://github.com/rluvaton/bulk-npm-publish/workflows/deploy/badge.svg)](https://github.com/rluvaton/bulk-npm-publish/actions)
 
 _CLI Tool for Publishing Multiple NPM packages from [verdaccio](https://verdaccio.org/) storage_
 > This Library create batch file with the NPM publish command
