@@ -34,5 +34,6 @@ jobs:
       - name: Publish project
         run: npx semantic-release@^15
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # For some reason if we're using NPM_TOKEN: ${{ ... }} it wouldn't work as it said it's unauthorized
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
