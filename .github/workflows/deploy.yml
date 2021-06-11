@@ -1,0 +1,38 @@
+name: deploy
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  test:
+    name: "Deploy NPM package"
+    runs-on: ubuntu-20.04
+
+    # Don't run this workflow on forks
+    if: github.repository == "rluvaton/bulk-npm-publish"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJS 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+          registry-url: https://registry.npmjs.org
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish project
+        run: npx semantic-release@^15
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
