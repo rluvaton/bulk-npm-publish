@@ -1,8 +1,8 @@
 import 'jest-extended';
 
-import {IUserOptionGetter as IUserOptionGetterLib} from '../i-user-option-getter';
-import {UserOptions as UserOptionsLib} from '../user-options';
-import {setPlatform} from '../../../tests/util';
+import { IUserOptionGetter as IUserOptionGetterLib } from '../i-user-option-getter';
+import { UserOptions as UserOptionsLib } from '../user-options';
+import { setPlatform } from '../../../tests/util';
 import Mock = jest.Mock;
 
 interface TestDeps {
@@ -15,12 +15,12 @@ interface TestDeps {
 
 function getDeps(): TestDeps {
   const prompts = require('prompts');
-  const {UserOptions} = require('../user-options');
-  const {IUserOptionGetter} = require('../i-user-option-getter');
+  const { UserOptions } = require('../user-options');
+  const { IUserOptionGetter } = require('../i-user-option-getter');
   // tslint:disable-next-line:variable-name
   const UserOptionPromptGetter = require('./user-option-prompt-getter');
 
-  return {prompts, UserOptions, IUserOptionGetter, UserOptionPromptGetter};
+  return { prompts, UserOptions, IUserOptionGetter, UserOptionPromptGetter };
 }
 
 describe('Get User Options from User Interactive Input', () => {
@@ -30,7 +30,10 @@ describe('Get User Options from User Interactive Input', () => {
     setPlatform(platform);
     const deps: TestDeps = getDeps();
 
-    return {...deps, userOptionPromptGetter: jest.spyOn(deps.UserOptionPromptGetter, 'userOptionPromptGetter') as Mock};
+    return {
+      ...deps,
+      userOptionPromptGetter: jest.spyOn(deps.UserOptionPromptGetter, 'userOptionPromptGetter') as Mock
+    };
   }
 
   async function testUserOptionPromptGetter<TUserOptions>(userOptionPromptGetter: IUserOptionGetterLib, expectedUserOptions: TUserOptions) {
@@ -62,147 +65,85 @@ describe('Get User Options from User Interactive Input', () => {
   });
 
   it('userOptionPromptGetter should be define', () => {
-    const {userOptionPromptGetter} = require('./user-option-prompt-getter');
+    const { userOptionPromptGetter } = require('./user-option-prompt-getter');
     expect(userOptionPromptGetter).toBeDefined();
   });
 
   describe('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', () => {
 
-    function testForPlatform({platform, storagePath, destPublishScriptFilePath}) {
-      it(`test for ${platform}`, async () => {
-        const {UserOptions, prompts, userOptionPromptGetter} = prepareForTest(platform);
-        const expectedUserOptions: typeof UserOptions = {
-          storagePath,
-          destPublishScriptFilePath,
-          npmPublishOptions: {
-            registry: undefined
-          },
-          onlyNew: {
-            enable: false,
-            registry: undefined
-          }
-        };
+    it.each([
+      ['win32', 'C://storage-to-publish', './publish.bat'],
+      ['linux', '/home/user/storage-to-publish', './publish.sh']
+    ])(`test for %s`, async (platform, storagePath, destPublishScriptFilePath) => {
+      const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
+      const expectedUserOptions: typeof UserOptions = {
+        storagePath,
+        destPublishScriptFilePath,
+        npmPublishOptions: {
+          registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          registry: undefined
+        }
+      };
 
-        // Inject the values
-        prompts.inject([expectedUserOptions.storagePath, undefined, undefined]);
-        await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
-      });
-    }
-
-    const platformsData = [
-      {
-        platform: 'win32',
-        storagePath: 'C://storage-to-publish',
-        destPublishScriptFilePath: './publish.bat',
-      },
-      {
-        platform: 'linux',
-        storagePath: '/home/user/storage-to-publish',
-        destPublishScriptFilePath: './publish.sh',
-      },
-    ];
-
-    platformsData.map(platform => testForPlatform(platform));
+      // Inject the values
+      prompts.inject([expectedUserOptions.storagePath, undefined, undefined]);
+      await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
+    });
   });
 
   describe('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', () => {
 
-    function testForPlatform({platform, storagePath, destPublishScriptFilePath}) {
-      it(`test for ${platform}`, async () => {
-        const {UserOptions, prompts, userOptionPromptGetter} = prepareForTest(platform);
-        const expectedUserOptions: typeof UserOptions = {
-          storagePath,
-          destPublishScriptFilePath,
-          npmPublishOptions: {
-            registry: undefined
-          },
-          onlyNew: {
-            enable: false,
-            registry: undefined
-          }
-        };
+    it.each([
+      ['win32', 'C://storage-to-publish', './my-custom-publish-script.cmd'],
+      ['linux', '/home/user/storage-to-publish', './my-custom-publish-script.sh']
+    ])(`test for %s`, async (platform, storagePath, destPublishScriptFilePath) => {
+      const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
+      const expectedUserOptions: typeof UserOptions = {
+        storagePath,
+        destPublishScriptFilePath,
+        npmPublishOptions: {
+          registry: undefined
+        },
+        onlyNew: {
+          enable: false,
+          registry: undefined
+        }
+      };
 
-        // Inject the values
-        prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, undefined]);
-        await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
-      });
-    }
-
-    const platformsData = [
-      {
-        platform: 'win32',
-        storagePath: 'C://storage-to-publish',
-        destPublishScriptFilePath: './my-custom-publish-script.cmd',
-      },
-      {
-        platform: 'linux',
-        storagePath: '/home/user/storage-to-publish',
-        destPublishScriptFilePath: './my-custom-publish-script.sh',
-      },
-    ];
-
-    platformsData.map(platform => testForPlatform(platform));
+      // Inject the values
+      prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, undefined]);
+      await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
+    });
   });
 
   describe('should get provided storage path, publish script file path and npmPublishOptions.registry', () => {
+    it.each([
+      ['win32', 'C://storage-to-publish', './my-custom-publish-script.cmd', 'http://localhost:4873'],
+      ['linux', '/home/user/storage-to-publish', './my-custom-publish-script.sh', 'http://localhost:4873']
+    ])(`test for %s`, async (platform, storagePath, destPublishScriptFilePath, registry) => {
+      const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
+      const expectedUserOptions: typeof UserOptions = {
+        storagePath,
+        destPublishScriptFilePath,
+        npmPublishOptions: {
+          registry
+        },
+        onlyNew: {
+          enable: false,
+          registry: undefined
+        }
+      };
 
-    function testForPlatform({platform, storagePath, destPublishScriptFilePath, registry}) {
-      it(`test for ${platform}`, async () => {
-        const {UserOptions, prompts, userOptionPromptGetter} = prepareForTest(platform);
-        const expectedUserOptions: typeof UserOptions = {
-          storagePath,
-          destPublishScriptFilePath,
-          npmPublishOptions: {
-            registry
-          },
-          onlyNew: {
-            enable: false,
-            registry: undefined
-          }
-        };
-
-        // Inject the values
-        prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions?.npmPublishOptions?.registry]);
-        await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
-      });
-    }
-
-    const platformsData = [
-      {
-        platform: 'win32',
-        storagePath: 'C://storage-to-publish',
-        destPublishScriptFilePath: './my-custom-publish-script.cmd',
-        registry: 'http://localhost:4873'
-      },
-      {
-        platform: 'linux',
-        storagePath: '/home/user/storage-to-publish',
-        destPublishScriptFilePath: './my-custom-publish-script.sh',
-        registry: 'http://localhost:4873'
-      },
-    ];
-
-    platformsData.map(platform => testForPlatform(platform));
+      // Inject the values
+      prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions?.npmPublishOptions?.registry]);
+      await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
+    });
   });
 
   describe('should get the full user options that passed', () => {
-
-    function testForPlatform(platform, userOptions: UserOptionsLib) {
-      it(`test for ${platform}`, async () => {
-        const {UserOptions, prompts, userOptionPromptGetter} = prepareForTest(platform);
-        const expectedUserOptions: typeof UserOptions = userOptions;
-
-        // Inject the values
-        prompts.inject([
-          expectedUserOptions.storagePath,
-          expectedUserOptions.destPublishScriptFilePath,
-          expectedUserOptions?.npmPublishOptions?.registry,
-          expectedUserOptions?.onlyNew?.enable,
-          expectedUserOptions?.onlyNew?.registry
-        ]);
-        await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
-      });
-    }
 
     const platformsData: [string, UserOptionsLib][] = [
       ['win32', {
@@ -228,34 +169,40 @@ describe('Get User Options from User Interactive Input', () => {
         }
       }]
     ];
+    it.each(platformsData)(`test for %s`, async (platform, userOptions: UserOptionsLib) => {
+      const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
+      const expectedUserOptions: typeof UserOptions = userOptions;
 
-    platformsData.map(([platform, userOption]) => testForPlatform(platform, userOption));
+      // Inject the values
+      prompts.inject([
+        expectedUserOptions.storagePath,
+        expectedUserOptions.destPublishScriptFilePath,
+        expectedUserOptions?.npmPublishOptions?.registry,
+        expectedUserOptions?.onlyNew?.enable,
+        expectedUserOptions?.onlyNew?.registry
+      ]);
+      await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
+    });
+
   });
 
   describe('should throw error that said `Canceled` when exiting before finish', () => {
+    it.each(['win32', 'linux'])(`test for %s`, async (platform) => {
+      const { prompts, userOptionPromptGetter } = prepareForTest(platform);
+      // Inject simulated user abort
+      prompts.inject([new Error('simulate cancel')]);
 
-    function testForPlatform(platform) {
-      it(`test for ${platform}`, async () => {
-        const {prompts, userOptionPromptGetter} = prepareForTest(platform);
-        // Inject simulated user abort
-        prompts.inject([new Error('simulate cancel')]);
+      expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
+      const pr = userOptionPromptGetter();
+      expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
+      expect(userOptionPromptGetter).toBeCalledWith();
+      await expect(pr).toReject();
 
-        expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
-        const pr = userOptionPromptGetter();
-        expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
-        expect(userOptionPromptGetter).toBeCalledWith();
-        await expect(pr).toReject();
-
-        (userOptionPromptGetter as Mock).mockRestore();
-        const rejectResult = await pr.catch((e) => e);
-        expect(rejectResult).toBeDefined();
-        expect(rejectResult).toBeInstanceOf(Error);
-        expect(rejectResult).toHaveProperty('message', 'Cancelled');
-      });
-    }
-
-    const platforms = ['win32', 'linux'];
-
-    platforms.map(platform => testForPlatform(platform));
+      (userOptionPromptGetter as Mock).mockRestore();
+      const rejectResult = await pr.catch((e) => e);
+      expect(rejectResult).toBeDefined();
+      expect(rejectResult).toBeInstanceOf(Error);
+      expect(rejectResult).toHaveProperty('message', 'Cancelled');
+    });
   });
 });
