@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     # Don't run this workflow on forks
-    if: github.repository == "rluvaton/bulk-npm-publish"
+    if: github.repository == 'rluvaton/bulk-npm-publish'
 
     steps:
       - name: Checkout Code
