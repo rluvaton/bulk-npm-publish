@@ -1,5 +1,4 @@
-import fs, {PathLike, WriteFileOptions} from 'fs';
-
+import fs, { PathLike, WriteFileOptions } from 'fs';
 
 /**
  * @see fs.writeFile

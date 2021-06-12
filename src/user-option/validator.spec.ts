@@ -1,27 +1,28 @@
 import 'jest-extended';
-import {when, verifyAllWhenMocksCalled, resetAllWhenMocks} from 'jest-when';
+import { when, verifyAllWhenMocksCalled, resetAllWhenMocks } from 'jest-when';
 
-import {dirname} from 'path';
-import {UserOptions} from './user-options';
+import { dirname } from 'path';
+import { UserOptions } from './user-options';
 import * as validator from './validator';
 import * as fsUtils from '../fs-utils';
 import * as npmUtils from '../npm-utils';
 
 describe('User Options Validator', () => {
-
   afterEach(() => {
     resetAllWhenMocks();
   });
 
   describe('Validate User Options', () => {
-
     const setValidStoragePathAndDestPublishScriptFilePath = (userOptions: UserOptions) => {
       const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
       when(spiedIsDirectoryExists)
-        .calledWith(userOptions.storagePath).mockResolvedValue(true)
-        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
-        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+        .calledWith(userOptions.storagePath)
+        .mockResolvedValue(true)
+        .calledWith(userOptions.destPublishScriptFilePath)
+        .mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath))
+        .mockResolvedValue(true);
     };
 
     it('should be defined', () => {
@@ -33,7 +34,7 @@ describe('User Options Validator', () => {
       const missingPathError = new Error('Missing path');
 
       // Act
-      // @ts-expect-error
+      // @ts-expect-error We test if the user options is undefined
       const isValid = validator.validateUserOptions(undefined);
 
       // Assert
@@ -79,9 +80,12 @@ describe('User Options Validator', () => {
       const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
       when(spiedIsDirectoryExists)
-        .calledWith(userOptions.storagePath).mockResolvedValue(false)
-        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
-        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+        .calledWith(userOptions.storagePath)
+        .mockResolvedValue(false)
+        .calledWith(userOptions.destPublishScriptFilePath)
+        .mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath))
+        .mockResolvedValue(true);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
@@ -102,8 +106,10 @@ describe('User Options Validator', () => {
       const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
       when(spiedIsDirectoryExists)
-        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
-        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+        .calledWith(userOptions.destPublishScriptFilePath)
+        .mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath))
+        .mockResolvedValue(true);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
@@ -118,8 +124,8 @@ describe('User Options Validator', () => {
         storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
-          registry: ''
-        }
+          registry: '',
+        },
       };
 
       setValidStoragePathAndDestPublishScriptFilePath(userOptions);
@@ -137,8 +143,8 @@ describe('User Options Validator', () => {
         storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
-          registry: 'hello'
-        }
+          registry: 'hello',
+        },
       };
 
       const invalidRegistryError = new Error('Registry is not valid http(s) url');
@@ -152,7 +158,7 @@ describe('User Options Validator', () => {
       await expect(isValid).rejects.toThrowError(invalidRegistryError);
     });
 
-    // tslint:disable-next-line:max-line-length
+    // eslint-disable-next-line max-len
     it('should return true if `validateStorage`, `validateDestPublishScriptFilePath`, `validateNpmPublishOptionsIfSpecified` and `validateOnlyNewOptionsIfSpecified` return true', async () => {
       // Arrange
       jest.spyOn(validator, 'validateStorage').mockResolvedValue(true);
@@ -174,8 +180,8 @@ describe('User Options Validator', () => {
         storagePath: './storage',
         destPublishScriptFilePath: './publish.bat',
         onlyNew: {
-          enable: false
-        }
+          enable: false,
+        },
       };
 
       setValidStoragePathAndDestPublishScriptFilePath(userOptions);
@@ -194,8 +200,8 @@ describe('User Options Validator', () => {
         destPublishScriptFilePath: './publish.bat',
         onlyNew: {
           enable: true,
-          registry: 'localhost:4873'
-        }
+          registry: 'localhost:4873',
+        },
       };
 
       const invalidOnlyNewRegistry = new Error('Registry is not valid http(s) url');
@@ -203,9 +209,12 @@ describe('User Options Validator', () => {
       const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
       when(spiedIsDirectoryExists)
-        .calledWith(userOptions.storagePath).mockResolvedValue(true)
-        .calledWith(userOptions.destPublishScriptFilePath).mockResolvedValue(false)
-        .calledWith(dirname(userOptions.destPublishScriptFilePath)).mockResolvedValue(true);
+        .calledWith(userOptions.storagePath)
+        .mockResolvedValue(true)
+        .calledWith(userOptions.destPublishScriptFilePath)
+        .mockResolvedValue(false)
+        .calledWith(dirname(userOptions.destPublishScriptFilePath))
+        .mockResolvedValue(true);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
@@ -221,8 +230,8 @@ describe('User Options Validator', () => {
         destPublishScriptFilePath: './publish.bat',
         onlyNew: {
           enable: true,
-          registry: ''
-        }
+          registry: '',
+        },
       };
 
       const currentRegistry = 'http://localhost:4873';
@@ -232,11 +241,9 @@ describe('User Options Validator', () => {
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
       const spiedPingNpmRegistry = jest.spyOn(npmUtils, 'pingNpmRegistry');
 
-      when(spiedGetCurrentRegistry)
-        .calledWith().mockReturnValue(currentRegistry);
+      when(spiedGetCurrentRegistry).calledWith().mockReturnValue(currentRegistry);
 
-      when(spiedPingNpmRegistry)
-        .calledWith(currentRegistry).mockResolvedValue(true);
+      when(spiedPingNpmRegistry).calledWith(currentRegistry).mockResolvedValue(true);
 
       // Act
       const isValid = validator.validateUserOptions(userOptions);
@@ -246,7 +253,6 @@ describe('User Options Validator', () => {
     });
 
     describe('should reject with the error that one of the validation rejected with', () => {
-
       it.each([
         ['validateStorage'],
         ['validateDestPublishScriptFilePath'],
@@ -254,14 +260,15 @@ describe('User Options Validator', () => {
         ['validateOnlyNewOptionsIfSpecified'],
       ])('should return false if `%s` return false', async (functionName) => {
         // Arrange
-        const unknownError = new Error('Unknown error');
+        const unknownError: Error = new Error('Unknown error');
 
         jest.spyOn(validator, 'validateStorage').mockResolvedValue(true);
         jest.spyOn(validator, 'validateDestPublishScriptFilePath').mockResolvedValue(true);
         jest.spyOn(validator, 'validateNpmPublishOptionsIfSpecified').mockResolvedValue(true);
         jest.spyOn(validator, 'validateOnlyNewOptionsIfSpecified').mockResolvedValue(true);
 
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore doesn't recognize functionName is a the name of the function of validator
         jest.spyOn(validator, functionName).mockRejectedValue(unknownError);
 
         // Act
@@ -270,13 +277,10 @@ describe('User Options Validator', () => {
         // Assert
         await expect(isValid).rejects.toThrowError(unknownError);
       });
-
     });
-
   });
 
   describe('Validate Storage path', () => {
-
     it('should be defined', () => {
       expect(validator.validateStorage).toBeDefined();
     });
@@ -318,7 +322,6 @@ describe('User Options Validator', () => {
       ['../', 'Linux'],
       ['..\\', 'Windows'],
 
-
       ['/tmp/../.', 'Linux'],
       ['C:\\Users\\..\\.', 'Windows'],
 
@@ -348,19 +351,24 @@ describe('User Options Validator', () => {
 
       ['../some dir with spaces/storage/', 'Linux'],
       ['..\\some dir with spaces\\storage\\', 'Windows'],
-    ])('should return true when storage path is %s like in %s', async (destPublishScriptFilePath: UserOptions['storagePath'], _osTypePath) => {
-      // Arrange
-      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+    ])(
+      'should return true when storage path is %s like in %s',
+      // We declare this variable so it will help use understand what's the 2nd argument
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async (destPublishScriptFilePath: UserOptions['storagePath'], _osTypePath) => {
+        // Arrange
+        const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
-      when(spiedIsDirectoryExists).expectCalledWith(destPublishScriptFilePath).mockResolvedValue(true);
+        when(spiedIsDirectoryExists).expectCalledWith(destPublishScriptFilePath).mockResolvedValue(true);
 
-      // Act
-      const isStorageValid = validator.validateStorage(destPublishScriptFilePath);
+        // Act
+        const isStorageValid = validator.validateStorage(destPublishScriptFilePath);
 
-      // Assert
-      verifyAllWhenMocksCalled();
-      await expect(isStorageValid).resolves.toBe(true);
-    });
+        // Assert
+        verifyAllWhenMocksCalled();
+        await expect(isStorageValid).resolves.toBe(true);
+      },
+    );
 
     it(`should reject 'Missing path' Error when passing undefined`, async () => {
       // Arrange
@@ -375,7 +383,6 @@ describe('User Options Validator', () => {
   });
 
   describe('Validate Output publish Script File Path', () => {
-
     it('should be defined', () => {
       expect(validator.validateDestPublishScriptFilePath).toBeDefined();
     });
@@ -395,26 +402,33 @@ describe('User Options Validator', () => {
 
       ['Linux', '/publish.sh'],
       ['Windows', 'C:\\publish.bat'],
-    ])('should return true when the dest publish script file path is %s like in %s', async (destPublishScriptFilePath: UserOptions['destPublishScriptFilePath'], _osTypePath) => {
-      // Arrange
-      const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
+    ])(
+      'should return true when the dest publish script file path is %s like in %s',
+      // We declare this variable so it will help use understand what's the 2nd argument
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async (destPublishScriptFilePath: UserOptions['destPublishScriptFilePath'], _osTypePath) => {
+        // Arrange
+        const spiedIsDirectoryExists = jest.spyOn(fsUtils, 'isDirectoryExists');
 
-      when(spiedIsDirectoryExists)
-        .calledWith(destPublishScriptFilePath).mockResolvedValue(false)
-        .calledWith(dirname(destPublishScriptFilePath)).mockResolvedValue(true);
+        when(spiedIsDirectoryExists)
+          .calledWith(destPublishScriptFilePath)
+          .mockResolvedValue(false)
+          .calledWith(dirname(destPublishScriptFilePath))
+          .mockResolvedValue(true);
 
-      // Act
-      const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
+        // Act
+        const isDestPublishScriptFilePathValid = validator.validateDestPublishScriptFilePath(destPublishScriptFilePath);
 
-      // Assert
-      await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
-    });
-
+        // Assert
+        await expect(isDestPublishScriptFilePathValid).resolves.toBe(true);
+      },
+    );
 
     it.each([
       ['Linux', '/tmp/'],
       ['Windows', 'C:\\Program Files\\'],
-    ])(`should reject with 'Invalid path' error the dest publish script file path pointing to a absolute directory in %s`,
+    ])(
+      `should reject with 'Invalid path' error the dest publish script file path pointing to a absolute directory in %s`,
       async (osTypePath, destPublishScriptFilePath: UserOptions['destPublishScriptFilePath']) => {
         // Arrange
         const invalidPathError = new Error('Invalid path');
@@ -424,7 +438,8 @@ describe('User Options Validator', () => {
 
         // Assert
         await expect(isDestPublishScriptFilePathValid).rejects.toThrowError(invalidPathError);
-      });
+      },
+    );
 
     it(`should reject with 'Invalid path' error when passing undefined`, async () => {
       // Arrange
@@ -452,7 +467,6 @@ describe('User Options Validator', () => {
   });
 
   describe('Validate NPM publish options If Specified', () => {
-
     it('should be defined', () => {
       expect(validator.validateNpmPublishOptionsIfSpecified).toBeDefined();
     });
@@ -475,7 +489,9 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing {registry: 'http://localhost:4873'}`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'http://localhost:4873'};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: 'http://localhost:4873',
+      };
 
       // Act
       const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
@@ -486,7 +502,9 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing not passing port in the registry key`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'http://localhost'};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: 'http://localhost',
+      };
 
       // Act
       const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
@@ -497,7 +515,9 @@ describe('User Options Validator', () => {
 
     it(`should reject with 'Registry is not valid http(s) url' error when not using different protcol than http or https protocol in the registry key`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'ftp://localhost:5873'};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: 'ftp://localhost:5873',
+      };
       const invalidRegistryError = new Error('Registry is not valid http(s) url');
 
       // Act
@@ -509,7 +529,9 @@ describe('User Options Validator', () => {
 
     it(`should reject with 'Registry is not valid http(s) url' error when not passing protocol in the registry key`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'localhost:5873'};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: 'localhost:5873',
+      };
       const invalidRegistryError = new Error('Registry is not valid http(s) url');
 
       // Act
@@ -521,7 +543,9 @@ describe('User Options Validator', () => {
 
     it(`should reject with 'Registry is not valid http(s) url' error when not passing protocol and port in the registry key`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'localhost'};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: 'localhost',
+      };
       const invalidRegistryError = new Error('Registry is not valid http(s) url');
 
       // Act
@@ -533,7 +557,9 @@ describe('User Options Validator', () => {
 
     it(`should reject with 'Registry is not valid http(s) url' error when not passing web uri in the registry key`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: 'Hello how are you'};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: 'Hello how are you',
+      };
       const invalidRegistryError = new Error('Registry is not valid http(s) url');
 
       // Act
@@ -545,7 +571,9 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing empty string in the registry key`, async () => {
       // Arrange
-      const npmPublishOptions: UserOptions['npmPublishOptions'] = {registry: ''};
+      const npmPublishOptions: UserOptions['npmPublishOptions'] = {
+        registry: '',
+      };
 
       // Act
       const isNpmPublishOptionsValid = validator.validateNpmPublishOptionsIfSpecified(npmPublishOptions);
@@ -553,23 +581,19 @@ describe('User Options Validator', () => {
       // Assert
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
-
   });
 
   describe('Validate Only New Options If Specified', () => {
-
     const mockGetCurrentRegistry = (getCurrentRegistryResult: string) => {
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
 
-      when(spiedGetCurrentRegistry)
-        .calledWith().mockReturnValue(getCurrentRegistryResult);
+      when(spiedGetCurrentRegistry).calledWith().mockReturnValue(getCurrentRegistryResult);
     };
 
     const mockPingNpmRegistry = (registry: string, pingRegistryResult: boolean) => {
       const spiedPingNpmRegistry = jest.spyOn(npmUtils, 'pingNpmRegistry');
 
-      when(spiedPingNpmRegistry)
-        .calledWith(registry).mockResolvedValue(pingRegistryResult);
+      when(spiedPingNpmRegistry).calledWith(registry).mockResolvedValue(pingRegistryResult);
     };
 
     it('should be defined', () => {
@@ -594,7 +618,7 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing {enable: false}`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: false};
+      const onlyNewOptions: UserOptions['onlyNew'] = { enable: false };
 
       // Act
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
@@ -605,7 +629,10 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing enable false and some value in registry`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: false, registry: 'something'};
+      const onlyNewOptions: UserOptions['onlyNew'] = {
+        enable: false,
+        registry: 'something',
+      };
 
       // Act
       const isNpmPublishOptionsValid = validator.validateOnlyNewOptionsIfSpecified(onlyNewOptions);
@@ -616,7 +643,10 @@ describe('User Options Validator', () => {
 
     it(`should return true when passing { enable: true, registry: undefined } and successfully pinging to current registry`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, registry: undefined};
+      const onlyNewOptions: UserOptions['onlyNew'] = {
+        enable: true,
+        registry: undefined,
+      };
 
       const currentRegistry = 'http://localhost:4873';
 
@@ -630,10 +660,12 @@ describe('User Options Validator', () => {
       await expect(isNpmPublishOptionsValid).resolves.toBe(true);
     });
 
-
     it(`should return true when passing { enable: true, registry: '' } and successfully pinging to current registry`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, registry: ''};
+      const onlyNewOptions: UserOptions['onlyNew'] = {
+        enable: true,
+        registry: '',
+      };
 
       const currentRegistry = 'http://localhost:4873';
 
@@ -649,8 +681,13 @@ describe('User Options Validator', () => {
 
     it(`should reject with 'Ping registry failed, make sure the NPM registry support ping and accessible' error when failing to ping the provided registry url`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true, registry: 'http://localhost:4873'};
-      const pingRegistryFailed = new Error('Ping registry failed, make sure the NPM registry support ping and accessible');
+      const onlyNewOptions: UserOptions['onlyNew'] = {
+        enable: true,
+        registry: 'http://localhost:4873',
+      };
+      const pingRegistryFailed = new Error(
+        'Ping registry failed, make sure the NPM registry support ping and accessible',
+      );
 
       mockPingNpmRegistry(onlyNewOptions.registry as string, false);
 
@@ -663,8 +700,10 @@ describe('User Options Validator', () => {
 
     it(`should reject with 'Ping registry failed, make sure the NPM registry support ping and accessible' error when failing to ping current registry url`, async () => {
       // Arrange
-      const onlyNewOptions: UserOptions['onlyNew'] = {enable: true};
-      const pingRegistryFailed = new Error('Ping registry failed, make sure the NPM registry support ping and accessible');
+      const onlyNewOptions: UserOptions['onlyNew'] = { enable: true };
+      const pingRegistryFailed = new Error(
+        'Ping registry failed, make sure the NPM registry support ping and accessible',
+      );
 
       const currentRegistry = 'http://localhost:4873';
 
@@ -677,6 +716,5 @@ describe('User Options Validator', () => {
       // Assert
       await expect(isNpmPublishOptionsValid).rejects.toThrowError(pingRegistryFailed);
     });
-
   });
 });

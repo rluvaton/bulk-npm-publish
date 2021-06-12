@@ -9,7 +9,7 @@ export const pingNpmRegistry = async (registry?: string): Promise<boolean> => {
   // Taken from https://github.com/npm/cli/blob/latest/lib/utils/ping.js
 
   try {
-    const res = await fetch('/-/ping?write=true', {registry});
+    const res = await fetch('/-/ping?write=true', { registry });
     await res.json();
   } catch (err) {
     return false;
@@ -18,7 +18,17 @@ export const pingNpmRegistry = async (registry?: string): Promise<boolean> => {
   return true;
 };
 
-export const isNpmPackagePublished = async ({scope, name, version, registry}: { scope?: string, name: string, version: string, registry?: string }): Promise<boolean> => {
+export const isNpmPackagePublished = async ({
+  scope,
+  name,
+  version,
+  registry,
+}: {
+  scope?: string;
+  name: string;
+  version: string;
+  registry?: string;
+}): Promise<boolean> => {
   if (!name || !version) {
     throw new Error('name and/or version is required!');
   }
@@ -35,7 +45,10 @@ export const isNpmPackagePublished = async ({scope, name, version, registry}: { 
   try {
     // We dont use GET {name}/{version} endpoint as it not supported in some registries (like SonaType Nexus Registry)
     // And we use HEAD method because we only want to know the existence of the package version
-    await fetch(getTarballEndpointFromPackageInfo({scope, name, version}), {registry, method: 'HEAD'});
+    await fetch(getTarballEndpointFromPackageInfo({ scope, name, version }), {
+      registry,
+      method: 'HEAD',
+    });
   } catch (err) {
     return false;
   }
@@ -64,8 +77,16 @@ export const isNpmPackagePublished = async ({scope, name, version, registry}: { 
  * }) === '@jest/core/-/core-26.6.3.tgz'
  *
  */
-const getTarballEndpointFromPackageInfo = ({scope, name, version}: { scope?: string, name: string, version: string }): string => {
-  let tarballEndpoint: string = '';
+const getTarballEndpointFromPackageInfo = ({
+  scope,
+  name,
+  version,
+}: {
+  scope?: string;
+  name: string;
+  version: string;
+}): string => {
+  let tarballEndpoint = '';
 
   if (scope) {
     tarballEndpoint = `${scope.startsWith('@') ? '' : '@'}${scope}/`;

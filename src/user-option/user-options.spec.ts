@@ -1,6 +1,6 @@
 import 'jest-extended';
-import {DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions} from './user-options';
-import {deepClone} from '../utils';
+import { DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions } from './user-options';
+import { deepClone } from '../utils';
 
 describe('UserOptions', () => {
   describe('#setDefaultUserOptionsProperties', () => {
@@ -10,12 +10,13 @@ describe('UserOptions', () => {
       };
 
       const defaultOptions: UserOptions | any = {
-        // @ts-ignore:disable-next-line
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore:disable-next-line Can't be undefined, but undefined here meaning there is no default value
         storagePath: undefined,
         destPublishScriptFilePath: './publish.bat',
         npmPublishOptions: {
-          registry: undefined
-        }
+          registry: undefined,
+        },
       };
 
       const combinedOptions = setDefaultUserOptionsProperties(currOptions, defaultOptions);
@@ -38,17 +39,17 @@ describe('UserOptions', () => {
       expect(combinedOptions.npmPublishOptions).toEqual(defaultOptions.npmPublishOptions);
     });
 
-    it('when there are all values shouldn\'t change them to the default', () => {
+    it("when there are all values shouldn't change them to the default", () => {
       const currOptions: UserOptions = {
         storagePath: 'C://',
         destPublishScriptFilePath: './my-publish-script.bat',
         npmPublishOptions: {
-          registry: 'http://localhost:4873'
+          registry: 'http://localhost:4873',
         },
         onlyNew: {
           enable: true,
-          registry: 'http://localhost:4873'
-        }
+          registry: 'http://localhost:4873',
+        },
       };
 
       const defaultOptions: UserOptions = deepClone(DEFAULT_USER_OPTIONS);

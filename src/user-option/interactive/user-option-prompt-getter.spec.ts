@@ -14,10 +14,13 @@ interface TestDeps {
 }
 
 function getDeps(): TestDeps {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const prompts = require('prompts');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { UserOptions } = require('../user-options');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { IUserOptionGetter } = require('../i-user-option-getter');
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const UserOptionPromptGetter = require('./user-option-prompt-getter');
 
   return { prompts, UserOptions, IUserOptionGetter, UserOptionPromptGetter };
@@ -32,11 +35,14 @@ describe('Get User Options from User Interactive Input', () => {
 
     return {
       ...deps,
-      userOptionPromptGetter: jest.spyOn(deps.UserOptionPromptGetter, 'userOptionPromptGetter') as Mock
+      userOptionPromptGetter: jest.spyOn(deps.UserOptionPromptGetter, 'userOptionPromptGetter') as Mock,
     };
   }
 
-  async function testUserOptionPromptGetter<TUserOptions>(userOptionPromptGetter: IUserOptionGetterLib, expectedUserOptions: TUserOptions) {
+  async function testUserOptionPromptGetter<TUserOptions>(
+    userOptionPromptGetter: IUserOptionGetterLib,
+    expectedUserOptions: TUserOptions,
+  ) {
     expect(userOptionPromptGetter).toHaveBeenCalledTimes(0);
     const pr = userOptionPromptGetter();
     expect(userOptionPromptGetter).toHaveBeenCalledTimes(1);
@@ -65,27 +71,27 @@ describe('Get User Options from User Interactive Input', () => {
   });
 
   it('userOptionPromptGetter should be define', () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { userOptionPromptGetter } = require('./user-option-prompt-getter');
     expect(userOptionPromptGetter).toBeDefined();
   });
 
   describe('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry', () => {
-
     it.each([
       ['win32', 'C://storage-to-publish', './publish.bat'],
-      ['linux', '/home/user/storage-to-publish', './publish.sh']
+      ['linux', '/home/user/storage-to-publish', './publish.sh'],
     ])(`test for %s`, async (platform, storagePath, destPublishScriptFilePath) => {
       const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
       const expectedUserOptions: typeof UserOptions = {
         storagePath,
         destPublishScriptFilePath,
         npmPublishOptions: {
-          registry: undefined
+          registry: undefined,
         },
         onlyNew: {
           enable: false,
-          registry: undefined
-        }
+          registry: undefined,
+        },
       };
 
       // Inject the values
@@ -95,22 +101,21 @@ describe('Get User Options from User Interactive Input', () => {
   });
 
   describe('should get provided storage path and publish script file path with default value for npmPublishOptions.registry', () => {
-
     it.each([
       ['win32', 'C://storage-to-publish', './my-custom-publish-script.cmd'],
-      ['linux', '/home/user/storage-to-publish', './my-custom-publish-script.sh']
+      ['linux', '/home/user/storage-to-publish', './my-custom-publish-script.sh'],
     ])(`test for %s`, async (platform, storagePath, destPublishScriptFilePath) => {
       const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
       const expectedUserOptions: typeof UserOptions = {
         storagePath,
         destPublishScriptFilePath,
         npmPublishOptions: {
-          registry: undefined
+          registry: undefined,
         },
         onlyNew: {
           enable: false,
-          registry: undefined
-        }
+          registry: undefined,
+        },
       };
 
       // Inject the values
@@ -122,52 +127,61 @@ describe('Get User Options from User Interactive Input', () => {
   describe('should get provided storage path, publish script file path and npmPublishOptions.registry', () => {
     it.each([
       ['win32', 'C://storage-to-publish', './my-custom-publish-script.cmd', 'http://localhost:4873'],
-      ['linux', '/home/user/storage-to-publish', './my-custom-publish-script.sh', 'http://localhost:4873']
+      ['linux', '/home/user/storage-to-publish', './my-custom-publish-script.sh', 'http://localhost:4873'],
     ])(`test for %s`, async (platform, storagePath, destPublishScriptFilePath, registry) => {
       const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
       const expectedUserOptions: typeof UserOptions = {
         storagePath,
         destPublishScriptFilePath,
         npmPublishOptions: {
-          registry
+          registry,
         },
         onlyNew: {
           enable: false,
-          registry: undefined
-        }
+          registry: undefined,
+        },
       };
 
       // Inject the values
-      prompts.inject([expectedUserOptions.storagePath, expectedUserOptions.destPublishScriptFilePath, expectedUserOptions?.npmPublishOptions?.registry]);
+      prompts.inject([
+        expectedUserOptions.storagePath,
+        expectedUserOptions.destPublishScriptFilePath,
+        expectedUserOptions?.npmPublishOptions?.registry,
+      ]);
       await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
     });
   });
 
   describe('should get the full user options that passed', () => {
-
     const platformsData: [string, UserOptionsLib][] = [
-      ['win32', {
-        storagePath: 'C://storage-to-publish',
-        destPublishScriptFilePath: './my-publish-script.bat',
-        npmPublishOptions: {
-          registry: 'http://localhost:4873'
+      [
+        'win32',
+        {
+          storagePath: 'C://storage-to-publish',
+          destPublishScriptFilePath: './my-publish-script.bat',
+          npmPublishOptions: {
+            registry: 'http://localhost:4873',
+          },
+          onlyNew: {
+            enable: true,
+            registry: 'http://localhost:4873',
+          },
         },
-        onlyNew: {
-          enable: true,
-          registry: 'http://localhost:4873'
-        }
-      }],
-      ['linux', {
-        storagePath: '/home/user/storage-to-publish',
-        destPublishScriptFilePath: './my-custom-publish-script.sh',
-        npmPublishOptions: {
-          registry: 'http://localhost:4873'
+      ],
+      [
+        'linux',
+        {
+          storagePath: '/home/user/storage-to-publish',
+          destPublishScriptFilePath: './my-custom-publish-script.sh',
+          npmPublishOptions: {
+            registry: 'http://localhost:4873',
+          },
+          onlyNew: {
+            enable: true,
+            registry: 'http://localhost:4873',
+          },
         },
-        onlyNew: {
-          enable: true,
-          registry: 'http://localhost:4873'
-        }
-      }]
+      ],
     ];
     it.each(platformsData)(`test for %s`, async (platform, userOptions: UserOptionsLib) => {
       const { UserOptions, prompts, userOptionPromptGetter } = prepareForTest(platform);
@@ -179,11 +193,10 @@ describe('Get User Options from User Interactive Input', () => {
         expectedUserOptions.destPublishScriptFilePath,
         expectedUserOptions?.npmPublishOptions?.registry,
         expectedUserOptions?.onlyNew?.enable,
-        expectedUserOptions?.onlyNew?.registry
+        expectedUserOptions?.onlyNew?.registry,
       ]);
       await testUserOptionPromptGetter<typeof UserOptions>(userOptionPromptGetter, expectedUserOptions);
     });
-
   });
 
   describe('should throw error that said `Canceled` when exiting before finish', () => {

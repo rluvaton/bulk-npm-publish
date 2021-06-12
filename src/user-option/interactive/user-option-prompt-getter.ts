@@ -1,31 +1,35 @@
-import {IUserOptionGetter} from '../i-user-option-getter';
-import {DEFAULT_USER_OPTIONS} from '../user-options';
+import { IUserOptionGetter } from '../i-user-option-getter';
+import { DEFAULT_USER_OPTIONS } from '../user-options';
 import prompts from 'prompts';
-import {logger} from '../../logger';
-import {deepClone} from '../../utils';
-import {validateStorage, validateDestPublishScriptFilePath, validateNpmPublishOptionsIfSpecified, validateOnlyNewOptionsIfSpecified} from '../validator';
-
+import { logger } from '../../logger';
+import { deepClone } from '../../utils';
+import {
+  validateStorage,
+  validateDestPublishScriptFilePath,
+  validateNpmPublishOptionsIfSpecified,
+  validateOnlyNewOptionsIfSpecified,
+} from '../validator';
 
 const _questions = [
   {
     type: 'text',
     name: 'storagePath',
     message: `What's the storage path to publish?`,
-    validate: (path) => validateStorage(path).catch(err => err.message),
+    validate: (path) => validateStorage(path).catch((err) => err.message),
   },
   {
     type: 'text',
     name: 'destPublishScriptFilePath',
     message: `Where the publish script will be created`,
     initial: DEFAULT_USER_OPTIONS.destPublishScriptFilePath,
-    validate: (path) => validateDestPublishScriptFilePath(path).catch(err => err.message),
+    validate: (path) => validateDestPublishScriptFilePath(path).catch((err) => err.message),
   },
   {
     type: 'text',
     name: 'npmPublishOptions.registry',
     message: `What is the registry url you want to publish to`,
     initial: DEFAULT_USER_OPTIONS?.npmPublishOptions?.registry,
-    validate: (registry) => !registry || validateNpmPublishOptionsIfSpecified({registry}).catch(err => err.message)
+    validate: (registry) => !registry || validateNpmPublishOptionsIfSpecified({ registry }).catch((err) => err.message),
   },
   {
     type: 'confirm',
@@ -34,11 +38,15 @@ const _questions = [
     initial: DEFAULT_USER_OPTIONS?.onlyNew?.enable,
   },
   {
-    type: (createNewOnlyRes) => createNewOnlyRes ? 'text' : null,
+    type: (createNewOnlyRes) => (createNewOnlyRes ? 'text' : null),
     name: 'onlyNew.registry',
     message: `What's the registry to check for published packages`,
     initial: DEFAULT_USER_OPTIONS?.onlyNew?.registry,
-    validate: (registry) => validateOnlyNewOptionsIfSpecified({enable: true, registry: registry}).catch(err => err.message)
+    validate: (registry) =>
+      validateOnlyNewOptionsIfSpecified({
+        enable: true,
+        registry: registry,
+      }).catch((err) => err.message),
   },
 ];
 
@@ -55,7 +63,7 @@ export const userOptionPromptGetter: IUserOptionGetter = async () => {
       logger.debug('user cancelled');
       isCanceled = true;
       return false;
-    }
+    },
   });
 
   if (isCanceled) {
@@ -72,11 +80,11 @@ export const userOptionPromptGetter: IUserOptionGetter = async () => {
     storagePath: response.storagePath,
     destPublishScriptFilePath: response.destPublishScriptFilePath,
     npmPublishOptions: {
-      registry: response['npmPublishOptions.registry']
+      registry: response['npmPublishOptions.registry'],
     },
     onlyNew: {
       enable: response.createNewOnly,
-      registry: response['onlyNew.registry']
-    }
+      registry: response['onlyNew.registry'],
+    },
   };
 };

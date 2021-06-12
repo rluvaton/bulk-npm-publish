@@ -1,8 +1,9 @@
 import 'jest-extended';
-import {resetAllWhenMocks, verifyAllWhenMocksCalled, when} from 'jest-when';
+import { resetAllWhenMocks, verifyAllWhenMocksCalled, when } from 'jest-when';
 
 jest.mock('npm-registry-fetch', () => {
   const mocked = jest.fn();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   mocked._actual = jest.requireActual('npm-registry-fetch');
 
@@ -11,10 +12,9 @@ jest.mock('npm-registry-fetch', () => {
 
 import * as fetch from 'npm-registry-fetch';
 import * as npmUtils from './npm-utils';
-import {isNpmPackagePublished} from './npm-utils';
+import { isNpmPackagePublished } from './npm-utils';
 
 describe('NPM Utilities', () => {
-
   afterEach(() => {
     resetAllWhenMocks();
     jest.clearAllMocks();
@@ -30,16 +30,19 @@ describe('NPM Utilities', () => {
       const packageToTest = {
         name: 'node',
         scope: '@types',
-        version: '8.9.5'
+        version: '8.9.5',
       };
       const currentRegistry = 'http://localhost:4873';
 
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-      when(spiedGetCurrentRegistry)
-        .expectCalledWith().mockReturnValue(currentRegistry);
+      when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
       when(fetch)
-        .expectCalledWith('@types/node/-/node-8.9.5.tgz', {method: 'HEAD', registry: currentRegistry}).mockResolvedValue({});
+        .expectCalledWith('@types/node/-/node-8.9.5.tgz', {
+          method: 'HEAD',
+          registry: currentRegistry,
+        })
+        .mockResolvedValue({});
 
       // Act
       const isPublished = isNpmPackagePublished(packageToTest);
@@ -56,16 +59,19 @@ describe('NPM Utilities', () => {
       const packageToTest = {
         name: 'node',
         scope: '@types',
-        version: '8.9.5'
+        version: '8.9.5',
       };
       const currentRegistry = 'http://localhost:4873';
 
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-      when(spiedGetCurrentRegistry)
-        .expectCalledWith().mockReturnValue(currentRegistry);
+      when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
       when(fetch)
-        .expectCalledWith('@types/node/-/node-8.9.5.tgz', {method: 'HEAD', registry: currentRegistry}).mockRejectedValue({});
+        .expectCalledWith('@types/node/-/node-8.9.5.tgz', {
+          method: 'HEAD',
+          registry: currentRegistry,
+        })
+        .mockRejectedValue({});
 
       // Act
       const isPublished = isNpmPackagePublished(packageToTest);
@@ -81,16 +87,18 @@ describe('NPM Utilities', () => {
       // Arrange
       const packageToTest = {
         name: 'agent-base',
-        version: '4.2.1'
+        version: '4.2.1',
       };
       const currentRegistry = 'http://localhost:4873';
 
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-      when(spiedGetCurrentRegistry)
-        .expectCalledWith().mockReturnValue(currentRegistry);
+      when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
       when(fetch)
-        .expectCalledWith('agent-base/-/agent-base-4.2.1.tgz', {method: 'HEAD', registry: currentRegistry})
+        .expectCalledWith('agent-base/-/agent-base-4.2.1.tgz', {
+          method: 'HEAD',
+          registry: currentRegistry,
+        })
         .mockResolvedValue({});
 
       // Act
@@ -107,16 +115,18 @@ describe('NPM Utilities', () => {
       // Arrange
       const packageToTest = {
         name: 'agent-base',
-        version: '4.2.1'
+        version: '4.2.1',
       };
       const currentRegistry = 'http://localhost:4873';
 
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-      when(spiedGetCurrentRegistry)
-        .expectCalledWith().mockReturnValue(currentRegistry);
+      when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
       when(fetch)
-        .expectCalledWith('agent-base/-/agent-base-4.2.1.tgz', {method: 'HEAD', registry: currentRegistry})
+        .expectCalledWith('agent-base/-/agent-base-4.2.1.tgz', {
+          method: 'HEAD',
+          registry: currentRegistry,
+        })
         .mockRejectedValue({});
 
       // Act
@@ -136,13 +146,17 @@ describe('NPM Utilities', () => {
         name: 'node',
         scope: '@types',
         version: '8.9.5',
-        registry: currentRegistry
+        registry: currentRegistry,
       };
 
       const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
 
       when(fetch)
-        .expectCalledWith('@types/node/-/node-8.9.5.tgz', {method: 'HEAD', registry: currentRegistry}).mockResolvedValue({});
+        .expectCalledWith('@types/node/-/node-8.9.5.tgz', {
+          method: 'HEAD',
+          registry: currentRegistry,
+        })
+        .mockResolvedValue({});
 
       // Act
       const isPublished = isNpmPackagePublished(packageToTest);

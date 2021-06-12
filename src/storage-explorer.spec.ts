@@ -1,15 +1,15 @@
 import 'jest-extended';
 import * as path from 'path';
-import {fs, vol} from 'memfs';
+import { fs, vol } from 'memfs';
 
 jest.mock('fs', () => fs);
-import storageExplorer, {Package} from './storage-explorer';
+import storageExplorer, { Package } from './storage-explorer';
 
 describe('Storage Explorer', () => {
   const mockFs = (fakeFsStructure) => vol.fromNestedJSON(fakeFsStructure, '/');
 
   afterEach(() => {
-      vol.reset();
+    vol.reset();
   });
 
   afterAll(() => {
@@ -26,9 +26,9 @@ describe('Storage Explorer', () => {
       storage: {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
-          'package.json': 'dummy data'
-        }
-      }
+          'package.json': 'dummy data',
+        },
+      },
     });
 
     const stubStorageExplorer = jest.fn(storageExplorer);
@@ -48,7 +48,7 @@ describe('Storage Explorer', () => {
       fullFileName: 'agent-base-4.2.1.tgz',
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
-      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz'),
     } as Package);
   });
 
@@ -59,9 +59,9 @@ describe('Storage Explorer', () => {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
           'agent-base-4.3.0.tgz': 'dummy data',
-          'package.json': 'dummy data'
-        }
-      }
+          'package.json': 'dummy data',
+        },
+      },
     });
 
     // Evaluate
@@ -76,18 +76,17 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
-      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz'),
     } as Package);
 
     expect(packages).toContainEqual({
-        name: 'agent-base',
-        fullFileName: 'agent-base-4.3.0.tgz',
-        fullPackageName: 'agent-base@4.3.0',
-        version: '4.3.0',
-        scope: undefined,
-        path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz')
-      } as Package
-    );
+      name: 'agent-base',
+      fullFileName: 'agent-base-4.3.0.tgz',
+      fullPackageName: 'agent-base@4.3.0',
+      version: '4.3.0',
+      scope: undefined,
+      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz'),
+    } as Package);
   });
 
   it('should get all packages where each folder have 1/multiple/none packages', () => {
@@ -97,16 +96,16 @@ describe('Storage Explorer', () => {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
           'agent-base-4.3.0.tgz': 'dummy data',
-          'package.json': 'dummy data'
+          'package.json': 'dummy data',
         },
         abbrev: {
           'abbrev-1.1.1.tgz': 'dummy data',
-          'package.json': 'dummy data'
+          'package.json': 'dummy data',
         },
         'acorn-walk': {
-          'package.json': 'dummy data'
-        }
-      }
+          'package.json': 'dummy data',
+        },
+      },
     });
 
     // Evaluate
@@ -123,7 +122,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
-      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz'),
     } as Package);
 
     expect(packages).toContainEqual({
@@ -132,7 +131,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.3.0',
       version: '4.3.0',
       scope: undefined,
-      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz')
+      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz'),
     } as Package);
 
     expect(packages).toContainEqual({
@@ -141,7 +140,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'abbrev@1.1.1',
       version: '1.1.1',
       scope: undefined,
-      path: path.normalize('/storage/abbrev/abbrev-1.1.1.tgz')
+      path: path.normalize('/storage/abbrev/abbrev-1.1.1.tgz'),
     } as Package);
   });
 
@@ -152,16 +151,16 @@ describe('Storage Explorer', () => {
         'agent-base': {
           'agent-base-4.2.1.tgz': 'dummy data',
           'agent-base-4.3.0.tgz': 'dummy data',
-          'package.json': 'dummy data'
+          'package.json': 'dummy data',
         },
         '@types': {
-          // tslint:disable-next-line:object-literal-key-quotes
+          // eslint-disable-next-line quote-props
           node: {
             'node-8.9.5.tgz': 'dummy data',
-            'index.json': 'dummy data'
-          }
-        }
-      }
+            'index.json': 'dummy data',
+          },
+        },
+      },
     });
 
     // Evaluate
@@ -176,7 +175,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.2.1',
       version: '4.2.1',
       scope: undefined,
-      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz')
+      path: path.normalize('/storage/agent-base/agent-base-4.2.1.tgz'),
     } as Package);
 
     expect(packages).toContainEqual({
@@ -185,7 +184,7 @@ describe('Storage Explorer', () => {
       fullPackageName: 'agent-base@4.3.0',
       version: '4.3.0',
       scope: undefined,
-      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz')
+      path: path.normalize('/storage/agent-base/agent-base-4.3.0.tgz'),
     } as Package);
 
     expect(packages).toContainEqual({
@@ -194,14 +193,14 @@ describe('Storage Explorer', () => {
       fullPackageName: '@types/node@8.9.5',
       version: '8.9.5',
       scope: '@types',
-      path: path.normalize('/storage/@types/node/node-8.9.5.tgz')
+      path: path.normalize('/storage/@types/node/node-8.9.5.tgz'),
     } as Package);
   });
 
   it('should not get any packages when the directory is empty', () => {
     // Prepare the mock FS
     mockFs({
-      storage: {}
+      storage: {},
     });
 
     const stubStorageExplorer = jest.fn(storageExplorer);
@@ -222,15 +221,15 @@ describe('Storage Explorer', () => {
     mockFs({
       storage: {
         'agent-base': {
-          'package.json': 'dummy data'
+          'package.json': 'dummy data',
         },
         'package-dir': {
           'nested-dir-1': {},
           'nested-dir-2': {
-            'sub-nested-dir-1': {}
-          }
-        }
-      }
+            'sub-nested-dir-1': {},
+          },
+        },
+      },
     });
 
     const stubStorageExplorer = jest.fn(storageExplorer);
