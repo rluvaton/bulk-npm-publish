@@ -54,7 +54,7 @@
     "prompts": "^2.4.0",
     "valid-url": "^1.0.9",
     "winston": "^3.2.1",
-    "yargs": "^15.4.0"
+    "yargs": "^17.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -64,7 +64,7 @@
     "@types/node-emoji": "^1.8.1",
     "@types/npm-registry-fetch": "^8.0.0",
     "@types/valid-url": "^1.0.3",
-    "@types/yargs": "^15.0.5",
+    "@types/yargs": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.22.0",
