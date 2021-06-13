@@ -1,27 +1,29 @@
-import storageExplorer, {Package} from './storage-explorer';
+import storageExplorer, { Package } from './storage-explorer';
 import npmPublishScriptCreator from './npm-publish-script-creator';
 import fileWriter from './file-writer';
-import {userOptionGetter} from './user-option/user-options-getter';
-import {logger} from './logger';
-import {bold} from 'kleur';
+import { userOptionGetter } from './user-option/user-options-getter';
+import { logger } from './logger';
+import { bold } from 'kleur';
 import emoji from 'node-emoji';
-import {UserOptions} from './user-option/user-options';
-import {IUserOptionGetter} from './user-option/i-user-option-getter';
-import {userOptionPromptGetter} from './user-option/interactive/user-option-prompt-getter';
+import { UserOptions } from './user-option/user-options';
+import { IUserOptionGetter } from './user-option/i-user-option-getter';
+import { userOptionPromptGetter } from './user-option/interactive/user-option-prompt-getter';
 import path from 'path';
-import {userOptionArgGetter} from './user-option/args';
-import {validateUserOptions} from './user-option/validator';
-import {getLineTransformer} from './utils';
-import {filterExistingNpmPackages} from './helpers/filter-existing-npm-packages';
+import { userOptionArgGetter } from './user-option/args';
+import { validateUserOptions } from './user-option/validator';
+import { getLineTransformer } from './utils';
+import { filterExistingNpmPackages } from './helpers/filter-existing-npm-packages';
 
 // The order is important
-const userOptionGetters: { args: IUserOptionGetter, interactive: IUserOptionGetter } = {
+const userOptionGetters: {
+  args: IUserOptionGetter;
+  interactive: IUserOptionGetter;
+} = {
   args: userOptionArgGetter,
-  interactive: userOptionPromptGetter
+  interactive: userOptionPromptGetter,
 };
 
 const run = async () => {
-
   let config: UserOptions;
   try {
     config = await userOptionGetter(userOptionGetters);
@@ -46,7 +48,6 @@ const run = async () => {
     logger.error(err.message);
     return;
   }
-
 
   // Make it absolute path in case the user move the file
   config.storagePath = config.storagePath ?? path.resolve(config.storagePath);
@@ -76,15 +77,19 @@ const run = async () => {
     const allPackagesLength = packages.length;
 
     packages = await filterExistingNpmPackages(packages, config.onlyNew.registry);
-    logger.verbose(`Scan complete, reduced ${allPackagesLength - packages.length} duplicate packages from ${allPackagesLength}`);
+    logger.verbose(
+      `Scan complete, reduced ${allPackagesLength - packages.length} duplicate packages from ${allPackagesLength}`,
+    );
   }
 
   logger.info(bold().underline(`Creating Script ${emoji.get(':pencil2:')}`));
-  logger.verbose(`Creating publish script with this options`, {options: config.npmPublishOptions});
+  logger.verbose(`Creating publish script with this options`, {
+    options: config.npmPublishOptions,
+  });
 
   const outputScript: string = npmPublishScriptCreator(packages, {
     npmPublishOptions: config.npmPublishOptions,
-    lineTransformer: getLineTransformer(config.destPublishScriptFilePath)
+    lineTransformer: getLineTransformer(config.destPublishScriptFilePath),
   });
 
   logger.verbose(`Script creating finished`);

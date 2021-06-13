@@ -1,6 +1,6 @@
 import lodashDeepClone from 'lodash.clonedeep';
-import {platform} from 'process';
-import {extname} from 'path';
+import { platform } from 'process';
+import { extname } from 'path';
 
 let packageJson;
 
@@ -10,7 +10,7 @@ export function deepClone<T = any>(val: T): T {
 
 export enum OSTypes {
   LINUX = 'linux',
-  WINDOWS = 'windows'
+  WINDOWS = 'windows',
 }
 
 export const getCurrentOS = (): OSTypes | undefined => {
@@ -48,5 +48,7 @@ export const getPackageName = () => {
   return packageJson.name;
 };
 
-export const removeEmpty = (obj: object, shouldRemoveFn: (value) => boolean = (value) => value === undefined) =>
-  Object.keys(obj).forEach(key => shouldRemoveFn(obj[key]) && delete obj[key]);
+export const removeEmpty = (
+  obj: Record<string, any>,
+  shouldRemoveFn: (value) => boolean = (value) => value === undefined,
+) => Object.keys(obj).forEach((key) => shouldRemoveFn(obj[key]) && delete obj[key]);

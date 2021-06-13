@@ -1,5 +1,5 @@
 import 'jest-extended';
-import {fs, vol} from 'memfs';
+import { fs, vol } from 'memfs';
 
 jest.mock('fs', () => fs);
 import fileWriter from './file-writer';
@@ -30,7 +30,7 @@ describe('File Writer', () => {
     await expect(fileWriter(filePath, fileContent)).toResolve();
 
     expect(vol.toJSON()).toEqual({
-      [filePath]: fileContent
+      [filePath]: fileContent,
     });
   });
 
@@ -41,13 +41,13 @@ describe('File Writer', () => {
     const fileContent = 'new';
 
     mockFs({
-      [filePath]: prevFileContent
+      [filePath]: prevFileContent,
     });
 
     await expect(fileWriter(filePath, fileContent)).toResolve();
 
     expect(vol.toJSON()).toEqual({
-      [filePath]: fileContent
+      [filePath]: fileContent,
     });
   });
 });

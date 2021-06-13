@@ -1,10 +1,10 @@
 import 'jest-extended';
 
-import {IUserOptionGetter as IUserOptionGetterLib} from '../i-user-option-getter';
-import {UserOptions as UserOptionsLib} from '../user-options';
-import {setPlatform} from '../../../tests/util';
+import { IUserOptionGetter as IUserOptionGetterLib } from '../i-user-option-getter';
+import { UserOptions as UserOptionsLib } from '../user-options';
+import { setPlatform } from '../../../tests/util';
 import Mock = jest.Mock;
-import {UserOptionArgGetterResult} from './index';
+import { UserOptionArgGetterResult } from './index';
 
 interface TestDeps {
   UserOptions: UserOptionsLib;
@@ -14,22 +14,25 @@ interface TestDeps {
 }
 
 function getDeps(): TestDeps {
-  const {UserOptions} = require('../user-options');
-  const {IUserOptionGetter} = require('../i-user-option-getter');
-  // tslint:disable-next-line:variable-name
-  const UserOptionGetter = require('./index');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { UserOptions } = require('../user-options');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { IUserOptionGetter } = require('../i-user-option-getter');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const UserOptionGetter = require('./');
 
-  return {UserOptions, IUserOptionGetter, UserOptionGetter};
+  return { UserOptions, IUserOptionGetter, UserOptionGetter };
 }
 
 describe('Get User Options from User Argument Input', () => {
   let originalPlatform;
   const AVAILABLE_PLATFORMS = ['win32', 'linux'];
-  const AVAILABLE_PLATFORMS_FOR_EACH = AVAILABLE_PLATFORMS.map(p => [p]);
+  const AVAILABLE_PLATFORMS_FOR_EACH = AVAILABLE_PLATFORMS.map((p) => [p]);
 
-  function prepareForTest(platform: string,
-                          injectArgs: string,
-                          {failFn, onYargsInstance}: { failFn?: any, onYargsInstance?: (yargs) => void }
+  function prepareForTest(
+    platform: string,
+    injectArgs: string,
+    { failFn, onYargsInstance }: { failFn?: any; onYargsInstance?: (yargs) => void },
   ): TestDeps & { userOptionGetter: IUserOptionGetterLib } {
     setPlatform(platform);
 
@@ -55,10 +58,13 @@ describe('Get User Options from User Argument Input', () => {
 
     const deps: TestDeps = getDeps();
 
-    return {...deps, userOptionGetter: jest.spyOn(deps.UserOptionGetter, 'userOptionArgGetter') as Mock};
+    return {
+      ...deps,
+      userOptionGetter: jest.spyOn(deps.UserOptionGetter, 'userOptionArgGetter') as Mock,
+    };
   }
 
-  async function testUserOptionGetter<TUserOptions>(userOptionGetter: IUserOptionGetterLib): Promise<UserOptionArgGetterResult> {
+  async function testUserOptionGetter(userOptionGetter: IUserOptionGetterLib): Promise<UserOptionArgGetterResult> {
     expect(userOptionGetter).toHaveBeenCalledTimes(0);
     const promiseResult = userOptionGetter();
     expect(userOptionGetter).toHaveBeenCalledTimes(1);
@@ -93,7 +99,8 @@ describe('Get User Options from User Argument Input', () => {
   });
 
   it('userOptionPromptGetter should be define', () => {
-    const {userOptionArgGetter} = require('./index');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { userOptionArgGetter } = require('./');
     expect(userOptionArgGetter).toBeDefined();
   });
 
@@ -102,20 +109,23 @@ describe('Get User Options from User Argument Input', () => {
       const onFailFn = jest.fn();
 
       // We aren't checking for error logging because we pass `onFailFn` which instead of output an error it will call this function
-      const {userOptionGetter} = prepareForTest(platform, '', {failFn: onFailFn});
+      const { userOptionGetter } = prepareForTest(platform, '', {
+        failFn: onFailFn,
+      });
 
       expect(onFailFn).toHaveBeenCalledTimes(0);
       await testUserOptionGetter(userOptionGetter);
       expect(onFailFn.mock.calls).toBeArrayOfSize(1);
       expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
-      expect(onFailFn.mock.calls[0][0]).toEqual('You must pass either -i (interactive input) or --sp (storage path, for args pass)');
+      expect(onFailFn.mock.calls[0][0]).toEqual(
+        'You must pass either -i (interactive input) or --sp (storage path, for args pass)',
+      );
 
       (userOptionGetter as Mock).mockRestore();
     });
   });
 
   describe('should output help to console', () => {
-
     const getHelpText = (_yargs): string => {
       const getHelpFn = jest.fn();
 
@@ -133,12 +143,16 @@ describe('Get User Options from User Argument Input', () => {
 
         // Disable output
         consoleSpy.mockImplementation(() => {
+          // NoOp
         });
 
         const onFailFn = jest.fn();
         const onYargsInstanceFn = jest.fn();
 
-        const {userOptionGetter} = prepareForTest(platform, alias, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+        const { userOptionGetter } = prepareForTest(platform, alias, {
+          failFn: onFailFn,
+          onYargsInstance: onYargsInstanceFn,
+        });
 
         await testUserOptionGetter(userOptionGetter);
 
@@ -162,10 +176,13 @@ describe('Get User Options from User Argument Input', () => {
         const onFailFn = jest.fn();
         const onYargsInstanceFn = jest.fn();
 
-        const {userOptionGetter} = prepareForTest(platform, alias, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+        const { userOptionGetter } = prepareForTest(platform, alias, {
+          failFn: onFailFn,
+          onYargsInstance: onYargsInstanceFn,
+        });
 
         await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
-          interactive: true
+          interactive: true,
         });
 
         // Check that test hasn't failed
@@ -178,12 +195,18 @@ describe('Get User Options from User Argument Input', () => {
 
   describe('storagePath', () => {
     describe('should return the userOptions object with only the storagePath', () => {
-      describe.each([['--sp', '~/storage'], ['--storage-path', '~/storage']])(`when passing %s`, (alias, storagePath) => {
+      describe.each([
+        ['--sp', '~/storage'],
+        ['--storage-path', '~/storage'],
+      ])(`when passing %s`, (alias, storagePath) => {
         test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
           const onFailFn = jest.fn();
           const onYargsInstanceFn = jest.fn();
 
-          const {userOptionGetter} = prepareForTest(platform, `${alias} ${storagePath}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+          const { userOptionGetter } = prepareForTest(platform, `${alias} ${storagePath}`, {
+            failFn: onFailFn,
+            onYargsInstance: onYargsInstanceFn,
+          });
 
           await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
             storagePath: storagePath,
@@ -203,7 +226,10 @@ describe('Get User Options from User Argument Input', () => {
           const onFailFn = jest.fn();
           const onYargsInstanceFn = jest.fn();
 
-          const {userOptionGetter} = prepareForTest(platform, `${alias}  `, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+          const { userOptionGetter } = prepareForTest(platform, `${alias}  `, {
+            failFn: onFailFn,
+            onYargsInstance: onYargsInstanceFn,
+          });
 
           await testUserOptionGetter(userOptionGetter);
 
@@ -219,27 +245,31 @@ describe('Get User Options from User Argument Input', () => {
   });
 
   describe('should fail when not passing one of the required arguments (h [help], i [interactive] and sp [storage path])', () => {
-    describe.each([
-      ['-o ./custom-publish.sh'],
-      ['-r http://localhost:4873'],
-      ['--cs ~/new-storage']
-    ])(`when passing %s`, (args) => {
-      test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
-        const onFailFn = jest.fn();
-        const onYargsInstanceFn = jest.fn();
+    describe.each([['-o ./custom-publish.sh'], ['-r http://localhost:4873'], ['--cs ~/new-storage']])(
+      `when passing %s`,
+      (args) => {
+        test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
+          const onFailFn = jest.fn();
+          const onYargsInstanceFn = jest.fn();
 
-        const {userOptionGetter} = prepareForTest(platform, args, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+          const { userOptionGetter } = prepareForTest(platform, args, {
+            failFn: onFailFn,
+            onYargsInstance: onYargsInstanceFn,
+          });
 
-        await testUserOptionGetter(userOptionGetter);
+          await testUserOptionGetter(userOptionGetter);
 
-        // Check that test failed
-        expect(onFailFn.mock.calls).toBeArrayOfSize(1);
-        expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
-        expect(onFailFn.mock.calls[0][0]).toEqual(`You must pass either -i (interactive input) or --sp (storage path, for args pass)`);
+          // Check that test failed
+          expect(onFailFn.mock.calls).toBeArrayOfSize(1);
+          expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
+          expect(onFailFn.mock.calls[0][0]).toEqual(
+            `You must pass either -i (interactive input) or --sp (storage path, for args pass)`,
+          );
 
-        (userOptionGetter as Mock).mockRestore();
-      });
-    });
+          (userOptionGetter as Mock).mockRestore();
+        });
+      },
+    );
   });
 
   describe('should return user options with the provided registry (and storage path) when passing one of the registry aliases', () => {
@@ -250,13 +280,16 @@ describe('Get User Options from User Argument Input', () => {
         const storagePath = '~/storage';
         const registry = 'http://localhost:4873';
 
-        const {userOptionGetter} = prepareForTest(platform, `--sp ${storagePath} ${alias} ${registry}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+        const { userOptionGetter } = prepareForTest(platform, `--sp ${storagePath} ${alias} ${registry}`, {
+          failFn: onFailFn,
+          onYargsInstance: onYargsInstanceFn,
+        });
 
         await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
           storagePath,
           npmPublishOptions: {
-            registry
-          }
+            registry,
+          },
         });
 
         // Check that test hasn't failed
@@ -275,14 +308,17 @@ describe('Get User Options from User Argument Input', () => {
         const storagePath = '~/storage';
         const registry = 'http://localhost:4873';
 
-        const {userOptionGetter} = prepareForTest(platform, `--sp ${storagePath} ${alias} ${registry}`, {failFn: onFailFn, onYargsInstance: onYargsInstanceFn});
+        const { userOptionGetter } = prepareForTest(platform, `--sp ${storagePath} ${alias} ${registry}`, {
+          failFn: onFailFn,
+          onYargsInstance: onYargsInstanceFn,
+        });
 
         await expect(testUserOptionGetter(userOptionGetter)).resolves.toEqual<UserOptionArgGetterResult>({
           storagePath,
           onlyNew: {
             enable: true,
-            registry
-          }
+            registry,
+          },
         });
 
         // Check that test hasn't failed
@@ -292,5 +328,4 @@ describe('Get User Options from User Argument Input', () => {
       });
     });
   });
-
 });

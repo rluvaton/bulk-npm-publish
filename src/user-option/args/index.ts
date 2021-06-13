@@ -1,33 +1,29 @@
-import {IUserOptionGetter} from '../i-user-option-getter';
+import { IUserOptionGetter } from '../i-user-option-getter';
 import yargs from 'yargs';
-import {logger} from '../../logger';
-import {getCurrentOS, getPackageName, OSTypes, removeEmpty} from '../../utils';
-import {DEFAULT_USER_OPTIONS, UserOptions} from '../user-options';
+import { logger } from '../../logger';
+import { getCurrentOS, getPackageName, OSTypes, removeEmpty } from '../../utils';
+import { DEFAULT_USER_OPTIONS, UserOptions } from '../user-options';
 import chalk from 'chalk';
 
 const usageExamples: ((...params: any[]) => [string, string])[] = [
-
-  () => [
-    `$0 -i`,
-    `Create publish script interactively`
-  ],
+  () => [`$0 -i`, `Create publish script interactively`],
 
   // Only storage
   (storagePath: string) => [
     `$0 --sp ${storagePath}`,
-    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\``
+    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\``,
   ],
 
   // Only storage
   (storagePath: string, output: string) => [
     `$0 --sp ${storagePath} -o ${output}`,
-    `Create publish script at \`${output}\` with storage content from \`${storagePath}\``
+    `Create publish script at \`${output}\` with storage content from \`${storagePath}\``,
   ],
 
   // Custom Registry
   (storagePath: string, customRegistry: string) => [
     `$0 --sp ${storagePath} -r ${customRegistry}`,
-    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that will publish to \`${customRegistry}\``
+    `Create publish script at \`${DEFAULT_USER_OPTIONS.destPublishScriptFilePath}\` with storage content from \`${storagePath}\` that will publish to \`${customRegistry}\``,
   ],
 
   // Only new with current registry
@@ -43,38 +39,40 @@ const usageExamples: ((...params: any[]) => [string, string])[] = [
   ],
 ];
 
-const defaultUsageExamplesParams: ({ windows: string[], linux: string[] })[] = [
+const defaultUsageExamplesParams: { windows: string[]; linux: string[] }[] = [
   {
     windows: [],
-    linux: []
+    linux: [],
   },
   {
     windows: ['C:\\new-storage'],
-    linux: ['~/new-storage']
+    linux: ['~/new-storage'],
   },
   {
     windows: ['C:\\new-storage', 'C:\\Users\\<username>\\Desktop\\publish-script.bat'],
-    linux: ['~/new-storage', '/root/publish-script.sh']
+    linux: ['~/new-storage', '/root/publish-script.sh'],
   },
   {
     windows: ['C:\\new-storage', 'http://localhost:4873'],
-    linux: ['~/new-storage', 'http://localhost:4873']
+    linux: ['~/new-storage', 'http://localhost:4873'],
   },
   {
     windows: ['C:\\new-storage'],
-    linux: ['~/new-storage']
+    linux: ['~/new-storage'],
   },
   {
     windows: ['C:\\new-storage', 'http://localhost:4873'],
-    linux: ['~/new-storage', 'http://localhost:4873']
+    linux: ['~/new-storage', 'http://localhost:4873'],
   },
 ];
 
-export type UserOptionArgGetterResult = Partial<UserOptions> & { interactive?: boolean };
+export type UserOptionArgGetterResult = Partial<UserOptions> & {
+  interactive?: boolean;
+};
 
 export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOptionArgGetterResult> => {
   const os = getCurrentOS() ?? OSTypes.LINUX;
-  const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map(param => param[os]);
+  const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map((param) => param[os]);
 
   const args = yargs
     .scriptName(getPackageName())
@@ -122,9 +120,10 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
     // Should publish only new packages
     .option('only-new', {
       boolean: true,
-      description: 'Should publish only new packages? (specify --rg|--remote-registry to use custom registry to check for published packages)',
+      description:
+        'Should publish only new packages? (specify --rg|--remote-registry to use custom registry to check for published packages)',
       requiresArg: false,
-      default: false
+      default: false,
     })
 
     // The registry url to check for existing packages
@@ -133,7 +132,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       string: true,
       description: 'What is the registry url you want to check for already published packages',
       nargs: 1,
-      requiresArg: false
+      requiresArg: false,
     })
 
     .check((argv) => {
@@ -143,30 +142,32 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
       return true;
     })
 
-    // Ts ignore because the yargs types not updated yet with multiple example at once feature
-    // @ts-ignore
     .example(usageExamples.map((usage, index) => usage(...usageExampleParamForCurrentOs[index])))
 
     .showHelpOnFail(false, chalk.gray('Specify -h or --help for available options'))
-    .wrap(yargs.terminalWidth())
-    .argv;
+    .wrap(yargs.terminalWidth()).argv;
 
   logger.debug('user input in args', args);
 
   if (args.i) {
-    return {interactive: true};
+    return { interactive: true };
   }
 
   const userOptions: UserOptions = {
     storagePath: args.sp as string,
     destPublishScriptFilePath: args.o as string,
-    npmPublishOptions: !args.r ? undefined : {
-      registry: args.r
-    },
-    onlyNew: !args.rg && !args['only-new'] ? undefined : {
-      enable: true,
-      registry: args.rg
-    }
+    npmPublishOptions: !args.r
+      ? undefined
+      : {
+          registry: args.r,
+        },
+    onlyNew:
+      !args.rg && !args['only-new']
+        ? undefined
+        : {
+            enable: true,
+            registry: args.rg,
+          },
   };
 
   // Remove properties that are empty or undefined

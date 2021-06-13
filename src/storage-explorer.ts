@@ -1,8 +1,7 @@
 import dirTree from 'directory-tree';
-import {logger} from './logger';
+import { logger } from './logger';
 import emoji from 'node-emoji';
 import path from 'path';
-
 
 /**
  * Package details
@@ -77,7 +76,7 @@ function getVersionFromFileName(packageName, fullPackageName: string): string {
 
   const PACKAGE_EXTENSION = '.tgz';
   if (fullPackageName.endsWith(PACKAGE_EXTENSION)) {
-    fullPackageName = fullPackageName.substring(0, fullPackageName.length - (PACKAGE_EXTENSION.length));
+    fullPackageName = fullPackageName.substring(0, fullPackageName.length - PACKAGE_EXTENSION.length);
   }
 
   return fullPackageName;
@@ -89,10 +88,13 @@ const storageExplorer = (dir: string): Package[] => {
 
   // Get all folder in dir
   // Get all tgz files in the subdirectory
-  const filteredTree = dirTree(dir, {extensions: /\.tgz/, normalizePath: true});
+  const filteredTree = dirTree(dir, {
+    extensions: /\.tgz/,
+    normalizePath: true,
+  });
 
   if (!filteredTree) {
-    logger.warn(`${emoji.get(':rotating_light:')}  No files found`, {dir});
+    logger.warn(`${emoji.get(':rotating_light:')}  No files found`, { dir });
     return [];
   }
 
@@ -118,7 +120,7 @@ const storageExplorer = (dir: string): Package[] => {
                 fullPackageName: `${packageOrScopeName}/${packageName}@${packageVersion}`,
                 path: path.normalize(packageInScope.path),
                 version: packageVersion,
-                scope: packageOrScopeName
+                scope: packageOrScopeName,
               };
 
               logger.debug('Found new package in scope', scopePackage);

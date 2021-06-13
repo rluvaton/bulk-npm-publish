@@ -26,25 +26,32 @@ const getExtensionBasedOnOS = () => {
 };
 
 export const DEFAULT_USER_OPTIONS: UserOptions = {
-  // @ts-ignore:disable-next-line
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore:disable-next-line Can't be undefined, but undefined here meaning there is no default value
   storagePath: undefined,
   destPublishScriptFilePath: `./publish.${getExtensionBasedOnOS()}`,
   npmPublishOptions: {
-    registry: undefined
+    registry: undefined,
   },
   onlyNew: {
     enable: false,
-    registry: undefined
-  }
+    registry: undefined,
+  },
 };
 
-
-export const setDefaultUserOptionsProperties = (options: Partial<UserOptions>, defaultOptions: UserOptions): UserOptions => {
-  const combineNpmPublishOptions: NpmPublishOptions = Object.assign({}, defaultOptions.npmPublishOptions, options.npmPublishOptions);
+export const setDefaultUserOptionsProperties = (
+  options: Partial<UserOptions>,
+  defaultOptions: UserOptions,
+): UserOptions => {
+  const combineNpmPublishOptions: NpmPublishOptions = Object.assign(
+    {},
+    defaultOptions.npmPublishOptions,
+    options.npmPublishOptions,
+  );
   const combineOnlyNewOptions: UserOptionsGetNewPackages = Object.assign({}, defaultOptions.onlyNew, options.onlyNew);
 
   return Object.assign({}, defaultOptions, options, {
     npmPublishOptions: combineNpmPublishOptions,
-    onlyNew: combineOnlyNewOptions
+    onlyNew: combineOnlyNewOptions,
   });
 };

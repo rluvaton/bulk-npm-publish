@@ -1,12 +1,11 @@
 import 'jest-extended';
-import {resetAllWhenMocks, verifyAllWhenMocksCalled, when} from 'jest-when';
+import { resetAllWhenMocks, verifyAllWhenMocksCalled, when } from 'jest-when';
 
 import * as npmUtils from '../npm-utils';
-import {filterExistingNpmPackages} from './filter-existing-npm-packages';
-import {Package} from '../storage-explorer';
+import { filterExistingNpmPackages } from './filter-existing-npm-packages';
+import { Package } from '../storage-explorer';
 
 describe('Filter existing npm packages', () => {
-
   afterEach(() => {
     resetAllWhenMocks();
   });
@@ -23,7 +22,7 @@ describe('Filter existing npm packages', () => {
         fullFileName: 'agent-base-4.2.1.tgz',
         fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
-        path: 'storage/agent-base/agent-base-4.2.1.tgz'
+        path: 'storage/agent-base/agent-base-4.2.1.tgz',
       },
       {
         name: 'node',
@@ -31,15 +30,14 @@ describe('Filter existing npm packages', () => {
         fullPackageName: '@types/node@8.9.5',
         version: '8.9.5',
         scope: '@types',
-        path: 'storage/@types/node/node-8.9.5.tgz'
+        path: 'storage/@types/node/node-8.9.5.tgz',
       },
     ];
 
     const currentRegistry = 'http://localhost:4873';
 
     const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-    when(spiedGetCurrentRegistry)
-      .expectCalledWith().mockReturnValue(currentRegistry);
+    when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
     const spiedIsNpmPackagePublished = jest.spyOn(npmUtils, 'isNpmPackagePublished');
     spiedIsNpmPackagePublished.mockResolvedValue(true);
@@ -56,17 +54,17 @@ describe('Filter existing npm packages', () => {
     expect(spiedIsNpmPackagePublished).toBeCalledWith({
       name: packages[0].name,
       version: packages[0].version,
-      registry: currentRegistry
+      registry: currentRegistry,
     });
 
     expect(spiedIsNpmPackagePublished).toBeCalledWith({
       scope: packages[1].scope,
       name: packages[1].name,
       version: packages[1].version,
-      registry: currentRegistry
+      registry: currentRegistry,
     });
 
-    const returnedResult = spiedIsNpmPackagePublished.mock.results.filter(result => result.type === 'return');
+    const returnedResult = spiedIsNpmPackagePublished.mock.results.filter((result) => result.type === 'return');
     expect(returnedResult).toBeArrayOfSize(2);
     await expect(returnedResult[0].value).resolves.toBe(true);
     await expect(returnedResult[1].value).resolves.toBe(true);
@@ -80,7 +78,7 @@ describe('Filter existing npm packages', () => {
         fullFileName: 'agent-base-4.2.1.tgz',
         fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
-        path: 'storage/agent-base/agent-base-4.2.1.tgz'
+        path: 'storage/agent-base/agent-base-4.2.1.tgz',
       },
       {
         name: 'node',
@@ -88,15 +86,14 @@ describe('Filter existing npm packages', () => {
         fullPackageName: '@types/node@8.9.5',
         version: '8.9.5',
         scope: '@types',
-        path: 'storage/@types/node/node-8.9.5.tgz'
+        path: 'storage/@types/node/node-8.9.5.tgz',
       },
     ];
 
     const currentRegistry = 'http://localhost:4873';
 
     const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-    when(spiedGetCurrentRegistry)
-      .expectCalledWith().mockReturnValue(currentRegistry);
+    when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
     const spiedIsNpmPackagePublished = jest.spyOn(npmUtils, 'isNpmPackagePublished');
     spiedIsNpmPackagePublished.mockResolvedValue(false);
@@ -114,17 +111,17 @@ describe('Filter existing npm packages', () => {
     expect(spiedIsNpmPackagePublished).toBeCalledWith({
       name: packages[0].name,
       version: packages[0].version,
-      registry: currentRegistry
+      registry: currentRegistry,
     });
 
     expect(spiedIsNpmPackagePublished).toBeCalledWith({
       scope: packages[1].scope,
       name: packages[1].name,
       version: packages[1].version,
-      registry: currentRegistry
+      registry: currentRegistry,
     });
 
-    const returnedResult = spiedIsNpmPackagePublished.mock.results.filter(result => result.type === 'return');
+    const returnedResult = spiedIsNpmPackagePublished.mock.results.filter((result) => result.type === 'return');
     expect(returnedResult).toBeArrayOfSize(2);
     await expect(returnedResult[0].value).resolves.toBe(false);
     await expect(returnedResult[1].value).resolves.toBe(false);
@@ -138,7 +135,7 @@ describe('Filter existing npm packages', () => {
         fullFileName: 'agent-base-4.2.1.tgz',
         fullPackageName: 'agent-base@4.2.1',
         version: '4.2.1',
-        path: 'storage/agent-base/agent-base-4.2.1.tgz'
+        path: 'storage/agent-base/agent-base-4.2.1.tgz',
       },
       {
         name: 'node',
@@ -146,15 +143,14 @@ describe('Filter existing npm packages', () => {
         fullPackageName: '@types/node@8.9.5',
         version: '8.9.5',
         scope: '@types',
-        path: 'storage/@types/node/node-8.9.5.tgz'
+        path: 'storage/@types/node/node-8.9.5.tgz',
       },
     ];
 
     const currentRegistry = 'http://localhost:4873';
 
     const spiedGetCurrentRegistry = jest.spyOn(npmUtils, 'getCurrentRegistry');
-    when(spiedGetCurrentRegistry)
-      .expectCalledWith().mockReturnValue(currentRegistry);
+    when(spiedGetCurrentRegistry).expectCalledWith().mockReturnValue(currentRegistry);
 
     const spiedIsNpmPackagePublished = jest.spyOn(npmUtils, 'isNpmPackagePublished');
     spiedIsNpmPackagePublished.mockResolvedValueOnce(false);
@@ -172,20 +168,19 @@ describe('Filter existing npm packages', () => {
     expect(spiedIsNpmPackagePublished).toBeCalledWith({
       name: packages[0].name,
       version: packages[0].version,
-      registry: currentRegistry
+      registry: currentRegistry,
     });
 
     expect(spiedIsNpmPackagePublished).toBeCalledWith({
       scope: packages[1].scope,
       name: packages[1].name,
       version: packages[1].version,
-      registry: currentRegistry
+      registry: currentRegistry,
     });
 
-    const returnedResult = spiedIsNpmPackagePublished.mock.results.filter(result => result.type === 'return');
+    const returnedResult = spiedIsNpmPackagePublished.mock.results.filter((result) => result.type === 'return');
     expect(returnedResult).toBeArrayOfSize(2);
     await expect(returnedResult[0].value).resolves.toBe(false);
     await expect(returnedResult[1].value).resolves.toBe(true);
   });
-
 });
