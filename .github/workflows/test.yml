@@ -17,6 +17,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      
+      - name: Log Enviroment
+        run: |
+          echo "Node version $(node --version)"
+          echo "NPM version $(npm --version)"
+          echo "System Info $(uname -a)"
 
       - name: Install
         run: npm ci
