@@ -1,5 +1,4 @@
 import 'jest-extended';
-import each from 'jest-each';
 import npmPublishScriptCreator, { PublishScriptCreatorOptions } from './npm-publish-script-creator';
 import { Package } from './storage-explorer';
 import { EOL } from 'os';
@@ -109,7 +108,7 @@ describe('NPM Publish Script Creator', () => {
     expect(script).toEqual(expectedScript);
   }
 
-  each([
+  it.each([
     ['w/o registry and line transformer', {}, 'npm publish storage/agent-base/agent-base-4.2.1.tgz'],
     [
       'w/ registry and w/o line transformer',
@@ -129,7 +128,7 @@ describe('NPM Publish Script Creator', () => {
       },
       'CALL npm publish storage/agent-base/agent-base-4.2.1.tgz --registry=http://localhost:4873',
     ],
-  ] as Array<[string, PublishScriptCreatorOptions, string]>).it(
+  ] as Array<[string, PublishScriptCreatorOptions, string]>)(
     'should create publish script for 1 flat package %s',
     (title, options: PublishScriptCreatorOptions, expectedScript) => {
       testNpmPublishScriptCreator({
@@ -140,7 +139,7 @@ describe('NPM Publish Script Creator', () => {
     },
   );
 
-  each([
+  it.each([
     [
       'w/o registry and line transformer',
       {},
@@ -164,7 +163,7 @@ describe('NPM Publish Script Creator', () => {
       },
       `CALL npm publish storage/agent-base/agent-base-4.2.1.tgz --registry=http://localhost:4873${EOL}CALL npm publish storage/agent-base/agent-base-4.3.0.tgz --registry=http://localhost:4873`,
     ],
-  ] as Array<[string, PublishScriptCreatorOptions, string]>).it(
+  ] as Array<[string, PublishScriptCreatorOptions, string]>)(
     'should create publish script for multiple flat packages %s',
     (title, options: PublishScriptCreatorOptions, expectedScript) => {
       testNpmPublishScriptCreator({
@@ -175,7 +174,7 @@ describe('NPM Publish Script Creator', () => {
     },
   );
 
-  each([
+  it.each([
     ['w/o registry and line transformer', {}, 'npm publish storage/@types/node/node-8.9.5.tgz'],
     [
       'w/ registry and w/o line transformer',
@@ -195,7 +194,7 @@ describe('NPM Publish Script Creator', () => {
       },
       'CALL npm publish storage/@types/node/node-8.9.5.tgz --registry=http://localhost:4873',
     ],
-  ] as Array<[string, PublishScriptCreatorOptions, string]>).it(
+  ] as Array<[string, PublishScriptCreatorOptions, string]>)(
     'should create publish script for 1 scoped package %s',
     (title, options: PublishScriptCreatorOptions, expectedScript) => {
       testNpmPublishScriptCreator({
@@ -206,7 +205,7 @@ describe('NPM Publish Script Creator', () => {
     },
   );
 
-  each([
+  it.each([
     [
       'w/o registry and line transformer',
       {},
@@ -230,7 +229,7 @@ describe('NPM Publish Script Creator', () => {
       },
       `CALL npm publish storage/@types/node/node-8.9.5.tgz --registry=http://localhost:4873${EOL}CALL npm publish storage/@types/jest/jest-24.0.0.tgz --registry=http://localhost:4873`,
     ],
-  ] as Array<[string, PublishScriptCreatorOptions, string]>).it(
+  ] as Array<[string, PublishScriptCreatorOptions, string]>)(
     'should create publish script for multiple scoped package %s',
     (title, options: PublishScriptCreatorOptions, expectedScript) => {
       testNpmPublishScriptCreator({
@@ -241,7 +240,7 @@ describe('NPM Publish Script Creator', () => {
     },
   );
 
-  each([
+  it.each([
     [
       'w/o registry and line transformer',
       {},
@@ -265,7 +264,7 @@ describe('NPM Publish Script Creator', () => {
       },
       `CALL npm publish storage/agent-base/agent-base-4.2.1.tgz --registry=http://localhost:4873${EOL}CALL npm publish storage/@types/node/node-8.9.5.tgz --registry=http://localhost:4873`,
     ],
-  ] as Array<[string, PublishScriptCreatorOptions, string]>).it(
+  ] as Array<[string, PublishScriptCreatorOptions, string]>)(
     'should create publish script for multiple scoped package %s',
     (title, options: PublishScriptCreatorOptions, expectedScript) => {
       testNpmPublishScriptCreator({
