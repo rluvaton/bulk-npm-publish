@@ -8,7 +8,7 @@
     ],
     "typeRoots": ["node_modules/@types"],
     "noImplicitAny": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "outDir": "lib",
     "strict": true,
     "types": ["node"],
