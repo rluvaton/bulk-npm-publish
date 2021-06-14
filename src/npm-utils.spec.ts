@@ -10,9 +10,13 @@ jest.mock('npm-registry-fetch', () => {
   return mocked;
 });
 
-import * as fetch from 'npm-registry-fetch';
+import $fetch from 'npm-registry-fetch';
+
 import * as npmUtils from './npm-utils';
 import { isNpmPackagePublished } from './npm-utils';
+
+type MockedFetch = jest.MockedFunction<typeof $fetch> & { _actual: typeof $fetch };
+const fetch: MockedFetch = $fetch as MockedFetch;
 
 describe('NPM Utilities', () => {
   afterEach(() => {
@@ -42,7 +46,7 @@ describe('NPM Utilities', () => {
           method: 'HEAD',
           registry: currentRegistry,
         })
-        .mockResolvedValue({});
+        .mockResolvedValue({} as any);
 
       // Act
       const isPublished = isNpmPackagePublished(packageToTest);
@@ -99,7 +103,7 @@ describe('NPM Utilities', () => {
           method: 'HEAD',
           registry: currentRegistry,
         })
-        .mockResolvedValue({});
+        .mockResolvedValue({} as any);
 
       // Act
       const isPublished = isNpmPackagePublished(packageToTest);
@@ -156,7 +160,7 @@ describe('NPM Utilities', () => {
           method: 'HEAD',
           registry: currentRegistry,
         })
-        .mockResolvedValue({});
+        .mockResolvedValue({} as any);
 
       // Act
       const isPublished = isNpmPackagePublished(packageToTest);

@@ -74,7 +74,7 @@ export const userOptionArgGetter: IUserOptionGetter = async (): Promise<UserOpti
   const os = getCurrentOS() ?? OSTypes.LINUX;
   const usageExampleParamForCurrentOs: string[][] = defaultUsageExamplesParams.map((param) => param[os]);
 
-  const args = yargs
+  const args = await yargs
     .scriptName(getPackageName())
 
     .usage(`Usage: $0 ${chalk.gray('[')}options${chalk.gray(']')}`)

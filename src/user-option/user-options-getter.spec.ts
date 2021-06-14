@@ -2,8 +2,6 @@ import 'jest-extended';
 import { UserOptions as UserOptionsLib } from './user-options';
 
 import { IUserOptionGetter as IUserOptionGetterLib } from './i-user-option-getter';
-import Spy = jasmine.Spy;
-import createSpy = jasmine.createSpy;
 import { setPlatform } from '../../tests/util';
 
 interface TestsDep {
@@ -24,13 +22,12 @@ function getDeps(): TestsDep {
 }
 
 describe('Get User Options (from the available option)', () => {
-  function startTest(platform: string): TestsDep & { userOptionPromptGetter: Spy & IUserOptionGetterLib } {
+  function startTest(
+    platform: string,
+  ): TestsDep & { userOptionPromptGetter: jest.SpiedFunction<IUserOptionGetterLib> } {
     setPlatform(platform);
     const dep = getDeps();
-    const userOptionPromptGetter: Spy & IUserOptionGetterLib = createSpy(
-      'userOptionGetter',
-      dep.userOptionGetter,
-    ).and.callThrough();
+    const userOptionPromptGetter: jest.SpiedFunction<IUserOptionGetterLib> = jest.spyOn(dep, 'userOptionGetter');
     return { ...dep, userOptionPromptGetter };
   }
 
