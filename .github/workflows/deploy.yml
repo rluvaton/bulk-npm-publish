@@ -22,6 +22,12 @@ jobs:
           node-version: '14'
           registry-url: https://registry.npmjs.org
 
+      - name: Log Enviroment
+        run: |
+          echo "Node version $(node --version)"
+          echo "NPM version $(npm --version)"
+          echo "System Info $(uname -a)"
+
       - name: Install Project Dependencies
         run: npm ci
 
