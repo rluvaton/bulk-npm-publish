@@ -45,7 +45,7 @@
     "directory-tree": "^2.2.9",
     "es6-promise-pool": "^2.5.0",
     "is-valid-path": "^0.1.1",
-    "kleur": "^3.0.3",
+    "kleur": "^4.1.4",
     "libnpmconfig": "^1.2.1",
     "lodash.clonedeep": "^4.5.0",
     "node-emoji": "^1.10.0",
