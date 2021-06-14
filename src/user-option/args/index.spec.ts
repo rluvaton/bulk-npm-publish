@@ -45,11 +45,11 @@ describe('Get User Options from User Argument Input', () => {
       // Prevent process exit
       $yargs = $yargs.exitProcess(false);
 
-      if (failFn) {
+      if (failFn !== undefined) {
         $yargs = $yargs.fail(failFn);
       }
 
-      if (onYargsInstance) {
+      if (onYargsInstance !== undefined) {
         onYargsInstance($yargs);
       }
 
@@ -223,21 +223,17 @@ describe('Get User Options from User Argument Input', () => {
     describe('should fail when passing empty storage path', () => {
       describe.each([['--sp'], ['--storage-path']])(`when passing %s`, (alias) => {
         test.each(AVAILABLE_PLATFORMS_FOR_EACH)(`test for %s`, async (platform) => {
-          const onFailFn = jest.fn();
           const onYargsInstanceFn = jest.fn();
 
           const { userOptionGetter } = prepareForTest(platform, `${alias}  `, {
-            failFn: onFailFn,
+            failFn: false,
             onYargsInstance: onYargsInstanceFn,
           });
 
-          await testUserOptionGetter(userOptionGetter);
+          const userOptionResultPr = testUserOptionGetter(userOptionGetter);
 
-          // Check that test failed
-          expect(onFailFn.mock.calls).toBeArrayOfSize(1);
-          expect(onFailFn.mock.calls[0]).toBeArrayOfSize(3);
-          expect(onFailFn.mock.calls[0][0]).toEqual(`Not enough arguments following: ${alias.slice(2)}`);
-
+          // Assert
+          await expect(userOptionResultPr).rejects.toThrow(`Not enough arguments following: ${alias.slice(2)}`);
           (userOptionGetter as Mock).mockRestore();
         });
       });
