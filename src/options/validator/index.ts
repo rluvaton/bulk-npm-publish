@@ -1,9 +1,9 @@
-import { UserOptions } from './user-options';
-import { isDirectoryExists } from '../fs-utils';
+import { UserOptions } from '../user-options';
+import { isDirectoryExists } from '../../utils/fs';
 import { dirname } from 'path';
 import { isWebUri } from 'valid-url';
 import isValidPath from 'is-valid-path';
-import { getCurrentRegistry, pingNpmRegistry } from '../npm-utils';
+import { getCurrentRegistry, pingNpmRegistry } from '../../utils/npm';
 
 export const validateUserOptions = async (options: Partial<UserOptions>): Promise<boolean> => {
   return (

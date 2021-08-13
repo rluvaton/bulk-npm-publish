@@ -1,7 +1,7 @@
-import fs, { Stats } from 'fs';
+import { Stats } from 'fs';
+import fsPromises from 'fs/promises';
 
-export const getPathType = (path: string): Promise<Stats> =>
-  new Promise((resolve, reject) => fs.lstat(path, (err, stats) => (err ? reject(err) : resolve(stats))));
+export const getPathType = (path: string): Promise<Stats> => fsPromises.lstat(path);
 
 export const isDirectoryExists = async (path?: string) => {
   if (!path) {

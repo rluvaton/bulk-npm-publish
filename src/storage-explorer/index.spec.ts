@@ -3,7 +3,7 @@ import * as path from 'path';
 import { fs, vol } from 'memfs';
 
 jest.mock('fs', () => fs);
-import storageExplorer, { Package } from './storage-explorer';
+import storageExplorer, { Package } from './';
 
 describe('Storage Explorer', () => {
   const mockFs = (fakeFsStructure) => vol.fromNestedJSON(fakeFsStructure, '/');

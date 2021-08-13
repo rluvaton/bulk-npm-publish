@@ -1,5 +1,5 @@
 import { Package } from '../storage-explorer';
-import { getCurrentRegistry, isNpmPackagePublished } from '../npm-utils';
+import { getCurrentRegistry, isNpmPackagePublished } from '../utils/npm';
 import PromisePool from 'es6-promise-pool';
 import { logger } from '../logger';
 

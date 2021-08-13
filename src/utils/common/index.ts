@@ -42,7 +42,7 @@ export const getLineTransformer = (outputFilePath: string) => {
 
 export const getPackageName = () => {
   if (!packageJson) {
-    packageJson = require('../package.json');
+    packageJson = require('../../../package.json');
   }
 
   return packageJson.name;

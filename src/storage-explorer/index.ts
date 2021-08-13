@@ -1,5 +1,5 @@
 import dirTree from 'directory-tree';
-import { logger } from './logger';
+import { logger } from '../logger/';
 import emoji from 'node-emoji';
 import path from 'path';
 

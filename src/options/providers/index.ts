@@ -1,6 +1,6 @@
-import { IUserOptionGetter } from './i-user-option-getter';
-import { DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions } from './user-options';
-import { logger } from '../logger';
+import { IUserOptionGetter } from '../i-user-option-getter';
+import { DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions } from '../user-options';
+import { logger } from '../../logger';
 
 /**
  * Get the user options from one of the provided getters

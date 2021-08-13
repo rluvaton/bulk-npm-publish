@@ -1,8 +1,8 @@
-import { IUserOptionGetter } from '../i-user-option-getter';
+import { IUserOptionGetter } from '../../i-user-option-getter';
 import yargs from 'yargs';
-import { logger } from '../../logger';
-import { getCurrentOS, getPackageName, OSTypes, removeEmpty } from '../../utils';
-import { DEFAULT_USER_OPTIONS, UserOptions } from '../user-options';
+import { logger } from '../../../logger';
+import { getCurrentOS, getPackageName, OSTypes, removeEmpty } from '../../../utils/common';
+import { DEFAULT_USER_OPTIONS, UserOptions } from '../../user-options';
 import chalk from 'chalk';
 
 const usageExamples: ((...params: any[]) => [string, string])[] = [
