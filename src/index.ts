@@ -10,11 +10,23 @@ import path from 'path';
 import { validateUserOptions } from './options/validator';
 import { getLineTransformer } from './utils/common';
 import { filterExistingNpmPackages } from './helpers/filter-existing-npm-packages';
+import { IUserOptionGetter } from './options/i-user-option-getter';
+import { userOptionArgGetter } from './options/providers/args';
+import { userOptionPromptGetter } from './options/providers/interactive';
 
-async function getConfigFromUser() {
+// The order is important
+const userOptionGetters: {
+  args: IUserOptionGetter;
+  interactive: IUserOptionGetter;
+} = {
+  args: userOptionArgGetter,
+  interactive: userOptionPromptGetter,
+};
+
+const getConfigFromUser = async () => {
   let config: UserOptions;
   try {
-    config = await userOptionGetter();
+    config = await userOptionGetter(userOptionGetters);
   } catch (err) {
     if (err.message === 'cancel') {
       logger.error('User Cancelled, exiting...');
@@ -40,7 +52,7 @@ async function getConfigFromUser() {
   // Make it absolute path in case the user move the file
   config.storagePath = config.storagePath ?? path.resolve(config.storagePath);
   return config;
-}
+};
 
 const run = async () => {
   const config = await getConfigFromUser();
