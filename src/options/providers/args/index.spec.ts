@@ -1,10 +1,10 @@
 import 'jest-extended';
 
-import { IUserOptionGetter as IUserOptionGetterLib } from '../i-user-option-getter';
-import { UserOptions as UserOptionsLib } from '../user-options';
-import { setPlatform } from '../../../tests/util';
+import { IUserOptionGetter as IUserOptionGetterLib } from '../../i-user-option-getter';
+import { UserOptions as UserOptionsLib } from '../../user-options';
+import { setPlatform } from '../../../../tests/util';
 import Mock = jest.Mock;
-import { UserOptionArgGetterResult } from './index';
+import { UserOptionArgGetterResult } from './';
 
 interface TestDeps {
   UserOptions: UserOptionsLib;
@@ -15,9 +15,9 @@ interface TestDeps {
 
 function getDeps(): TestDeps {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { UserOptions } = require('../user-options');
+  const { UserOptions } = require('../../user-options');
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { IUserOptionGetter } = require('../i-user-option-getter');
+  const { IUserOptionGetter } = require('../../i-user-option-getter');
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const UserOptionGetter = require('./');
 

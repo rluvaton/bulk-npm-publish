@@ -2,10 +2,10 @@ import 'jest-extended';
 import { when, verifyAllWhenMocksCalled, resetAllWhenMocks } from 'jest-when';
 
 import { dirname } from 'path';
-import { UserOptions } from './user-options';
-import * as validator from './validator';
-import * as fsUtils from '../fs-utils';
-import * as npmUtils from '../npm-utils';
+import { UserOptions } from '../user-options';
+import * as validator from '../validator';
+import * as fsUtils from '../../utils/fs';
+import * as npmUtils from '../../utils/npm';
 
 describe('User Options Validator', () => {
   afterEach(() => {

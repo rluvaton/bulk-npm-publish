@@ -12,8 +12,8 @@ jest.mock('npm-registry-fetch', () => {
 
 import $fetch from 'npm-registry-fetch';
 
-import * as npmUtils from './npm-utils';
-import { isNpmPackagePublished } from './npm-utils';
+import * as npmUtils from './';
+import { isNpmPackagePublished } from './';
 
 type MockedFetch = jest.MockedFunction<typeof $fetch> & { _actual: typeof $fetch };
 const fetch: MockedFetch = $fetch as MockedFetch;

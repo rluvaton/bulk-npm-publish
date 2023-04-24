@@ -1,18 +1,18 @@
 import storageExplorer, { Package } from './storage-explorer';
 import npmPublishScriptCreator from './npm-publish-script-creator';
 import fileWriter from './file-writer';
-import { userOptionGetter } from './user-option/user-options-getter';
+import { userOptionGetter } from './options/';
 import { logger } from './logger';
 import { bold } from 'kleur';
 import emoji from 'node-emoji';
-import { UserOptions } from './user-option/user-options';
-import { IUserOptionGetter } from './user-option/i-user-option-getter';
-import { userOptionPromptGetter } from './user-option/interactive/user-option-prompt-getter';
+import { UserOptions } from './options/user-options';
 import path from 'path';
-import { userOptionArgGetter } from './user-option/args';
-import { validateUserOptions } from './user-option/validator';
-import { getLineTransformer } from './utils';
+import { validateUserOptions } from './options/validator';
+import { getLineTransformer } from './utils/common';
 import { filterExistingNpmPackages } from './helpers/filter-existing-npm-packages';
+import { IUserOptionGetter } from './options/i-user-option-getter';
+import { userOptionArgGetter } from './options/providers/args';
+import { userOptionPromptGetter } from './options/providers/interactive';
 
 // The order is important
 const userOptionGetters: {
@@ -23,7 +23,7 @@ const userOptionGetters: {
   interactive: userOptionPromptGetter,
 };
 
-const run = async () => {
+const getConfigFromUser = async () => {
   let config: UserOptions;
   try {
     config = await userOptionGetter(userOptionGetters);
@@ -51,6 +51,15 @@ const run = async () => {
 
   // Make it absolute path in case the user move the file
   config.storagePath = config.storagePath ?? path.resolve(config.storagePath);
+  return config;
+};
+
+const run = async () => {
+  const config = await getConfigFromUser();
+
+  if (!config) {
+    return;
+  }
 
   logger.info('User configuration loaded');
 

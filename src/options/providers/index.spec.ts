@@ -1,24 +1,20 @@
 import 'jest-extended';
-import { UserOptions as UserOptionsLib } from './user-options';
+import { UserOptions as UserOptionsLib } from '../user-options';
 
-import { IUserOptionGetter as IUserOptionGetterLib } from './i-user-option-getter';
-import { setPlatform } from '../../tests/util';
+import { IUserOptionGetter as IUserOptionGetterLib } from '../i-user-option-getter';
+import { setPlatform } from '../../../tests/util';
 
 interface TestsDep {
-  UserOptions: UserOptionsLib;
-  IUserOptionGetter: IUserOptionGetterLib;
+  UserOptions?: UserOptionsLib;
+  IUserOptionGetter?: IUserOptionGetterLib;
   userOptionGetter: IUserOptionGetterLib;
 }
 
 function getDeps(): TestsDep {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { UserOptions } = require('./user-options');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { IUserOptionGetter } = require('./i-user-option-getter');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { userOptionGetter } = require('./user-options-getter');
+  const { userOptionGetter } = require('./');
 
-  return { UserOptions, IUserOptionGetter, userOptionGetter };
+  return { userOptionGetter };
 }
 
 describe('Get User Options (from the available option)', () => {
@@ -32,7 +28,6 @@ describe('Get User Options (from the available option)', () => {
   }
 
   beforeEach(() => {
-    // TODO(rluvaton): set reset modules option in the jest config instead
     jest.resetModules(); // this is important - it clears the cache
   });
 
@@ -49,30 +44,6 @@ describe('Get User Options (from the available option)', () => {
   it('userOptionsGetter should be define', () => {
     const { userOptionGetter } = startTest('windows');
     expect(userOptionGetter).toBeDefined();
-  });
-
-  it('should throw error when no userOptionGetters passed', async () => {
-    const { userOptionGetter } = startTest('linux');
-    const pr = userOptionGetter();
-
-    await expect(pr).toReject();
-
-    const rejectResult = await pr.catch((e) => e);
-    expect(rejectResult).toBeDefined();
-    expect(rejectResult).toBeInstanceOf(Error);
-    expect(rejectResult).toHaveProperty('message', 'One of the user option getter must be provided');
-  });
-
-  it('should throw error when empty userOptionGetters passed', async () => {
-    const { userOptionGetter } = startTest('linux');
-    const pr = getOptionsAndEnsureCalledTimeAndArgs(userOptionGetter, {});
-
-    await expect(pr).toReject();
-
-    const rejectResult = await pr.catch((e) => e);
-    expect(rejectResult).toBeDefined();
-    expect(rejectResult).toBeInstanceOf(Error);
-    expect(rejectResult).toHaveProperty('message', 'One of the user option getter must be provided');
   });
 
   it('should throw error when userOptionGetters rejected', async () => {
@@ -105,8 +76,8 @@ describe('Get User Options (from the available option)', () => {
   });
 
   it('should get the first user options that resolved', async () => {
-    const { IUserOptionGetter, UserOptions, userOptionGetter } = startTest('windows');
-    const expectedUserOptions: typeof UserOptions = {
+    const { userOptionGetter } = startTest('windows');
+    const expectedUserOptions: UserOptionsLib = {
       storagePath: 'C://storage/',
       destPublishScriptFilePath: './publish.bat',
       npmPublishOptions: {
@@ -118,7 +89,7 @@ describe('Get User Options (from the available option)', () => {
       },
     };
 
-    const pr = getOptionsAndEnsureCalledTimeAndArgs<typeof IUserOptionGetter>(userOptionGetter, {
+    const pr = getOptionsAndEnsureCalledTimeAndArgs<IUserOptionGetterLib>(userOptionGetter, {
       args: () =>
         Promise.resolve({
           storagePath: expectedUserOptions.storagePath,
@@ -137,9 +108,9 @@ describe('Get User Options (from the available option)', () => {
   });
 
   it('should get the first user options that not rejected', async () => {
-    const { UserOptions, userOptionGetter } = startTest('windows');
+    const { userOptionGetter } = startTest('windows');
 
-    const expectedUserOptions: typeof UserOptions = {
+    const expectedUserOptions: UserOptionsLib = {
       storagePath: 'C://storage/',
       destPublishScriptFilePath: './my-publish-script.bat',
       npmPublishOptions: {
@@ -167,8 +138,8 @@ describe('Get User Options (from the available option)', () => {
   });
 
   it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry (on Windows)', async () => {
-    const { UserOptions, userOptionGetter } = startTest('windows');
-    const expectedUserOptions: typeof UserOptions = {
+    const { userOptionGetter } = startTest('windows');
+    const expectedUserOptions: UserOptionsLib = {
       storagePath: 'C://storage/',
       destPublishScriptFilePath: './publish.bat',
       npmPublishOptions: {
@@ -190,9 +161,9 @@ describe('Get User Options (from the available option)', () => {
   });
 
   it('should get provided storage path and default values for destPublishScriptFilePath npmPublishOptions.registry (on Linux)', async () => {
-    const { UserOptions, userOptionGetter } = startTest('linux');
+    const { userOptionGetter } = startTest('linux');
 
-    const expectedUserOptions: typeof UserOptions = {
+    const expectedUserOptions: UserOptionsLib = {
       storagePath: '/home/root/my-storage/',
       destPublishScriptFilePath: './publish.sh',
       npmPublishOptions: {

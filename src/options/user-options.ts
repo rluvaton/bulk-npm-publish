@@ -1,5 +1,5 @@
 import { NpmPublishOptions } from '../npm-publish-script-creator';
-import { getCurrentOS, OSTypes } from '../utils';
+import { getCurrentOS, OSTypes } from '../utils/common';
 
 export interface UserOptionsGetNewPackages {
   enable?: boolean;

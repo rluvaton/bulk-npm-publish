@@ -1,14 +1,14 @@
-import { IUserOptionGetter } from '../i-user-option-getter';
-import { DEFAULT_USER_OPTIONS } from '../user-options';
+import { IUserOptionGetter } from '../../i-user-option-getter';
 import prompts from 'prompts';
-import { logger } from '../../logger';
-import { deepClone } from '../../utils';
+import { logger } from '../../../logger';
+import { deepClone } from '../../../utils/common';
+import { DEFAULT_USER_OPTIONS } from '../../user-options';
 import {
-  validateStorage,
   validateDestPublishScriptFilePath,
   validateNpmPublishOptionsIfSpecified,
   validateOnlyNewOptionsIfSpecified,
-} from '../validator';
+  validateStorage,
+} from '../../validator';
 
 const _questions = [
   {

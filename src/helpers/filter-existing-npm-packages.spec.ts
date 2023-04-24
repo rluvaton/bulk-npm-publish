@@ -1,7 +1,7 @@
 import 'jest-extended';
 import { resetAllWhenMocks, verifyAllWhenMocksCalled, when } from 'jest-when';
 
-import * as npmUtils from '../npm-utils';
+import * as npmUtils from '../utils/npm';
 import { filterExistingNpmPackages } from './filter-existing-npm-packages';
 import { Package } from '../storage-explorer';
 

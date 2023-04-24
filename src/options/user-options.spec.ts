@@ -1,6 +1,6 @@
 import 'jest-extended';
 import { DEFAULT_USER_OPTIONS, setDefaultUserOptionsProperties, UserOptions } from './user-options';
-import { deepClone } from '../utils';
+import { deepClone } from '../utils/common';
 
 describe('UserOptions', () => {
   describe('#setDefaultUserOptionsProperties', () => {
